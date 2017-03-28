@@ -1,6 +1,8 @@
 notifications:
-  email: false dist: trusty sudo: required language:
-  - cpp compiler:
+  email: false dist: trusty sudo: 
+  required language:
+  - cpp 
+  compiler:
   - gcc
    
 addons:
