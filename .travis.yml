@@ -27,7 +27,7 @@ addons:
       
 script:
   # Export CC and CXX to tell cmake which compiler to use
-  #- rvm install 2.2.2 --enable-shared
+  - rvm install 2.2.2 --enable-shared
   - gem install rails
   - gem install rice
   - cd ext/
