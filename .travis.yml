@@ -26,15 +26,15 @@ addons:
       
       
 script:
-  # Export CC and CXX to tell cmake which compiler to use
-  - cd /home/travis/
-  - ls
-  - rvm install 2.2.2 --enable-shared
+  #installing rbenv
+  - git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  - echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+  - git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+  - RUBY_CONFIGURE_OPTS=--enable-shared rbenv install 2.2.2
   - gem install rails
   - gem install rice
   - cd ext/
-  - cd /home/travis/.rbenv/versions/2.2.2/include/ruby-2.2.0/
-  - ls
+  - make
   
   
   
