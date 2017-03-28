@@ -6,6 +6,7 @@ sudo: required
   
 language:
   - cpp 
+  - ruby
 compiler:
   - gcc
    
@@ -16,6 +17,7 @@ addons:
     packages:
       - gcc-6
       - g++-6
+      - rvm
       - libssl-dev
       - libpq-dev
       - libpq5
@@ -26,6 +28,7 @@ addons:
       
 script:
   # Export CC and CXX to tell cmake which compiler to use
+  - rvm install 2.2.2 --enable-shared
   - cd ext/
   - make
   
