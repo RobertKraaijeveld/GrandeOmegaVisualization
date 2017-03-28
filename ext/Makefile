@@ -12,13 +12,13 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0
+topdir = $(HOME)/.rbenv/versions/2.2.2/include/ruby-2.2.0
 hdrdir = $(topdir)
-arch_hdrdir = /home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0/i686-linux
+arch_hdrdir = $(HOME)/.rbenv/versions/2.2.2/include/ruby-2.2.0/i686-linux
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
 
-prefix = $(DESTDIR)/home/robert/.rbenv/versions/2.2.2
+prefix = $(DESTDIR)$(HOME)/.rbenv/versions/2.2.2
 
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 
@@ -113,7 +113,7 @@ CXX = g++
 LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -Wl,-R$(libdir) -L$(libdir) -l$(RUBY_SO_NAME)
-LIBRUBYARG_STATIC = -Wl,-R/home/robert/.rbenv/versions/2.2.2/lib -L/home/robert/.rbenv/versions/2.2.2/lib -lruby-static
+LIBRUBYARG_STATIC = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/lib -lruby-static
 empty =
 OUTFLAG = -o $(empty)
 COUTFLAG = -o $(empty)
@@ -127,9 +127,9 @@ CCDLFLAGS = -fPIC
 CFLAGS   = $(CCDLFLAGS) $(cflags)  -fPIC $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = -D_FILE_OFFSET_BITS=64
-CPPFLAGS =  -I/home/robert/.rbenv/versions/2.2.2/include  $(DEFS) $(cppflags)  -I/home/robert/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/include
+CPPFLAGS =  -I$(HOME)/.rbenv/versions/2.2.2/include  $(DEFS) $(cppflags)  -I$(HOME)/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/include
 CXXFLAGS = $(CFLAGS)  -Wall -g
-ldflags  = -L. -L/home/robert/.rbenv/versions/2.2.2/lib  -fstack-protector -rdynamic -Wl,-export-dynamic  -L/home/robert/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/lib -lrice
+ldflags  = -L. -L$(HOME)/.rbenv/versions/2.2.2/lib  -fstack-protector -rdynamic -Wl,-export-dynamic  -L$(HOME)/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/lib -lrice
 dldflags =  
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
@@ -188,7 +188,7 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = -Wl,-R/home/robert/.rbenv/versions/2.2.2/lib -L/home/robert/.rbenv/versions/2.2.2/lib -std=c++11 -lruby -lpthread -lgmp -ldl -lcrypt -lm   -lc -lpqxx -lpq
+LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/lib -std=c++11 -lruby -lpthread -lgmp -ldl -lcrypt -lm   -lc -lpqxx -lpq
 
 ##### GRANDEOMEGAPRJ: MODIFY THIS WHEN ADDING NEW SOURCE FILES ########
 ##### TODO: MAKE THE READING OF FILES AUTOMATIC #####
