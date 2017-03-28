@@ -17,7 +17,6 @@ addons:
     packages:
       - gcc-6
       - g++-6
-      - rvm
       - libssl-dev
       - libpq-dev
       - libpq5
