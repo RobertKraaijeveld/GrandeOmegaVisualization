@@ -1,5 +1,8 @@
 notifications:
-  email: false dist: trusty sudo: required 
+  email: false
+
+dist: trusty 
+sudo: required 
   
 language:
   - cpp 
