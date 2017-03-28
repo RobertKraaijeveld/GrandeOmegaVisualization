@@ -1,0 +1,70 @@
+have_library: checking for main() in -llibpqxx... -------------------- no
+
+"g++ -o conftest -I/home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0/i686-linux -I/home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0/ruby/backward -I/home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0 -I. -I/home/robert/.rbenv/versions/2.2.2/include  -D_FILE_OFFSET_BITS=64   -I/home/robert/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/include  -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat conftest.c  -L. -L/home/robert/.rbenv/versions/2.2.2/lib -Wl,-R/home/robert/.rbenv/versions/2.2.2/lib -L. -L/home/robert/.rbenv/versions/2.2.2/lib  -fstack-protector -rdynamic -Wl,-export-dynamic  -L/home/robert/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/lib -lrice     -Wl,-R/home/robert/.rbenv/versions/2.2.2/lib -L/home/robert/.rbenv/versions/2.2.2/lib -lruby  -lpthread -lgmp -ldl -lcrypt -lm   -lc"
+cc1plus: warning: command line option ‘-Wdeclaration-after-statement’ is valid for C/ObjC but not for C++
+cc1plus: warning: command line option ‘-Wimplicit-function-declaration’ is valid for C/ObjC but not for C++
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"g++ -o conftest -I/home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0/i686-linux -I/home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0/ruby/backward -I/home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0 -I. -I/home/robert/.rbenv/versions/2.2.2/include  -D_FILE_OFFSET_BITS=64   -I/home/robert/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/include  -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat conftest.c  -L. -L/home/robert/.rbenv/versions/2.2.2/lib -Wl,-R/home/robert/.rbenv/versions/2.2.2/lib -L. -L/home/robert/.rbenv/versions/2.2.2/lib  -fstack-protector -rdynamic -Wl,-export-dynamic  -L/home/robert/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/lib -lrice     -Wl,-R/home/robert/.rbenv/versions/2.2.2/lib -L/home/robert/.rbenv/versions/2.2.2/lib -lruby -llibpqxx  -lpthread -lgmp -ldl -lcrypt -lm   -lc"
+cc1plus: warning: command line option ‘-Wdeclaration-after-statement’ is valid for C/ObjC but not for C++
+cc1plus: warning: command line option ‘-Wimplicit-function-declaration’ is valid for C/ObjC but not for C++
+conftest.c: In function ‘int t()’:
+conftest.c:13:32: warning: variable ‘p’ set but not used [-Wunused-but-set-variable]
+ int t(void) { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+                                ^
+/usr/bin/ld: cannot find -llibpqxx
+collect2: error: ld returned 1 exit status
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+"g++ -o conftest -I/home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0/i686-linux -I/home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0/ruby/backward -I/home/robert/.rbenv/versions/2.2.2/include/ruby-2.2.0 -I. -I/home/robert/.rbenv/versions/2.2.2/include  -D_FILE_OFFSET_BITS=64   -I/home/robert/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/include  -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat conftest.c  -L. -L/home/robert/.rbenv/versions/2.2.2/lib -Wl,-R/home/robert/.rbenv/versions/2.2.2/lib -L. -L/home/robert/.rbenv/versions/2.2.2/lib  -fstack-protector -rdynamic -Wl,-export-dynamic  -L/home/robert/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/lib -lrice     -Wl,-R/home/robert/.rbenv/versions/2.2.2/lib -L/home/robert/.rbenv/versions/2.2.2/lib -lruby -llibpqxx  -lpthread -lgmp -ldl -lcrypt -lm   -lc"
+cc1plus: warning: command line option ‘-Wdeclaration-after-statement’ is valid for C/ObjC but not for C++
+cc1plus: warning: command line option ‘-Wimplicit-function-declaration’ is valid for C/ObjC but not for C++
+conftest.c: In function ‘int t()’:
+conftest.c:13:20: error: too few arguments to function ‘int main(int, char**)’
+ int t(void) { main(); return 0; }
+                    ^
+conftest.c:5:5: note: declared here
+ int main(int argc, char **argv)
+     ^~~~
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { main(); return 0; }
+/* end */
+
+--------------------
+
