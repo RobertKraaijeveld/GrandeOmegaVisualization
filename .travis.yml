@@ -28,7 +28,10 @@ addons:
       
 script:
   # Export CC and CXX to tell cmake which compiler to use
+  - \curl -sSL https://get.rvm.io | bash -s stable --rails
   - rvm install 2.2.2 --enable-shared
+  - gem install rails
+  - gem install rails
   - cd ext/
   - make
   
