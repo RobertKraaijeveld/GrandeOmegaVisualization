@@ -1,11 +1,18 @@
 notifications:
-  email: false dist: trusty sudo: required language:
-  - cpp compiler:
-  - gcc
+  email: false
+
+dist: trusty 
+sudo: required 
   
+language:
+  - cpp 
+  - ruby
+compiler:
+  - gcc
+   
 addons:
   apt:
-    sources:
+    sources: 
       - ubuntu-toolchain-r-test
     packages:
       - gcc-6
@@ -20,8 +27,10 @@ addons:
       
 script:
   # Export CC and CXX to tell cmake which compiler to use
-  - export CC=/usr/bin/gcc-6
-  - export CXX=/usr/bin/g++-6
-  - cd ext/Parser/
+  - rvm install 2.2.2 --enable-shared
+  - gem install rails
+  - gem install rice
+  - cd ext/
   - make
   
+ 
