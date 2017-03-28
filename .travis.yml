@@ -31,6 +31,9 @@ script:
   - gem install rails
   - gem install rice
   - cd ext/
-  - make
+  - cd /home/travis/.rbenv/versions/2.2.2/include/ruby-2.2.0/
+  - ls
+  
+  
   
  
