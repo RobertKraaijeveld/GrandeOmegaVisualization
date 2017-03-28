@@ -37,8 +37,7 @@ script:
   - ls
   - cd i686-linux/ruby/
   - ls
-  - cd ext/
-  - make
+
   
   
   
