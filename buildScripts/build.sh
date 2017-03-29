@@ -1,6 +1,8 @@
 #!/bin/bash
 systemArchitecture=$(uname -m) 
 
+echo "Building!"
+
 cd ../ext/
 
 if [ "$systemArchitecture" = "x86_64" ]; then
