@@ -3,9 +3,6 @@ notifications:
 
 dist: trusty 
 sudo: required 
-  dist: trusty
-
-sudo: required
 
 language: cpp
 compiler: g++
