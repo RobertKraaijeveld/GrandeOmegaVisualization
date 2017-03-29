@@ -128,7 +128,7 @@ CFLAGS   = $(CCDLFLAGS) $(cflags)  -fPIC $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = -D_FILE_OFFSET_BITS=64
 CPPFLAGS =  -I$(HOME)/.rbenv/versions/2.2.2/include  $(DEFS) $(cppflags)  -I$(HOME)/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/include
-CXXFLAGS = $(CFLAGS)  -Wall -g
+CXXFLAGS = $(CFLAGS)  -Wall -g -std=c++11
 ldflags  = -L. -L$(HOME)/.rbenv/versions/2.2.2/lib  -fstack-protector -rdynamic -Wl,-export-dynamic  -L$(HOME)/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/rice-2.1.1/ruby/lib/lib -lrice
 dldflags =  
 ARCH_FLAG = 
