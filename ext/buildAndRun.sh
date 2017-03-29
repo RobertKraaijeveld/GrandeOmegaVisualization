@@ -1,2 +1,0 @@
-make
-ruby parser.rb
