@@ -14,7 +14,7 @@ NULLCMD = :
 srcdir = .
 topdir = $(HOME)/.rbenv/versions/2.2.2/include/ruby-2.2.0
 hdrdir = $(topdir)
-arch_hdrdir = $(HOME)/.rbenv/versions/2.2.2/include/ruby-2.2.0/i686-linux
+arch_hdrdir = $(HOME)/.rbenv/versions/2.2.2/include/ruby-2.2.0/x86_64-linux
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
 
@@ -152,7 +152,7 @@ RUBYW_BASE_NAME = rubyw
 RUBY_BASE_NAME = ruby
 
 
-arch = i686-linux
+arch = x86_64-linux
 sitearch = $(arch)
 ruby_version = 2.2.0
 ruby = $(bindir)/$(RUBY_BASE_NAME)
@@ -192,6 +192,7 @@ LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/l
 
 ##### GRANDEOMEGAPRJ: MODIFY THIS WHEN ADDING NEW SOURCE FILES ########
 ##### TODO: MAKE THE READING OF FILES AUTOMATIC #####
+
 PARSERDIR = Parser/src/
 
 define ORIG_SRCS 
@@ -204,39 +205,13 @@ define ORIG_SRCS
  $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.cpp       
  parsercoupling.cpp
 endef 
+
 SRCS = $(ORIG_SRCS) 
 
 #Why the fuck is this the only valid way to declare this
 OBJS = $(PARSERDIR)YamlParser/YamlParser.o $(PARSERDIR)YamlParser/YamlObject.o $(PARSERDIR)YamlParser/YamlConverter.o $(PARSERDIR)CsvParser/CsvParser.o $(PARSERDIR)Mapper/Mapper.o $(PARSERDIR)Utilities/Utilities.o $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.o parsercoupling.o
 HDRS = $(PARSERDIR)YamlParser/YamlParser.h $(PARSERDIR)YamlParser/YamlObject.h $(PARSERDIR)YamlParser/YamlConverter.h $(PARSERDIR)CsvParser/CsvParser.h $(PARSERDIR)Mapper/Mapper.h $(PARSERDIR)Utilities/Utilities.h $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.h   
 
-# Parser/src/main.cpp 
-# Parser/src/Utilities/Utilities.cpp 
-# Parser/src/CsvParser/CsvParser.cpp 
-# Parser/src/YamlParser/YamlObject.cpp 
-# Parser/src/YamlParser/YamlConverter.cpp
-# Parser/src/YamlParser/YamlParser.cpp
-# Parser/src/Mapper/Mapper.cpp
-# Parser/src/DatabaseInteracter.cpp 
-
-# Parser/src/main.o 
-# Parser/src/Utilities/Utilities.o
-# Parser/src/CsvParser/CsvParser.o 
-# Parser/src/YamlParser/YamlObject.o 
-# Parser/src/YamlParser/YamlConverter.o
-# Parser/src/YamlParser/YamlParser.o
-# Parser/src/Mapper/Mapper.o
-# Parser/src/DatabaseInteracter.o 
-#Parser/src/YamlParser/YamlParser.o 
-
- #Parser/src/Utilities/Utilities.h 
- #Parser/src/CsvParser/CsvParser.h 
- #Parser/src/YamlParser/YamlObject.h 
- #Parser/src/YamlParser/YamlConverter.h
- #Parser/src/YamlParser/YamlParser.h
- #Parser/src/Mapper/Mapper.h
- #Parser/src/DatabaseInteracter.h 
- 
 #### END GRANDEOMEGAPRJ ######
 
 TARGET = parsercoupling
@@ -275,7 +250,7 @@ distclean-rb::
 distclean-so::
 distclean-static::
 distclean: clean distclean-so distclean-static distclean-rb-default distclean-rb
-		-$(Q)$(RM) Makefile $(RUBY_EXTCONF_H) conftest.* mkmf.log
+		-$(Q)$(RM) makefile64bit $(RUBY_EXTCONF_H) conftest.* mkmf.log
 		-$(Q)$(RM) core ruby$(EXEEXT) *~ $(DISTCLEANFILES)
 		-$(Q)$(RMDIRS) $(DISTCLEANDIRS) 2> /dev/null || true
 
@@ -288,8 +263,8 @@ clean-static::
 	-$(Q)$(RM) $(STATIC_LIB)
 install-rb: pre-install-rb install-rb-default
 install-rb-default: pre-install-rb-default
-pre-install-rb: Makefile
-pre-install-rb-default: Makefile
+pre-install-rb: makefile64bit
+pre-install-rb-default: makefile64bit
 pre-install-rb-default:
 	@$(NULLCMD)
 $(TIMESTAMP_DIR)/.RUBYARCHDIR.time:
@@ -350,7 +325,7 @@ site-install-rb: install-rb
 	$(ECHO) translating $(<)
 	$(Q) $(CC) $(INCFLAGS) $(CPPFLAGS) $(CFLAGS) $(COUTFLAG)$@ -S $<
 
-$(DLLIB): $(OBJS) Makefile
+$(DLLIB): $(OBJS) makefile64bit
 	$(ECHO) linking shared-object $(DLLIB)
 	-$(Q)$(RM) $(@)
 	$(Q) $(LDSHAREDXX) -o $@ $(OBJS) $(LIBPATH) $(DLDFLAGS) $(LOCAL_LIBS) $(LIBS)

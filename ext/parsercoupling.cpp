@@ -1,5 +1,5 @@
 #include "rice/Class.hpp"
-#include <iostream>
+#include <iostream> 
 #include <fstream>
 #include <iostream>
 #include <fstream>
@@ -18,7 +18,7 @@ using namespace Rice;
 using namespace std;
 
 //make uppercase :D
-//make paths uppercase
+//make paths generic/relative for testing purposes
 string classFileBaseFileString = "/home/robert/Documents/Projects/GrandeOmegaProject/Parser/Parser/docs/classFiles/assignment_activities_with_class";
 string assignmentsBaseFileString = "/home/robert/Documents/Projects/GrandeOmegaProject/GrandeOmegaRailsPrj/ext/Parser/docs/assignments/assignment_activities";
 

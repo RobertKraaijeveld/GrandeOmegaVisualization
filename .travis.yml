@@ -33,10 +33,8 @@ script:
   - RUBY_CONFIGURE_OPTS=--enable-shared rbenv install 2.2.2
   - gem install rails
   - gem install rice
-  - cd /home/travis/.rbenv/versions/2.2.2/include/ruby-2.2.0/
-  - ls
-  - cd i686-linux/ruby/
-  - ls
+  - cd ext/
+  - ./cppBuildScript.sh
 
   
   
