@@ -12,3 +12,4 @@ else
  echo "32 bit system, using 32 bit makefile.."
  make -f makefile32bit 
 fi
+

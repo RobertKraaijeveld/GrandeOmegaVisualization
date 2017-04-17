@@ -22,5 +22,3 @@
 
 ext/Parser/.vscode/* 
 ext/Parser/docs/* 
-ext/Parser/explicitStudents.yaml 
-ext/Parser/emailsAndClasses.csv 

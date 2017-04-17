@@ -1,7 +1,7 @@
 #ifndef DATABASEINTERACTER_H
 #define DATABASEINTERACTER_H
 
-#define PATH_TO_CONFIG_FILE "docs/credentials.pgconf"
+#define PATH_TO_CONFIG_FILE "/home/robert/Documents/Projects/GrandeOmegaVisualization/ext/Parser/docs/credentials.pgconf"
 #define HOST "hostip"
 #define PORT "port"
 #define DATABASE "database"

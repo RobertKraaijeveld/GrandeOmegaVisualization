@@ -17,74 +17,44 @@
 using namespace Rice;
 using namespace std;
 
-//make uppercase :D
-//make paths generic/relative for testing purposes
-string classFileBaseFileString = "/home/robert/Documents/Projects/GrandeOmegaProject/Parser/Parser/docs/classFiles/assignment_activities_with_class";
-string assignmentsBaseFileString = "/home/robert/Documents/Projects/GrandeOmegaProject/GrandeOmegaRailsPrj/ext/Parser/docs/assignments/assignment_activities";
 
-ifstream classesFile ("/home/robert/Documents/Projects/GrandeOmegaProject/GrandeOmegaRailsPrj/ext/Parser/emailsAndClasses.csv", ifstream::in);
-ifstream explicitStudentsStream = ifstream("explicitStudents.yaml", ifstream::in); 
 
-ofstream yamlFileForGradesOut = ofstream("docs/Grades/grades.yaml");
-ifstream yamlFileForGradesIn = ifstream("docs/Grades/grades.yaml");
+string classFileBaseFileString = "/home/robert/Documents/Projects/GrandeOmegaVisualization/ext/Parser/docs/classFiles/assignment_activities_with_class";
+
+ifstream explicitStudentsStream = ifstream("Parser/docs/explicitStudents.yaml", ifstream::in); 
 
 vector<vector<string>> knownEmailsForClasses;	
 vector<YamlObject> emailYamlObjects;
 vector<YamlObject> assignmentYamlObjects;
                    
 
-//add check if is already set?
-void parseYamlAndCsvs()
+//IMPORTANT: Add checks if files actually exist
+//ALSO: give ruby only the results of algorithms etc in words IT can understand; no yamlobjects.
+void parseAssignments()
 {
+	cout << "Parsing assignments with classes..." << endl;
   YamlParser yamlParser(explicitStudentsStream);
-	
-  vector<vector<string>> knownEmailsForClasses = CsvParser::parseClassMatrix(classesFile);	
-	vector<YamlObject> emailYamlObjects = yamlParser.parseYaml();
-	vector<YamlObject> assignmentYamlObjects = yamlParser.parseListOfFiles(assignmentsBaseFileString);
+	vector<YamlObject> assignmentYamlObjects = yamlParser.parseListOfFiles(classFileBaseFileString);
 }
 
-
-//TODO: ADD FILE EXCERPTION CHECKING
-//ALSO: make things like emailYamlObjects static vars here
-//ALSO: MAKE PATHS EITHER RELATIVE OR USE STATIC VARS
-void callAssignmentParser()
+void insertToDB()
 {
-  cout << "Starting to parse assingment files and adding classes" << endl;
-  parseYamlAndCsvs();
+  cout << "Inserting grades and assignments to DB..." << endl;
 
-  Mapper mapper (emailYamlObjects, assignmentYamlObjects, knownEmailsForClasses);	
-	mapper.createYamlFilesWithClasses();
-}
-
-void callGradesParser()
-{
-  cout << "Mapping grades (includes parsing assignments to get student_ids)" << endl;
-  parseYamlAndCsvs();
-
-  Mapper mapper (emailYamlObjects, assignmentYamlObjects, knownEmailsForClasses); 
-
-  mapper.createGradesYamlFile(yamlFileForGradesOut);
-	cout << "done" << endl;   
-}
-
-void insertGradesToDB()
-{
-  cout << "Inserting grades to DB" << endl;
-/*
 	YamlParser yamlParser(explicitStudentsStream);	
 
   vector<string> assignmentsWithClassesFileNames = Utilities::getListOfNumberedFilesForBaseFile(classFileBaseFileString);
-  //extract
 	vector<YamlObject> assignmentsWithClassYamlObjects = yamlParser.parseListOfFiles(classFileBaseFileString);
 
-	yamlParser.file = yamlFileForGradesIn;
+	//extract to constant
+	yamlParser.file = ifstream("Parser/docs/Grades/grades.yaml");
 	vector<YamlObject> gradeYamlObjects = yamlParser.parseYaml();
 
 	DatabaseInteracter dbInteracter;
-	//dbInteracter.InsertAssignmentYaml(assignmentsWithClassYamlObjects);
+	dbInteracter.InsertAssignmentYaml(assignmentsWithClassYamlObjects);
 	dbInteracter.InsertGradesYaml(gradeYamlObjects);
-*/
-	cout << "done"	<< endl;
+
+	cout << "Done inserting grades and assignments to DB"	<< endl;
 }
 
 
@@ -105,9 +75,8 @@ void Init_parsercoupling()
 {
   //void callAssignmentParser()
   Class rb_c = define_class("Parsercoupling")
-    .define_method("callGradesParser", &callGradesParser)
-    .define_method("callAssignmentParser", &callAssignmentParser)    
-    .define_method("insertGradesToDB", &insertGradesToDB);    
+    .define_method("parseAssignments", &parseAssignments)    
+    .define_method("insertToDB", &insertToDB);    
 }
 
 

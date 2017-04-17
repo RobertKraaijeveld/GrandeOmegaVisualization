@@ -35,6 +35,10 @@ void DatabaseInteracter::setDbConnectionString()
                 ConnectionString += (" password=" + value);            
         }
     }
+    else
+    {
+        cout << "DatabaseInteracter: config file not found" << endl; 
+    }
     config_file.close();
     this->connectionString = ConnectionString;
 }
@@ -63,6 +67,7 @@ void DatabaseInteracter::InsertAssignmentYaml(vector<YamlObject>& assignmentsObj
             << "\', \'" << assignmentsObjects[i].values["teaching_unit_id"] << "\', \'" << update_timestamp << "\');";
 
             string insertionString = insertionStream.str();
+            cout << "Insertionstr = " << insertionString << endl;
 
             worker.exec(insertionString);
         }
@@ -89,6 +94,7 @@ void DatabaseInteracter::InsertGradesYaml(vector<YamlObject>& gradesObjects)
             << gradesObjects[i].values["- student_id"] << "\', \'" << gradesObjects[i].values["grade"] << "\');";
 
             string insertionString = insertionStream.str();
+
             worker.exec(insertionString);
         }
         worker.commit();

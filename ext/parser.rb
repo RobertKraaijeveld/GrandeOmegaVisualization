@@ -1,6 +1,4 @@
-require './parsercoupling'
-Parsercoupling.new.callGradesParser()
-Parsercoupling.new.callAssignmentParser()
-
-
+require './parsercoupling' 
+#Parsercoupling.new.parseAssignments() 
+#Parsercoupling.new.insertToDB()
 
