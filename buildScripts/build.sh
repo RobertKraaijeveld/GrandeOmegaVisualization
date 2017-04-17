@@ -4,8 +4,7 @@ systemArchitecture=$(uname -m)
 echo "Building!"
 
 #temp for jenkins
-sudo apt-get update
-sudo apt-get install libcppunit-dev
+sudo apt install -y libcppunit-dev
 
 cd ../ext/
 
