@@ -1,0 +1,19 @@
+#Makefile
+CXX = g++ 
+
+TESTDIR = Parser/tests/
+OBJS = $(TESTDIR)UtilitiesTest.o $(TESTDIR)runAllTests.o 
+
+all : Tests 
+
+Tests: $(OBJS)
+	$(CXX) $^ -o $@ $(LDFLAGS) -lcppunit
+
+%.o : %.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ -c $< 
+        
+$(TESTDIR)runAllTests.o : $(TESTDIR)UtilitiesTest.h
+$(TESTDIR)UtilitiesTest.o: $(TESTDIR)UtilitiesTest.h 
+
+clean:
+	rm *.o $(EXEC)

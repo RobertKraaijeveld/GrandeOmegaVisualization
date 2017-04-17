@@ -188,14 +188,17 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/lib -std=c++11 -lruby -lpthread -lgmp -ldl -lcrypt -lm   -lc -lpqxx -lpq
+LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/lib -std=c++11 -lruby -lpthread -lgmp -ldl -lcrypt -lm   -lc -lpqxx -lpq -lcppunit
 
 ##### GRANDEOMEGAPRJ: MODIFY THIS WHEN ADDING NEW SOURCE FILES ########
 ##### TODO: MAKE THE READING OF FILES AUTOMATIC #####
 
+TESTSDIR = Parser/tests/
 PARSERDIR = Parser/src/
 
 define ORIG_SRCS 
+ $(TESTSDIR)runAllTests.cpp
+ $(TESTSDIR)UtilitiesTest.cpp
  $(PARSERDIR)YamlParser/YamlParser.cpp 
  $(PARSERDIR)YamlParser/YamlObject.cpp
  $(PARSERDIR)YamlParser/YamlConverter.cpp     
@@ -205,12 +208,11 @@ define ORIG_SRCS
  $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.cpp       
  parsercoupling.cpp
 endef 
-
 SRCS = $(ORIG_SRCS) 
 
-#Why the fuck is this the only valid way to declare this
-OBJS = $(PARSERDIR)YamlParser/YamlParser.o $(PARSERDIR)YamlParser/YamlObject.o $(PARSERDIR)YamlParser/YamlConverter.o $(PARSERDIR)CsvParser/CsvParser.o $(PARSERDIR)Mapper/Mapper.o $(PARSERDIR)Utilities/Utilities.o $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.o parsercoupling.o
-HDRS = $(PARSERDIR)YamlParser/YamlParser.h $(PARSERDIR)YamlParser/YamlObject.h $(PARSERDIR)YamlParser/YamlConverter.h $(PARSERDIR)CsvParser/CsvParser.h $(PARSERDIR)Mapper/Mapper.h $(PARSERDIR)Utilities/Utilities.h $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.h   
+#Why the fuck is this the only valid way to declare this?
+OBJS = $(TESTSDIR)runAllTests.o $(TESTSDIR)UtilitiesTest.o $(PARSERDIR)YamlParser/YamlParser.o $(PARSERDIR)YamlParser/YamlObject.o $(PARSERDIR)YamlParser/YamlConverter.o $(PARSERDIR)CsvParser/CsvParser.o $(PARSERDIR)Mapper/Mapper.o $(PARSERDIR)Utilities/Utilities.o $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.o parsercoupling.o
+HDRS = $(TESTSDIR)UtilitiesTest.h $(PARSERDIR)YamlParser/YamlParser.h $(PARSERDIR)YamlParser/YamlObject.h $(PARSERDIR)YamlParser/YamlConverter.h $(PARSERDIR)CsvParser/CsvParser.h $(PARSERDIR)Mapper/Mapper.h $(PARSERDIR)Utilities/Utilities.h $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.h   
 
 #### END GRANDEOMEGAPRJ ######
 
