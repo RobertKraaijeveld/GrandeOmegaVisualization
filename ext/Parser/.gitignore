@@ -1,3 +1,4 @@
+Buildfiles/*
 Parser/CMakeLists.txt
 Parser/.vscode/*
 Parser/docs/*
