@@ -188,7 +188,7 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/lib -std=c++11 -lruby -lpthread -lgmp -ldl -lcrypt -lm   -lc -lpqxx -lpq
+LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/lib -std=c++11 -lruby -lpthread -ldl -lcrypt -lm   -lc -lpqxx -lpq
 
 ##### GRANDEOMEGAPRJ: MODIFY THIS WHEN ADDING NEW SOURCE FILES ########
 ##### TODO: MAKE THE READING OF FILES AUTOMATIC #####
