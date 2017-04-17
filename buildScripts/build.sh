@@ -3,9 +3,6 @@ systemArchitecture=$(uname -m)
 
 echo "Building!"
 
-#temp for jenkins
-sudo apt install -y libcppunit-dev
-
 cd ../ext/
 
 if [ "$systemArchitecture" = "x86_64" ]; then
