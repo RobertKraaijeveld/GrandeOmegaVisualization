@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Testing!"
 
-cd ../ext/
+cd ../lib/
 
 rm Buildfiles/* 
 

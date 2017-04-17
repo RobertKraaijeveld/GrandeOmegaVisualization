@@ -1,5 +1,2 @@
 #!/bin/bash
-
-cd ../ext/
-
-ruby parser.rb
+bin/rails server

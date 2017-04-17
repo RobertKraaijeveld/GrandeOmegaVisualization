@@ -3,7 +3,7 @@ systemArchitecture=$(uname -m)
 
 echo "Building!"
 
-cd ../ext/
+cd lib/
 
 if [ "$systemArchitecture" = "x86_64" ]; then
  echo "64 bit system, using 64 bit makefile..."

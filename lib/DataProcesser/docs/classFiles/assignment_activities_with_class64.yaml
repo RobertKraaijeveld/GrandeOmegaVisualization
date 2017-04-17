@@ -1,0 +1,3838 @@
+---
+- id: 63047
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    name: Etc/UTC
+    time: *1
+    utc: &1 2017-01-11 09:05:40.867691000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *3
+    utc: &3 2017-01-11 09:05:40.867691000 Z
+    zone: *2
+- id: 63055
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *4
+    utc: &4 2017-01-11 09:08:06.456325000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *5
+    utc: &5 2017-01-11 09:08:06.456325000 Z
+    zone: *2
+- id: 63059
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *6
+    utc: &6 2017-01-11 09:09:26.647035000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *7
+    utc: &7 2017-01-11 09:09:26.647035000 Z
+    zone: *2
+- id: 63063
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *8
+    utc: &8 2017-01-11 09:11:10.172708000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 74
+  class: 76506
+  teaching_unit_id: 89
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *9
+    utc: &9 2017-01-11 09:11:10.172708000 Z
+    zone: *2
+- id: 63068
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *10
+    utc: &10 2017-01-11 09:27:58.290915000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 291
+  class: 15430
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *11
+    utc: &11 2017-01-11 09:27:58.290915000 Z
+    zone: *2
+- id: 63085
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *12
+    utc: &12 2017-01-11 09:40:33.743774000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 305
+  class: tester
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *13
+    utc: &13 2017-01-11 09:40:33.743774000 Z
+    zone: *2
+- id: 63091
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *14
+    utc: &14 2017-01-11 10:13:53.341423000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 15
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *15
+    utc: &15 2017-01-11 10:13:53.341423000 Z
+    zone: *2
+- id: 63097
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *16
+    utc: &16 2017-01-11 10:29:19.684291000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 23
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *17
+    utc: &17 2017-01-11 10:29:19.684291000 Z
+    zone: *2
+- id: 63106
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *18
+    utc: &18 2017-01-11 10:33:25.449472000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 23
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *19
+    utc: &19 2017-01-11 10:33:25.449472000 Z
+    zone: *2
+- id: 63120
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *20
+    utc: &20 2017-01-11 10:46:38.606381000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 28
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *21
+    utc: &21 2017-01-11 10:46:38.606381000 Z
+    zone: *2
+- id: 63127
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *22
+    utc: &22 2017-01-11 10:57:59.120827000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 28
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *23
+    utc: &23 2017-01-11 10:57:59.120827000 Z
+    zone: *2
+- id: 63133
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *24
+    utc: &24 2017-01-11 12:31:12.682036000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 345
+  class: tester
+  teaching_unit_id: 16
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *25
+    utc: &25 2017-01-11 12:31:12.682036000 Z
+    zone: *2
+- id: 62995
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *26
+    utc: &26 2017-01-11 08:01:10.786086000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 293
+  class: 15430
+  teaching_unit_id: 28
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *27
+    utc: &27 2017-01-11 08:01:10.786086000 Z
+    zone: *2
+- id: 63008
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *28
+    utc: &28 2017-01-11 08:43:12.785864000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 94
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *29
+    utc: &29 2017-01-11 08:43:12.785864000 Z
+    zone: *2
+- id: 63009
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *30
+    utc: &30 2017-01-11 08:44:20.831272000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 94
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *31
+    utc: &31 2017-01-11 08:44:20.831272000 Z
+    zone: *2
+- id: 63022
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *32
+    utc: &32 2017-01-11 08:56:13.875336000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *33
+    utc: &33 2017-01-11 08:56:13.875336000 Z
+    zone: *2
+- id: 63030
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *34
+    utc: &34 2017-01-11 08:57:20.022480000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *35
+    utc: &35 2017-01-11 08:57:20.022480000 Z
+    zone: *2
+- id: 63039
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *36
+    utc: &36 2017-01-11 09:03:02.232888000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *37
+    utc: &37 2017-01-11 09:03:02.232888000 Z
+    zone: *2
+- id: 63044
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *38
+    utc: &38 2017-01-11 09:04:31.804364000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *39
+    utc: &39 2017-01-11 09:04:31.804364000 Z
+    zone: *2
+- id: 63052
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *40
+    utc: &40 2017-01-11 09:06:43.487904000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 287
+  class: 15430
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *41
+    utc: &41 2017-01-11 09:06:43.487904000 Z
+    zone: *2
+- id: 63064
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *42
+    utc: &42 2017-01-11 09:11:20.137617000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 74
+  class: 76506
+  teaching_unit_id: 89
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *43
+    utc: &43 2017-01-11 09:11:20.137617000 Z
+    zone: *2
+- id: 63065
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *44
+    utc: &44 2017-01-11 09:27:41.223809000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 291
+  class: 15430
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *45
+    utc: &45 2017-01-11 09:27:41.223809000 Z
+    zone: *2
+- id: 63072
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *46
+    utc: &46 2017-01-11 09:37:24.320772000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 305
+  class: tester
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *47
+    utc: &47 2017-01-11 09:37:24.320772000 Z
+    zone: *2
+- id: 63077
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *48
+    utc: &48 2017-01-11 09:38:36.107615000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 305
+  class: tester
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *49
+    utc: &49 2017-01-11 09:38:36.107615000 Z
+    zone: *2
+- id: 63084
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *50
+    utc: &50 2017-01-11 09:40:06.614226000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 305
+  class: tester
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *51
+    utc: &51 2017-01-11 09:40:06.614226000 Z
+    zone: *2
+- id: 63090
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *52
+    utc: &52 2017-01-11 10:13:40.653961000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 15
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *53
+    utc: &53 2017-01-11 10:13:40.653961000 Z
+    zone: *2
+- id: 63096
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *54
+    utc: &54 2017-01-11 10:28:28.007805000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 23
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *55
+    utc: &55 2017-01-11 10:28:28.007805000 Z
+    zone: *2
+- id: 63103
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *56
+    utc: &56 2017-01-11 10:32:04.118670000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 23
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *57
+    utc: &57 2017-01-11 10:32:04.118670000 Z
+    zone: *2
+- id: 63118
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *58
+    utc: &58 2017-01-11 10:45:08.199733000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 28
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *59
+    utc: &59 2017-01-11 10:45:08.199733000 Z
+    zone: *2
+- id: 63128
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *60
+    utc: &60 2017-01-11 10:59:34.605127000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 28
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *61
+    utc: &61 2017-01-11 10:59:34.605127000 Z
+    zone: *2
+- id: 63136
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *62
+    utc: &62 2017-01-11 12:32:28.762005000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 345
+  class: tester
+  teaching_unit_id: 16
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *63
+    utc: &63 2017-01-11 12:32:28.762005000 Z
+    zone: *2
+- id: 63067
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *64
+    utc: &64 2017-01-11 09:27:51.311146000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 291
+  class: 15430
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *65
+    utc: &65 2017-01-11 09:27:51.311146000 Z
+    zone: *2
+- id: 63080
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *66
+    utc: &66 2017-01-11 09:39:12.919803000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 305
+  class: tester
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *67
+    utc: &67 2017-01-11 09:39:12.919803000 Z
+    zone: *2
+- id: 63088
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *68
+    utc: &68 2017-01-11 10:13:12.662612000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 15
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *69
+    utc: &69 2017-01-11 10:13:12.662612000 Z
+    zone: *2
+- id: 63102
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *70
+    utc: &70 2017-01-11 10:31:12.305466000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 23
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *71
+    utc: &71 2017-01-11 10:31:12.305466000 Z
+    zone: *2
+- id: 63109
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *72
+    utc: &72 2017-01-11 10:34:56.156089000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 23
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *73
+    utc: &73 2017-01-11 10:34:56.156089000 Z
+    zone: *2
+- id: 63116
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *74
+    utc: &74 2017-01-11 10:44:42.728314000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 28
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *75
+    utc: &75 2017-01-11 10:44:42.728314000 Z
+    zone: *2
+- id: 63122
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *76
+    utc: &76 2017-01-11 10:56:31.245705000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 28
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *77
+    utc: &77 2017-01-11 10:56:31.245705000 Z
+    zone: *2
+- id: 63134
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *78
+    utc: &78 2017-01-11 12:31:23.464956000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 345
+  class: tester
+  teaching_unit_id: 16
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *79
+    utc: &79 2017-01-11 12:31:23.464956000 Z
+    zone: *2
+- id: 63071
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *80
+    utc: &80 2017-01-11 09:30:50.191606000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 291
+  class: 15430
+  teaching_unit_id: 111
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *81
+    utc: &81 2017-01-11 09:30:50.191606000 Z
+    zone: *2
+- id: 63073
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *82
+    utc: &82 2017-01-11 09:37:30.663105000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 305
+  class: tester
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *83
+    utc: &83 2017-01-11 09:37:30.663105000 Z
+    zone: *2
+- id: 63076
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *84
+    utc: &84 2017-01-11 09:38:20.084166000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 305
+  class: tester
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *85
+    utc: &85 2017-01-11 09:38:20.084166000 Z
+    zone: *2
+- id: 63081
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *86
+    utc: &86 2017-01-11 09:39:19.987213000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 305
+  class: tester
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *87
+    utc: &87 2017-01-11 09:39:19.987213000 Z
+    zone: *2
+- id: 63087
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *88
+    utc: &88 2017-01-11 10:12:49.030936000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 15
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *89
+    utc: &89 2017-01-11 10:12:49.030936000 Z
+    zone: *2
+- id: 63095
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *90
+    utc: &90 2017-01-11 10:27:34.094844000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 27
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *91
+    utc: &91 2017-01-11 10:27:34.094844000 Z
+    zone: *2
+- id: 63101
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *92
+    utc: &92 2017-01-11 10:31:01.448378000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 23
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *93
+    utc: &93 2017-01-11 10:31:01.448378000 Z
+    zone: *2
+- id: 63110
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *94
+    utc: &94 2017-01-11 10:35:18.253221000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 23
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *95
+    utc: &95 2017-01-11 10:35:18.253221000 Z
+    zone: *2
+- id: 63115
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *96
+    utc: &96 2017-01-11 10:44:10.969718000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 148
+  class: 27328
+  teaching_unit_id: 28
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *97
+    utc: &97 2017-01-11 10:44:10.969718000 Z
+    zone: *2
+- id: 63123
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *98
+    utc: &98 2017-01-11 10:57:05.174530000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 346
+  class: tester
+  teaching_unit_id: 111
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *99
+    utc: &99 2017-01-11 10:57:05.174530000 Z
+    zone: *2
+- id: 63139
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *100
+    utc: &100 2017-01-11 12:34:46.594651000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 345
+  class: tester
+  teaching_unit_id: 16
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *101
+    utc: &101 2017-01-11 12:34:46.594651000 Z
+    zone: *2
+- id: 63141
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *102
+    utc: &102 2017-01-11 14:14:50.732499000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *103
+    utc: &103 2017-01-11 14:14:50.732499000 Z
+    zone: *2
+- id: 63142
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *104
+    utc: &104 2017-01-11 14:26:01.266538000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *105
+    utc: &105 2017-01-11 14:26:01.266538000 Z
+    zone: *2
+- id: 63247
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *106
+    utc: &106 2017-01-12 17:52:09.664528000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *107
+    utc: &107 2017-01-12 17:52:09.664528000 Z
+    zone: *2
+- id: 63251
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *108
+    utc: &108 2017-01-12 17:54:02.872862000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *109
+    utc: &109 2017-01-12 17:54:02.872862000 Z
+    zone: *2
+- id: 63258
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *110
+    utc: &110 2017-01-12 18:04:23.370120000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 98
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *111
+    utc: &111 2017-01-12 18:04:23.370120000 Z
+    zone: *2
+- id: 63262
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *112
+    utc: &112 2017-01-12 18:05:39.463825000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 98
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *113
+    utc: &113 2017-01-12 18:05:39.463825000 Z
+    zone: *2
+- id: 63266
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *114
+    utc: &114 2017-01-12 18:06:49.731835000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 98
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *115
+    utc: &115 2017-01-12 18:06:49.731835000 Z
+    zone: *2
+- id: 63268
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *116
+    utc: &116 2017-01-12 18:16:36.005072000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *117
+    utc: &117 2017-01-12 18:16:36.005072000 Z
+    zone: *2
+- id: 63271
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *118
+    utc: &118 2017-01-12 18:18:07.048633000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *119
+    utc: &119 2017-01-12 18:18:07.048633000 Z
+    zone: *2
+- id: 63143
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *120
+    utc: &120 2017-01-11 14:26:04.661298000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *121
+    utc: &121 2017-01-11 14:26:04.661298000 Z
+    zone: *2
+- id: 63144
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *122
+    utc: &122 2017-01-11 14:59:23.225396000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *123
+    utc: &123 2017-01-11 14:59:23.225396000 Z
+    zone: *2
+- id: 63145
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *124
+    utc: &124 2017-01-11 14:59:25.672250000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *125
+    utc: &125 2017-01-11 14:59:25.672250000 Z
+    zone: *2
+- id: 63146
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *126
+    utc: &126 2017-01-11 16:10:58.572073000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *127
+    utc: &127 2017-01-11 16:10:58.572073000 Z
+    zone: *2
+- id: 63147
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *128
+    utc: &128 2017-01-11 16:11:05.863433000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *129
+    utc: &129 2017-01-11 16:11:05.863433000 Z
+    zone: *2
+- id: 63248
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *130
+    utc: &130 2017-01-12 17:53:25.049182000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *131
+    utc: &131 2017-01-12 17:53:25.049182000 Z
+    zone: *2
+- id: 63250
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *132
+    utc: &132 2017-01-12 17:53:52.219686000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *133
+    utc: &133 2017-01-12 17:53:52.219686000 Z
+    zone: *2
+- id: 63252
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *134
+    utc: &134 2017-01-12 17:54:10.998408000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *135
+    utc: &135 2017-01-12 17:54:10.998408000 Z
+    zone: *2
+- id: 63254
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *136
+    utc: &136 2017-01-12 17:54:28.077220000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *137
+    utc: &137 2017-01-12 17:54:28.077220000 Z
+    zone: *2
+- id: 63255
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *138
+    utc: &138 2017-01-12 18:03:17.581757000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *139
+    utc: &139 2017-01-12 18:03:17.581757000 Z
+    zone: *2
+- id: 63257
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *140
+    utc: &140 2017-01-12 18:03:44.500345000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 98
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *141
+    utc: &141 2017-01-12 18:03:44.500345000 Z
+    zone: *2
+- id: 63259
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *142
+    utc: &142 2017-01-12 18:04:52.802364000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 98
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *143
+    utc: &143 2017-01-12 18:04:52.802364000 Z
+    zone: *2
+- id: 63261
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *144
+    utc: &144 2017-01-12 18:05:27.643287000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 98
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *145
+    utc: &145 2017-01-12 18:05:27.643287000 Z
+    zone: *2
+- id: 63263
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *146
+    utc: &146 2017-01-12 18:06:04.369613000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 98
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *147
+    utc: &147 2017-01-12 18:06:04.369613000 Z
+    zone: *2
+- id: 63265
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *148
+    utc: &148 2017-01-12 18:06:27.726178000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 98
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *149
+    utc: &149 2017-01-12 18:06:27.726178000 Z
+    zone: *2
+- id: 63267
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *150
+    utc: &150 2017-01-12 18:12:20.876974000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *151
+    utc: &151 2017-01-12 18:12:20.876974000 Z
+    zone: *2
+- id: 63269
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *152
+    utc: &152 2017-01-12 18:17:11.269642000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *153
+    utc: &153 2017-01-12 18:17:11.269642000 Z
+    zone: *2
+- id: 63148
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *154
+    utc: &154 2017-01-11 16:11:16.802617000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *155
+    utc: &155 2017-01-11 16:11:16.802617000 Z
+    zone: *2
+- id: 63149
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *156
+    utc: &156 2017-01-11 16:11:19.555050000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *157
+    utc: &157 2017-01-11 16:11:19.555050000 Z
+    zone: *2
+- id: 63153
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *158
+    utc: &158 2017-01-11 16:12:37.725264000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 111
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *159
+    utc: &159 2017-01-11 16:12:37.725264000 Z
+    zone: *2
+- id: 63154
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *160
+    utc: &160 2017-01-11 16:12:49.127953000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 111
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *161
+    utc: &161 2017-01-11 16:12:49.127953000 Z
+    zone: *2
+- id: 63158
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *162
+    utc: &162 2017-01-11 16:51:43.185268000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 346
+  class: tester
+  teaching_unit_id: 113
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *163
+    utc: &163 2017-01-11 16:51:43.185268000 Z
+    zone: *2
+- id: 63150
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *164
+    utc: &164 2017-01-11 16:11:27.295310000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *165
+    utc: &165 2017-01-11 16:11:27.295310000 Z
+    zone: *2
+- id: 63155
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *166
+    utc: &166 2017-01-11 16:12:54.596874000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 111
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *167
+    utc: &167 2017-01-11 16:12:54.596874000 Z
+    zone: *2
+- id: 63157
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *168
+    utc: &168 2017-01-11 16:51:35.704192000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 346
+  class: tester
+  teaching_unit_id: 113
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *169
+    utc: &169 2017-01-11 16:51:35.704192000 Z
+    zone: *2
+- id: 63151
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *170
+    utc: &170 2017-01-11 16:12:01.326618000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 111
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *171
+    utc: &171 2017-01-11 16:12:01.326618000 Z
+    zone: *2
+- id: 63152
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *172
+    utc: &172 2017-01-11 16:12:32.255548000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 111
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *173
+    utc: &173 2017-01-11 16:12:32.255548000 Z
+    zone: *2
+- id: 63156
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *174
+    utc: &174 2017-01-11 16:50:56.797757000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 346
+  class: tester
+  teaching_unit_id: 111
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *175
+    utc: &175 2017-01-11 16:50:56.797757000 Z
+    zone: *2
+- id: 63159
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *176
+    utc: &176 2017-01-12 03:10:52.906813000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 29
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *177
+    utc: &177 2017-01-12 03:10:52.906813000 Z
+    zone: *2
+- id: 63160
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *178
+    utc: &178 2017-01-12 03:10:55.221545000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 29
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *179
+    utc: &179 2017-01-12 03:10:55.221545000 Z
+    zone: *2
+- id: 63161
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *180
+    utc: &180 2017-01-12 13:10:36.311811000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *181
+    utc: &181 2017-01-12 13:10:36.311811000 Z
+    zone: *2
+- id: 63162
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *182
+    utc: &182 2017-01-12 13:10:42.856215000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *183
+    utc: &183 2017-01-12 13:10:42.856215000 Z
+    zone: *2
+- id: 63163
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *184
+    utc: &184 2017-01-12 13:11:38.772651000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *185
+    utc: &185 2017-01-12 13:11:38.772651000 Z
+    zone: *2
+- id: 63164
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *186
+    utc: &186 2017-01-12 13:12:12.195748000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *187
+    utc: &187 2017-01-12 13:12:12.195748000 Z
+    zone: *2
+- id: 63165
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *188
+    utc: &188 2017-01-12 13:12:27.821623000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *189
+    utc: &189 2017-01-12 13:12:27.821623000 Z
+    zone: *2
+- id: 63166
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *190
+    utc: &190 2017-01-12 13:12:37.583253000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *191
+    utc: &191 2017-01-12 13:12:37.583253000 Z
+    zone: *2
+- id: 63167
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *192
+    utc: &192 2017-01-12 13:12:46.841217000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *193
+    utc: &193 2017-01-12 13:12:46.841217000 Z
+    zone: *2
+- id: 63168
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *194
+    utc: &194 2017-01-12 13:13:08.933297000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *195
+    utc: &195 2017-01-12 13:13:08.933297000 Z
+    zone: *2
+- id: 63169
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *196
+    utc: &196 2017-01-12 13:13:28.571754000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *197
+    utc: &197 2017-01-12 13:13:28.571754000 Z
+    zone: *2
+- id: 63170
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *198
+    utc: &198 2017-01-12 13:13:44.984153000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *199
+    utc: &199 2017-01-12 13:13:44.984153000 Z
+    zone: *2
+- id: 63171
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *200
+    utc: &200 2017-01-12 13:14:01.811125000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *201
+    utc: &201 2017-01-12 13:14:01.811125000 Z
+    zone: *2
+- id: 63172
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *202
+    utc: &202 2017-01-12 13:14:05.795451000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *203
+    utc: &203 2017-01-12 13:14:05.795451000 Z
+    zone: *2
+- id: 63173
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *204
+    utc: &204 2017-01-12 13:14:14.371720000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *205
+    utc: &205 2017-01-12 13:14:14.371720000 Z
+    zone: *2
+- id: 63174
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *206
+    utc: &206 2017-01-12 13:14:19.646943000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *207
+    utc: &207 2017-01-12 13:14:19.646943000 Z
+    zone: *2
+- id: 63175
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *208
+    utc: &208 2017-01-12 13:14:26.209395000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *209
+    utc: &209 2017-01-12 13:14:26.209395000 Z
+    zone: *2
+- id: 63176
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *210
+    utc: &210 2017-01-12 13:14:46.044829000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *211
+    utc: &211 2017-01-12 13:14:46.044829000 Z
+    zone: *2
+- id: 63177
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *212
+    utc: &212 2017-01-12 13:14:57.192936000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *213
+    utc: &213 2017-01-12 13:14:57.192936000 Z
+    zone: *2
+- id: 63178
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *214
+    utc: &214 2017-01-12 13:15:01.868463000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *215
+    utc: &215 2017-01-12 13:15:01.868463000 Z
+    zone: *2
+- id: 63179
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *216
+    utc: &216 2017-01-12 13:15:07.389646000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *217
+    utc: &217 2017-01-12 13:15:07.389646000 Z
+    zone: *2
+- id: 63180
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *218
+    utc: &218 2017-01-12 13:15:22.332674000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *219
+    utc: &219 2017-01-12 13:15:22.332674000 Z
+    zone: *2
+- id: 63181
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *220
+    utc: &220 2017-01-12 13:15:40.825349000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *221
+    utc: &221 2017-01-12 13:15:40.825349000 Z
+    zone: *2
+- id: 63182
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *222
+    utc: &222 2017-01-12 13:15:58.734156000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *223
+    utc: &223 2017-01-12 13:15:58.734156000 Z
+    zone: *2
+- id: 63183
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *224
+    utc: &224 2017-01-12 13:16:15.886983000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *225
+    utc: &225 2017-01-12 13:16:15.886983000 Z
+    zone: *2
+- id: 63184
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *226
+    utc: &226 2017-01-12 13:17:10.025685000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *227
+    utc: &227 2017-01-12 13:17:10.025685000 Z
+    zone: *2
+- id: 63185
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *228
+    utc: &228 2017-01-12 13:17:38.425544000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *229
+    utc: &229 2017-01-12 13:17:38.425544000 Z
+    zone: *2
+- id: 63186
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *230
+    utc: &230 2017-01-12 13:17:44.586934000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *231
+    utc: &231 2017-01-12 13:17:44.586934000 Z
+    zone: *2
+- id: 63187
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *232
+    utc: &232 2017-01-12 13:20:01.553967000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *233
+    utc: &233 2017-01-12 13:20:01.553967000 Z
+    zone: *2
+- id: 63188
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *234
+    utc: &234 2017-01-12 13:20:07.475304000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *235
+    utc: &235 2017-01-12 13:20:07.475304000 Z
+    zone: *2
+- id: 63189
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *236
+    utc: &236 2017-01-12 13:20:15.567282000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *237
+    utc: &237 2017-01-12 13:20:15.567282000 Z
+    zone: *2
+- id: 63190
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *238
+    utc: &238 2017-01-12 13:20:31.183639000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *239
+    utc: &239 2017-01-12 13:20:31.183639000 Z
+    zone: *2
+- id: 63191
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *240
+    utc: &240 2017-01-12 13:21:17.046591000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *241
+    utc: &241 2017-01-12 13:21:17.046591000 Z
+    zone: *2
+- id: 63192
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *242
+    utc: &242 2017-01-12 13:23:11.468151000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *243
+    utc: &243 2017-01-12 13:23:11.468151000 Z
+    zone: *2
+- id: 63193
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *244
+    utc: &244 2017-01-12 13:24:00.118170000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *245
+    utc: &245 2017-01-12 13:24:00.118170000 Z
+    zone: *2
+- id: 63194
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *246
+    utc: &246 2017-01-12 13:24:11.449985000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *247
+    utc: &247 2017-01-12 13:24:11.449985000 Z
+    zone: *2
+- id: 63195
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *248
+    utc: &248 2017-01-12 13:24:28.394145000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *249
+    utc: &249 2017-01-12 13:24:28.394145000 Z
+    zone: *2
+- id: 63196
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *250
+    utc: &250 2017-01-12 13:24:39.009237000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *251
+    utc: &251 2017-01-12 13:24:39.009237000 Z
+    zone: *2
+- id: 63197
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *252
+    utc: &252 2017-01-12 13:25:28.452640000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *253
+    utc: &253 2017-01-12 13:25:28.452640000 Z
+    zone: *2
+- id: 63198
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *254
+    utc: &254 2017-01-12 13:25:35.068037000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *255
+    utc: &255 2017-01-12 13:25:35.068037000 Z
+    zone: *2
+- id: 63199
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *256
+    utc: &256 2017-01-12 13:26:01.337599000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *257
+    utc: &257 2017-01-12 13:26:01.337599000 Z
+    zone: *2
+- id: 63200
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *258
+    utc: &258 2017-01-12 13:27:04.211078000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *259
+    utc: &259 2017-01-12 13:27:04.211078000 Z
+    zone: *2
+- id: 63201
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *260
+    utc: &260 2017-01-12 13:27:22.189562000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *261
+    utc: &261 2017-01-12 13:27:22.189562000 Z
+    zone: *2
+- id: 63202
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *262
+    utc: &262 2017-01-12 13:27:43.298579000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *263
+    utc: &263 2017-01-12 13:27:43.298579000 Z
+    zone: *2
+- id: 63203
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *264
+    utc: &264 2017-01-12 13:28:11.629601000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *265
+    utc: &265 2017-01-12 13:28:11.629601000 Z
+    zone: *2
+- id: 63204
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *266
+    utc: &266 2017-01-12 13:28:23.010456000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *267
+    utc: &267 2017-01-12 13:28:23.010456000 Z
+    zone: *2
+- id: 63205
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *268
+    utc: &268 2017-01-12 13:29:03.447100000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *269
+    utc: &269 2017-01-12 13:29:03.447100000 Z
+    zone: *2
+- id: 63206
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *270
+    utc: &270 2017-01-12 13:29:31.447111000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *271
+    utc: &271 2017-01-12 13:29:31.447111000 Z
+    zone: *2
+- id: 63207
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *272
+    utc: &272 2017-01-12 13:30:01.183275000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *273
+    utc: &273 2017-01-12 13:30:01.183275000 Z
+    zone: *2
+- id: 63208
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *274
+    utc: &274 2017-01-12 13:30:18.406714000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *275
+    utc: &275 2017-01-12 13:30:18.406714000 Z
+    zone: *2
+- id: 63209
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *276
+    utc: &276 2017-01-12 13:30:27.082626000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *277
+    utc: &277 2017-01-12 13:30:27.082626000 Z
+    zone: *2
+- id: 63210
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *278
+    utc: &278 2017-01-12 13:31:07.292381000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *279
+    utc: &279 2017-01-12 13:31:07.292381000 Z
+    zone: *2
+- id: 63211
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *280
+    utc: &280 2017-01-12 13:31:22.558104000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *281
+    utc: &281 2017-01-12 13:31:22.558104000 Z
+    zone: *2
+- id: 63212
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *282
+    utc: &282 2017-01-12 13:31:46.412235000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *283
+    utc: &283 2017-01-12 13:31:46.412235000 Z
+    zone: *2
+- id: 63213
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *284
+    utc: &284 2017-01-12 13:31:52.039148000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *285
+    utc: &285 2017-01-12 13:31:52.039148000 Z
+    zone: *2
+- id: 63214
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *286
+    utc: &286 2017-01-12 13:32:03.387980000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *287
+    utc: &287 2017-01-12 13:32:03.387980000 Z
+    zone: *2
+- id: 63215
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *288
+    utc: &288 2017-01-12 13:32:17.663293000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *289
+    utc: &289 2017-01-12 13:32:17.663293000 Z
+    zone: *2
+- id: 63216
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *290
+    utc: &290 2017-01-12 13:32:29.721434000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *291
+    utc: &291 2017-01-12 13:32:29.721434000 Z
+    zone: *2
+- id: 63217
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *292
+    utc: &292 2017-01-12 13:32:39.020747000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *293
+    utc: &293 2017-01-12 13:32:39.020747000 Z
+    zone: *2
+- id: 63218
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *294
+    utc: &294 2017-01-12 13:32:55.083519000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *295
+    utc: &295 2017-01-12 13:32:55.083519000 Z
+    zone: *2
+- id: 63219
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *296
+    utc: &296 2017-01-12 13:34:16.439763000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *297
+    utc: &297 2017-01-12 13:34:16.439763000 Z
+    zone: *2
+- id: 63220
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *298
+    utc: &298 2017-01-12 13:34:32.898613000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *299
+    utc: &299 2017-01-12 13:34:32.898613000 Z
+    zone: *2
+- id: 63221
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *300
+    utc: &300 2017-01-12 13:34:41.863271000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *301
+    utc: &301 2017-01-12 13:34:41.863271000 Z
+    zone: *2
+- id: 63222
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *302
+    utc: &302 2017-01-12 13:36:49.593320000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *303
+    utc: &303 2017-01-12 13:36:49.593320000 Z
+    zone: *2
+- id: 63223
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *304
+    utc: &304 2017-01-12 13:36:59.716119000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *305
+    utc: &305 2017-01-12 13:36:59.716119000 Z
+    zone: *2
+- id: 63224
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *306
+    utc: &306 2017-01-12 13:37:08.142143000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *307
+    utc: &307 2017-01-12 13:37:08.142143000 Z
+    zone: *2
+- id: 63225
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *308
+    utc: &308 2017-01-12 13:37:26.457547000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *309
+    utc: &309 2017-01-12 13:37:26.457547000 Z
+    zone: *2
+- id: 63226
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *310
+    utc: &310 2017-01-12 13:37:50.495544000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *311
+    utc: &311 2017-01-12 13:37:50.495544000 Z
+    zone: *2
+- id: 63227
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *312
+    utc: &312 2017-01-12 13:39:01.488549000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *313
+    utc: &313 2017-01-12 13:39:01.488549000 Z
+    zone: *2
+- id: 63228
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *314
+    utc: &314 2017-01-12 13:39:18.883613000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 102
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *315
+    utc: &315 2017-01-12 13:39:18.883613000 Z
+    zone: *2
+- id: 63249
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *316
+    utc: &316 2017-01-12 17:53:43.199951000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *317
+    utc: &317 2017-01-12 17:53:43.199951000 Z
+    zone: *2
+- id: 63253
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *318
+    utc: &318 2017-01-12 17:54:21.094359000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *319
+    utc: &319 2017-01-12 17:54:21.094359000 Z
+    zone: *2
+- id: 63256
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *320
+    utc: &320 2017-01-12 18:03:42.446434000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 98
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *321
+    utc: &321 2017-01-12 18:03:42.446434000 Z
+    zone: *2
+- id: 63230
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *322
+    utc: &322 2017-01-12 13:42:25.754128000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *323
+    utc: &323 2017-01-12 13:42:25.754128000 Z
+    zone: *2
+- id: 63231
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *324
+    utc: &324 2017-01-12 14:07:32.500213000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *325
+    utc: &325 2017-01-12 14:07:32.500213000 Z
+    zone: *2
+- id: 63232
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *326
+    utc: &326 2017-01-12 14:07:34.672426000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *327
+    utc: &327 2017-01-12 14:07:34.672426000 Z
+    zone: *2
+- id: 63233
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *328
+    utc: &328 2017-01-12 15:19:32.014480000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *329
+    utc: &329 2017-01-12 15:19:32.014480000 Z
+    zone: *2
+- id: 63234
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *330
+    utc: &330 2017-01-12 15:19:34.143541000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *331
+    utc: &331 2017-01-12 15:19:34.143541000 Z
+    zone: *2
+- id: 63235
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *332
+    utc: &332 2017-01-12 17:42:07.528701000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 94
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *333
+    utc: &333 2017-01-12 17:42:07.528701000 Z
+    zone: *2
+- id: 63236
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *334
+    utc: &334 2017-01-12 17:47:42.177998000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 96
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *335
+    utc: &335 2017-01-12 17:47:42.177998000 Z
+    zone: *2
+- id: 63237
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *336
+    utc: &336 2017-01-12 17:48:20.937508000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 96
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *337
+    utc: &337 2017-01-12 17:48:20.937508000 Z
+    zone: *2
+- id: 63238
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *338
+    utc: &338 2017-01-12 17:49:01.142280000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 96
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *339
+    utc: &339 2017-01-12 17:49:01.142280000 Z
+    zone: *2
+- id: 63239
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *340
+    utc: &340 2017-01-12 17:49:15.394586000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *341
+    utc: &341 2017-01-12 17:49:15.394586000 Z
+    zone: *2
+- id: 63240
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *342
+    utc: &342 2017-01-12 17:49:20.399664000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *343
+    utc: &343 2017-01-12 17:49:20.399664000 Z
+    zone: *2
+- id: 63241
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *344
+    utc: &344 2017-01-12 17:49:40.624113000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *345
+    utc: &345 2017-01-12 17:49:40.624113000 Z
+    zone: *2
+- id: 63242
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *346
+    utc: &346 2017-01-12 17:50:03.224986000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *347
+    utc: &347 2017-01-12 17:50:03.224986000 Z
+    zone: *2
+- id: 63243
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *348
+    utc: &348 2017-01-12 17:50:15.795178000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *349
+    utc: &349 2017-01-12 17:50:15.795178000 Z
+    zone: *2
+- id: 63244
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *350
+    utc: &350 2017-01-12 17:50:23.748030000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *351
+    utc: &351 2017-01-12 17:50:23.748030000 Z
+    zone: *2
+- id: 63245
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *352
+    utc: &352 2017-01-12 17:50:31.783654000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *353
+    utc: &353 2017-01-12 17:50:31.783654000 Z
+    zone: *2
+- id: 63246
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *354
+    utc: &354 2017-01-12 17:51:57.650545000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 97
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *355
+    utc: &355 2017-01-12 17:51:57.650545000 Z
+    zone: *2
+- id: 63283
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *356
+    utc: &356 2017-01-12 18:34:18.519871000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *357
+    utc: &357 2017-01-12 18:34:18.519871000 Z
+    zone: *2
+- id: 63287
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *358
+    utc: &358 2017-01-12 18:51:43.259045000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *359
+    utc: &359 2017-01-12 18:51:43.259045000 Z
+    zone: *2
+- id: 63290
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *360
+    utc: &360 2017-01-12 18:52:43.142326000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *361
+    utc: &361 2017-01-12 18:52:43.142326000 Z
+    zone: *2
+- id: 63294
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *362
+    utc: &362 2017-01-12 18:54:16.303236000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *363
+    utc: &363 2017-01-12 18:54:16.303236000 Z
+    zone: *2
+- id: 63298
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *364
+    utc: &364 2017-01-12 18:55:56.215903000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *365
+    utc: &365 2017-01-12 18:55:56.215903000 Z
+    zone: *2
+- id: 63302
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *366
+    utc: &366 2017-01-12 18:56:46.222769000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *367
+    utc: &367 2017-01-12 18:56:46.222769000 Z
+    zone: *2
+- id: 63305
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *368
+    utc: &368 2017-01-12 18:58:44.598926000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *369
+    utc: &369 2017-01-12 18:58:44.598926000 Z
+    zone: *2
+- id: 63309
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *370
+    utc: &370 2017-01-12 18:59:43.315160000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *371
+    utc: &371 2017-01-12 18:59:43.315160000 Z
+    zone: *2
+- id: 63313
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *372
+    utc: &372 2017-01-12 19:01:43.931310000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *373
+    utc: &373 2017-01-12 19:01:43.931310000 Z
+    zone: *2
+- id: 63317
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *374
+    utc: &374 2017-01-12 19:04:51.195057000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *375
+    utc: &375 2017-01-12 19:04:51.195057000 Z
+    zone: *2
+- id: 63320
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *376
+    utc: &376 2017-01-12 19:09:24.555628000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *377
+    utc: &377 2017-01-12 19:09:24.555628000 Z
+    zone: *2
+- id: 63324
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *378
+    utc: &378 2017-01-12 19:11:20.408164000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *379
+    utc: &379 2017-01-12 19:11:20.408164000 Z
+    zone: *2
+- id: 63328
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *380
+    utc: &380 2017-01-12 19:12:03.293687000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *381
+    utc: &381 2017-01-12 19:12:03.293687000 Z
+    zone: *2
+- id: 63284
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *382
+    utc: &382 2017-01-12 18:34:54.241144000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *383
+    utc: &383 2017-01-12 18:34:54.241144000 Z
+    zone: *2
+- id: 63286
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *384
+    utc: &384 2017-01-12 18:51:38.457458000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *385
+    utc: &385 2017-01-12 18:51:38.457458000 Z
+    zone: *2
+- id: 63289
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *386
+    utc: &386 2017-01-12 18:52:27.399753000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *387
+    utc: &387 2017-01-12 18:52:27.399753000 Z
+    zone: *2
+- id: 63291
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *388
+    utc: &388 2017-01-12 18:53:09.465141000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *389
+    utc: &389 2017-01-12 18:53:09.465141000 Z
+    zone: *2
+- id: 63293
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *390
+    utc: &390 2017-01-12 18:54:01.826102000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *391
+    utc: &391 2017-01-12 18:54:01.826102000 Z
+    zone: *2
+- id: 63295
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *392
+    utc: &392 2017-01-12 18:55:18.576914000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *393
+    utc: &393 2017-01-12 18:55:18.576914000 Z
+    zone: *2
+- id: 63297
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *394
+    utc: &394 2017-01-12 18:55:39.105012000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *395
+    utc: &395 2017-01-12 18:55:39.105012000 Z
+    zone: *2
+- id: 63299
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *396
+    utc: &396 2017-01-12 18:56:06.546861000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *397
+    utc: &397 2017-01-12 18:56:06.546861000 Z
+    zone: *2
+- id: 63301
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *398
+    utc: &398 2017-01-12 18:56:41.508874000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *399
+    utc: &399 2017-01-12 18:56:41.508874000 Z
+    zone: *2
+- id: 63304
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *400
+    utc: &400 2017-01-12 18:58:22.252159000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *401
+    utc: &401 2017-01-12 18:58:22.252159000 Z
+    zone: *2
+- id: 63306
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *402
+    utc: &402 2017-01-12 18:59:03.639842000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *403
+    utc: &403 2017-01-12 18:59:03.639842000 Z
+    zone: *2
+- id: 63308
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *404
+    utc: &404 2017-01-12 18:59:29.441254000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *405
+    utc: &405 2017-01-12 18:59:29.441254000 Z
+    zone: *2
+- id: 63310
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *406
+    utc: &406 2017-01-12 19:00:11.507160000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *407
+    utc: &407 2017-01-12 19:00:11.507160000 Z
+    zone: *2
+- id: 63312
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *408
+    utc: &408 2017-01-12 19:01:24.588499000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *409
+    utc: &409 2017-01-12 19:01:24.588499000 Z
+    zone: *2
+- id: 63314
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *410
+    utc: &410 2017-01-12 19:02:11.479355000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *411
+    utc: &411 2017-01-12 19:02:11.479355000 Z
+    zone: *2
+- id: 63316
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *412
+    utc: &412 2017-01-12 19:04:32.472403000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *413
+    utc: &413 2017-01-12 19:04:32.472403000 Z
+    zone: *2
+- id: 63319
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *414
+    utc: &414 2017-01-12 19:09:08.918636000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *415
+    utc: &415 2017-01-12 19:09:08.918636000 Z
+    zone: *2
+- id: 63321
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *416
+    utc: &416 2017-01-12 19:10:19.430329000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *417
+    utc: &417 2017-01-12 19:10:19.430329000 Z
+    zone: *2
+- id: 63323
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *418
+    utc: &418 2017-01-12 19:11:11.104121000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *419
+    utc: &419 2017-01-12 19:11:11.104121000 Z
+    zone: *2
+- id: 63325
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *420
+    utc: &420 2017-01-12 19:11:24.923464000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *421
+    utc: &421 2017-01-12 19:11:24.923464000 Z
+    zone: *2
+- id: 63327
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *422
+    utc: &422 2017-01-12 19:11:50.011072000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *423
+    utc: &423 2017-01-12 19:11:50.011072000 Z
+    zone: *2
+- id: 63329
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *424
+    utc: &424 2017-01-12 19:12:14.732477000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *425
+    utc: &425 2017-01-12 19:12:14.732477000 Z
+    zone: *2
+- id: 63330
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *426
+    utc: &426 2017-01-12 19:26:53.550836000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 101
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *427
+    utc: &427 2017-01-12 19:26:53.550836000 Z
+    zone: *2
+- id: 63285
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *428
+    utc: &428 2017-01-12 18:49:42.072467000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *429
+    utc: &429 2017-01-12 18:49:42.072467000 Z
+    zone: *2
+- id: 63288
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *430
+    utc: &430 2017-01-12 18:52:14.007764000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *431
+    utc: &431 2017-01-12 18:52:14.007764000 Z
+    zone: *2
+- id: 63292
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *432
+    utc: &432 2017-01-12 18:53:20.533474000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *433
+    utc: &433 2017-01-12 18:53:20.533474000 Z
+    zone: *2
+- id: 63296
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *434
+    utc: &434 2017-01-12 18:55:30.120424000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *435
+    utc: &435 2017-01-12 18:55:30.120424000 Z
+    zone: *2
+- id: 63300
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *436
+    utc: &436 2017-01-12 18:56:28.147706000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *437
+    utc: &437 2017-01-12 18:56:28.147706000 Z
+    zone: *2
+- id: 63303
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *438
+    utc: &438 2017-01-12 18:57:27.978983000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *439
+    utc: &439 2017-01-12 18:57:27.978983000 Z
+    zone: *2
+- id: 63307
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *440
+    utc: &440 2017-01-12 18:59:21.482670000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *441
+    utc: &441 2017-01-12 18:59:21.482670000 Z
+    zone: *2
+- id: 63311
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *442
+    utc: &442 2017-01-12 19:00:46.882055000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *443
+    utc: &443 2017-01-12 19:00:46.882055000 Z
+    zone: *2
+- id: 63315
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *444
+    utc: &444 2017-01-12 19:03:40.527858000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *445
+    utc: &445 2017-01-12 19:03:40.527858000 Z
+    zone: *2
+- id: 63318
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *446
+    utc: &446 2017-01-12 19:09:05.106285000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *447
+    utc: &447 2017-01-12 19:09:05.106285000 Z
+    zone: *2
+- id: 63322
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *448
+    utc: &448 2017-01-12 19:10:37.696713000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *449
+    utc: &449 2017-01-12 19:10:37.696713000 Z
+    zone: *2
+- id: 63326
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *450
+    utc: &450 2017-01-12 19:11:32.430773000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 100
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *451
+    utc: &451 2017-01-12 19:11:32.430773000 Z
+    zone: *2
+- id: 63331
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *452
+    utc: &452 2017-01-13 02:37:34.162420000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 101
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *453
+    utc: &453 2017-01-13 02:37:34.162420000 Z
+    zone: *2
+- id: 63332
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *454
+    utc: &454 2017-01-13 02:37:55.963768000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 101
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *455
+    utc: &455 2017-01-13 02:37:55.963768000 Z
+    zone: *2
+- id: 63333
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *456
+    utc: &456 2017-01-13 10:54:04.330676000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *457
+    utc: &457 2017-01-13 10:54:04.330676000 Z
+    zone: *2
+- id: 63334
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *458
+    utc: &458 2017-01-13 10:54:05.886191000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *459
+    utc: &459 2017-01-13 10:54:05.886191000 Z
+    zone: *2
+- id: 63335
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *460
+    utc: &460 2017-01-13 12:10:37.273085000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *461
+    utc: &461 2017-01-13 12:10:37.273085000 Z
+    zone: *2
+- id: 63336
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *462
+    utc: &462 2017-01-13 12:10:38.964346000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *463
+    utc: &463 2017-01-13 12:10:38.964346000 Z
+    zone: *2
+- id: 63337
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *464
+    utc: &464 2017-01-13 13:54:32.521459000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *465
+    utc: &465 2017-01-13 13:54:32.521459000 Z
+    zone: *2
+- id: 63338
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *466
+    utc: &466 2017-01-13 13:54:34.702037000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *467
+    utc: &467 2017-01-13 13:54:34.702037000 Z
+    zone: *2
+- id: 63339
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *468
+    utc: &468 2017-01-13 15:18:31.917775000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *469
+    utc: &469 2017-01-13 15:18:31.917775000 Z
+    zone: *2
+- id: 63340
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *470
+    utc: &470 2017-01-13 15:18:33.710483000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *471
+    utc: &471 2017-01-13 15:18:33.710483000 Z
+    zone: *2
+- id: 63341
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *472
+    utc: &472 2017-01-13 15:29:30.100598000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *473
+    utc: &473 2017-01-13 15:29:30.100598000 Z
+    zone: *2
+- id: 63342
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *474
+    utc: &474 2017-01-13 15:29:31.945716000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *475
+    utc: &475 2017-01-13 15:29:31.945716000 Z
+    zone: *2
+- id: 63344
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *476
+    utc: &476 2017-01-13 15:29:32.737724000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *477
+    utc: &477 2017-01-13 15:29:32.737724000 Z
+    zone: *2
+- id: 63345
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *478
+    utc: &478 2017-01-13 15:42:15.956139000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 22
+  class: 5505
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *479
+    utc: &479 2017-01-13 15:42:15.956139000 Z
+    zone: *2
+- id: 63351
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *480
+    utc: &480 2017-01-13 17:47:10.280663000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *481
+    utc: &481 2017-01-13 17:47:10.280663000 Z
+    zone: *2
+- id: 63355
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *482
+    utc: &482 2017-01-13 17:48:26.889767000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *483
+    utc: &483 2017-01-13 17:48:26.889767000 Z
+    zone: *2
+- id: 63343
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *484
+    utc: &484 2017-01-13 15:29:32.476669000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *485
+    utc: &485 2017-01-13 15:29:32.476669000 Z
+    zone: *2
+- id: 63346
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *486
+    utc: &486 2017-01-13 15:42:39.375235000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 22
+  class: 5505
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *487
+    utc: &487 2017-01-13 15:42:39.375235000 Z
+    zone: *2
+- id: 63347
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *488
+    utc: &488 2017-01-13 15:43:17.236078000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 22
+  class: 5505
+  teaching_unit_id: 99
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *489
+    utc: &489 2017-01-13 15:43:17.236078000 Z
+    zone: *2
+- id: 63348
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *490
+    utc: &490 2017-01-13 15:53:11.656750000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *491
+    utc: &491 2017-01-13 15:53:11.656750000 Z
+    zone: *2
+- id: 63349
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *492
+    utc: &492 2017-01-13 15:53:13.696402000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *493
+    utc: &493 2017-01-13 15:53:13.696402000 Z
+    zone: *2
+- id: 63350
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *494
+    utc: &494 2017-01-13 17:47:06.583969000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *495
+    utc: &495 2017-01-13 17:47:06.583969000 Z
+    zone: *2
+- id: 63352
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *496
+    utc: &496 2017-01-13 17:47:24.036991000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *497
+    utc: &497 2017-01-13 17:47:24.036991000 Z
+    zone: *2
+- id: 63353
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *498
+    utc: &498 2017-01-13 17:47:37.056320000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *499
+    utc: &499 2017-01-13 17:47:37.056320000 Z
+    zone: *2
+- id: 63354
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *500
+    utc: &500 2017-01-13 17:48:02.430665000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *501
+    utc: &501 2017-01-13 17:48:02.430665000 Z
+    zone: *2
+- id: 63356
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *502
+    utc: &502 2017-01-13 17:48:34.938802000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *503
+    utc: &503 2017-01-13 17:48:34.938802000 Z
+    zone: *2
+- id: 63357
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *504
+    utc: &504 2017-01-13 17:48:53.450968000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *505
+    utc: &505 2017-01-13 17:48:53.450968000 Z
+    zone: *2
+- id: 63358
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *506
+    utc: &506 2017-01-13 17:49:21.659615000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *507
+    utc: &507 2017-01-13 17:49:21.659615000 Z
+    zone: *2
+- id: 63359
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *508
+    utc: &508 2017-01-13 18:12:32.409148000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *509
+    utc: &509 2017-01-13 18:12:32.409148000 Z
+    zone: *2
+- id: 63360
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *510
+    utc: &510 2017-01-13 18:13:17.903076000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *511
+    utc: &511 2017-01-13 18:13:17.903076000 Z
+    zone: *2
+- id: 63361
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *512
+    utc: &512 2017-01-13 18:13:31.957021000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *513
+    utc: &513 2017-01-13 18:13:31.957021000 Z
+    zone: *2
+- id: 63362
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *514
+    utc: &514 2017-01-13 18:13:40.240318000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *515
+    utc: &515 2017-01-13 18:13:40.240318000 Z
+    zone: *2
+- id: 63363
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *516
+    utc: &516 2017-01-13 18:13:49.221955000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *517
+    utc: &517 2017-01-13 18:13:49.221955000 Z
+    zone: *2
+- id: 63364
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *518
+    utc: &518 2017-01-13 18:14:01.074446000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *519
+    utc: &519 2017-01-13 18:14:01.074446000 Z
+    zone: *2
+- id: 63365
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *520
+    utc: &520 2017-01-13 18:14:24.048879000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *521
+    utc: &521 2017-01-13 18:14:24.048879000 Z
+    zone: *2
+- id: 63366
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *522
+    utc: &522 2017-01-13 18:14:37.321780000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *523
+    utc: &523 2017-01-13 18:14:37.321780000 Z
+    zone: *2
+- id: 63367
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *524
+    utc: &524 2017-01-13 18:14:52.316639000 Z
+    zone: *2
+  sort: completion
+  step_id: 
+  student_id: 54
+  class: 1117
+  teaching_unit_id: 93
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *525
+    utc: &525 2017-01-13 18:14:52.316639000 Z
+    zone: *2
+- id: 63368
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *526
+    utc: &526 2017-01-13 18:17:12.843674000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *527
+    utc: &527 2017-01-13 18:17:12.843674000 Z
+    zone: *2
+- id: 63369
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *528
+    utc: &528 2017-01-13 18:17:14.492327000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *529
+    utc: &529 2017-01-13 18:17:14.492327000 Z
+    zone: *2
+- id: 63370
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *530
+    utc: &530 2017-01-13 22:11:14.546876000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 69
+  class: 76506
+  teaching_unit_id: 101
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *531
+    utc: &531 2017-01-13 22:11:14.546876000 Z
+    zone: *2
+- id: 63371
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *532
+    utc: &532 2017-01-14 13:54:45.684498000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 306
+  class: 15430
+  teaching_unit_id: 13
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *533
+    utc: &533 2017-01-14 13:54:45.684498000 Z
+    zone: *2
+- id: 63372
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *534
+    utc: &534 2017-01-14 13:55:07.501013000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 306
+  class: 15430
+  teaching_unit_id: 13
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *535
+    utc: &535 2017-01-14 13:55:07.501013000 Z
+    zone: *2
+- id: 63373
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *536
+    utc: &536 2017-01-14 14:02:37.439936000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 306
+  class: 15430
+  teaching_unit_id: 13
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *537
+    utc: &537 2017-01-14 14:02:37.439936000 Z
+    zone: *2
+- id: 63374
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *538
+    utc: &538 2017-01-14 14:02:51.369462000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 306
+  class: 15430
+  teaching_unit_id: 13
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *539
+    utc: &539 2017-01-14 14:02:51.369462000 Z
+    zone: *2
+- id: 63375
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *540
+    utc: &540 2017-01-14 17:53:13.653400000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 22
+  class: 5505
+  teaching_unit_id: 88
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *541
+    utc: &541 2017-01-14 17:53:13.653400000 Z
+    zone: *2
+- id: 63376
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *542
+    utc: &542 2017-01-14 17:53:35.169685000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 22
+  class: 5505
+  teaching_unit_id: 88
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *543
+    utc: &543 2017-01-14 17:53:35.169685000 Z
+    zone: *2
+- id: 63377
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *544
+    utc: &544 2017-01-14 17:54:46.812511000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 22
+  class: 5505
+  teaching_unit_id: 88
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *545
+    utc: &545 2017-01-14 17:54:46.812511000 Z
+    zone: *2
+- id: 63378
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *546
+    utc: &546 2017-01-15 11:37:47.429522000 Z
+    zone: *2
+  sort: success
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *547
+    utc: &547 2017-01-15 11:37:47.429522000 Z
+    zone: *2
+- id: 63379
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *548
+    utc: &548 2017-01-15 11:37:49.678463000 Z
+    zone: *2
+  sort: mistake
+  step_id: 
+  student_id: 3
+  class: 5505
+  teaching_unit_id: 110
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    time: *549
+    utc: &549 2017-01-15 11:37:49.678463000 Z
+    zone: *2
