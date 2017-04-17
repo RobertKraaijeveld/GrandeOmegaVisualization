@@ -193,7 +193,7 @@ LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/l
 ##### GRANDEOMEGAPRJ: MODIFY THIS WHEN ADDING NEW SOURCE FILES ########
 ##### TODO: MAKE THE READING OF FILES AUTOMATIC #####
 
-TESTSDIR = DataProcesser/tests/
+TESTSDIR = DataProcesser/tests/ 
 PARSERDIR = DataProcesser/src/
 
 define ORIG_SRCS 

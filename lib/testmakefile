@@ -1,8 +1,8 @@
 #Makefile
 CXX = g++ 
 
-PARSERDIR = Parser/src/
-TESTSDIR = Parser/tests/
+PARSERDIR = DataProcesser/src/
+TESTSDIR = DataProcesser/tests/
 
 OBJS = $(TESTSDIR)runAllTests.o $(TESTSDIR)UtilitiesTest.o $(PARSERDIR)YamlParser/YamlParser.o $(PARSERDIR)YamlParser/YamlObject.o $(PARSERDIR)YamlParser/YamlConverter.o $(PARSERDIR)CsvParser/CsvParser.o $(PARSERDIR)Mapper/Mapper.o $(PARSERDIR)Utilities/Utilities.o $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.o 
 
