@@ -28,7 +28,7 @@ vector<YamlObject> emailYamlObjects;
 vector<YamlObject> assignmentYamlObjects;
                    
 
-//IMPORTANT: Add checks if files actually exist
+ //IMPORTANT: Add checks if files actually exist
  //ALSO: give ruby only the results of algorithms etc in words IT can understand; no yamlobjects.
 void parseAssignments()
 {
