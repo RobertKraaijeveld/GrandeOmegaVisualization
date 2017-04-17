@@ -6,10 +6,17 @@
 #include <cppunit/TestRunner.h>
 #include "UtilitiesTest.h"
 
+#include "../src/Utilities/Utilities.h"
+
 using namespace CppUnit;
 using namespace std;
 
 void UtilitiesTest::testIsNCharsWhiteSpace()
 {
-    //Utilities::isNCharsWhiteSpace(int N, string& str)
+    string testString = "1";
+
+    bool testResultOne = Utilities::isNCharsWhiteSpace(0, testString);
+    bool testResultTwo = Utilities::isNCharsWhiteSpace(2, testString);
+
+    CPPUNIT_ASSERT(testResultOne == true);
 }

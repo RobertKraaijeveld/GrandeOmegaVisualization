@@ -332,6 +332,4 @@ $(DLLIB): $(OBJS) makefile64bit
 	-$(Q)$(RM) $(@)
 	$(Q) $(LDSHAREDXX) -o $@ $(OBJS) $(LIBPATH) $(DLDFLAGS) $(LOCAL_LIBS) $(LIBS)
 
-
-
 $(OBJS): $(HDRS) $(ruby_headers)
