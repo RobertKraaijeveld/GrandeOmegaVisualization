@@ -13,7 +13,7 @@
 #include "Parser/src/Utilities/Utilities.h"
 #include "Parser/src/DatabaseInteracter/DatabaseInteracter.h"
 #include "Parser/src/Mapper/Mapper.h"
-
+  
 using namespace Rice;
 using namespace std;
 
@@ -29,7 +29,7 @@ vector<YamlObject> assignmentYamlObjects;
                    
 
 //IMPORTANT: Add checks if files actually exist
-//ALSO: give ruby only the results of algorithms etc in words IT can understand; no yamlobjects.
+ //ALSO: give ruby only the results of algorithms etc in words IT can understand; no yamlobjects.
 void parseAssignments()
 {
 	cout << "Parsing assignments with classes..." << endl;
