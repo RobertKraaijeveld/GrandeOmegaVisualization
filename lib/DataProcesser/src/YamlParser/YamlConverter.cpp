@@ -12,11 +12,8 @@
 #include "YamlConverter.h" 
 #include "../Utilities/Utilities.h" 
  
-using namespace std;  
+using namespace std;
 
-
-//todo; maps cant hold children, which sucks.
-//todo; preferredIdentifier (find a better name for this) 
 YamlObject YamlConverter::convertToBasicYamlObject(map<string, string>& m)
 {
     YamlObject returnObject;

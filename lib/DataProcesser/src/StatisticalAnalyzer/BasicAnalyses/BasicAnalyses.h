@@ -2,7 +2,6 @@
 #define BASICS_H
 
 #include <vector>
-#include <tuple>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -13,7 +12,9 @@ using namespace std;
 class BasicAnalyses
 {
     private:
+      static map<string, vector<int>> getGradesWithSameClass(multimap<string, int> classesAndGrades);
     public:
+      static vector<pair<string, int>> getGradeAvgPerClass();
 
 };
 

@@ -1,7 +1,7 @@
 #ifndef DATABASEINTERACTER_H
 #define DATABASEINTERACTER_H
 
-#define PATH_TO_CONFIG_FILE "/home/robert/Documents/Projects/GrandeOmegaVisualization/ext/Parser/docs/credentials.pgconf"
+#define PATH_TO_CONFIG_FILE "/home/robert/Documents/Projects/GrandeOmegaVisualization/lib/DataProcesser/docs/credentials.pgconf"
 #define HOST "hostip"
 #define PORT "port"
 #define DATABASE "database"
@@ -21,9 +21,12 @@ class DatabaseInteracter {
         void setDbConnectionString();
         
     public:
+        DatabaseInteracter(){ setDbConnectionString(); }   
+    
+        pqxx::result executeSelectQuery(string query);
+
         void InsertAssignmentYaml(vector<YamlObject>& assignmentsObjects);
         void InsertGradesYaml(vector<YamlObject>& gradesObjects);     
-        DatabaseInteracter(){ setDbConnectionString(); }   
 };
 
 

@@ -7,7 +7,6 @@
 
 class YamlConverter {
     public:
-        //TEMP; make this part of constructor
         map<string, string> studentIdsAndClasses;
         bool generateClassHashes;
         string preferredIdentifier = "- id";

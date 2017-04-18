@@ -1,9 +1,12 @@
 require_dependency 'dataprocesserglue'
+require 'rubygems'
+require 'json'
+require 'pp'
 
 class HomeController < ApplicationController
   include DataProcesserCoupling
 
   def index
-    @title = DataProcesserCoupling::test
+    gradeAvgsAsJson = DataProcesserCoupling::getGradeAvgPerClassAsJSON
   end
 end

@@ -44,6 +44,26 @@ void DatabaseInteracter::setDbConnectionString()
 }
 
 
+pqxx::result DatabaseInteracter::executeSelectQuery(string query)
+{
+    //unsafe; might not return anything
+    try
+    {
+        pqxx::connection conn(this->connectionString);
+        pqxx::work worker(conn);
+
+        pqxx::result queryResult = worker.exec(query);
+
+        worker.commit();
+
+        return queryResult;        
+    }
+    catch (const exception &e)
+    {
+        cout << e.what() << endl;
+    }
+}
+
 void DatabaseInteracter::InsertAssignmentYaml(vector<YamlObject>& assignmentsObjects)
 {
     try

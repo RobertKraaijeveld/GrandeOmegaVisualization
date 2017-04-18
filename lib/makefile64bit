@@ -194,25 +194,27 @@ LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/l
 ##### TODO: MAKE THE READING OF FILES AUTOMATIC #####
 
 TESTSDIR = DataProcesser/tests/
-PARSERDIR = DataProcesser/src/
+PROCESSERDIR = DataProcesser/src/
 
 define ORIG_SRCS 
  $(TESTSDIR)runAllTests.cpp
  $(TESTSDIR)UtilitiesTest.cpp
- $(PARSERDIR)YamlParser/YamlParser.cpp 
- $(PARSERDIR)YamlParser/YamlObject.cpp
- $(PARSERDIR)YamlParser/YamlConverter.cpp     
- $(PARSERDIR)CsvParser/CsvParser.cpp
- $(PARSERDIR)Mapper/Mapper.cpp   
- $(PARSERDIR)Utilities/Utilities.cpp   
- $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.cpp       
+ $(PROCESSERDIR)YamlParser/YamlParser.cpp 
+ $(PROCESSERDIR)YamlParser/YamlObject.cpp
+ $(PROCESSERDIR)YamlParser/YamlConverter.cpp     
+ $(PROCESSERDIR)CsvParser/CsvParser.cpp
+ $(PROCESSERDIR)Mapper/Mapper.cpp   
+ $(PROCESSERDIR)Utilities/Utilities.cpp   
+ $(PROCESSERDIR)Utilities/JSONEncoder.cpp    
+ $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.cpp  
+ $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.cpp     
  dataprocesser.cpp
 endef 
 SRCS = $(ORIG_SRCS) 
 
 #Why the fuck is this the only valid way to declare this?
-OBJS = $(TESTSDIR)runAllTests.o $(TESTSDIR)UtilitiesTest.o $(PARSERDIR)YamlParser/YamlParser.o $(PARSERDIR)YamlParser/YamlObject.o $(PARSERDIR)YamlParser/YamlConverter.o $(PARSERDIR)CsvParser/CsvParser.o $(PARSERDIR)Mapper/Mapper.o $(PARSERDIR)Utilities/Utilities.o $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
-HDRS = $(TESTSDIR)UtilitiesTest.h $(PARSERDIR)YamlParser/YamlParser.h $(PARSERDIR)YamlParser/YamlObject.h $(PARSERDIR)YamlParser/YamlConverter.h $(PARSERDIR)CsvParser/CsvParser.h $(PARSERDIR)Mapper/Mapper.h $(PARSERDIR)Utilities/Utilities.h $(PARSERDIR)DatabaseInteracter/DatabaseInteracter.h   
+OBJS = $(TESTSDIR)runAllTests.o $(TESTSDIR)UtilitiesTest.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.o $(PROCESSERDIR)YamlParser/YamlParser.o $(PROCESSERDIR)YamlParser/YamlObject.o $(PROCESSERDIR)YamlParser/YamlConverter.o $(PROCESSERDIR)CsvParser/CsvParser.o $(PROCESSERDIR)Mapper/Mapper.o $(PROCESSERDIR)Utilities/JSONEncoder.o $(PROCESSERDIR)Utilities/Utilities.o $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
+HDRS = $(TESTSDIR)UtilitiesTest.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.h $(PROCESSERDIR)YamlParser/YamlParser.h $(PROCESSERDIR)YamlParser/YamlObject.h $(PROCESSERDIR)YamlParser/YamlConverter.h $(PROCESSERDIR)CsvParser/CsvParser.h $(PROCESSERDIR)Mapper/Mapper.h $(PROCESSERDIR)Utilities/JSONEncoder.h $(PROCESSERDIR)Utilities/Utilities.h $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.h   
 
 #### END GRANDEOMEGAPRJ ######
 

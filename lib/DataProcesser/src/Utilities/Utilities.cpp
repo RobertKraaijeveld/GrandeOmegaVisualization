@@ -48,6 +48,20 @@ bool Utilities::isNCharsWhiteSpace(int N, string& str)
     return true;
 }
 
+int Utilities::computeAverage(vector<int> values)
+{
+    int totalValues = 0; 
+    for(auto v: values)
+    {
+        totalValues += v;
+    }
+    
+    if(values.size() > 0 )
+        return totalValues / values.size();
+    else
+        return totalValues / 1;
+}
+
 bool Utilities::isInVector(string& value, vector<string>& vector)
 {
     return find(vector.begin(), vector.end(), value) != vector.end();

@@ -16,6 +16,7 @@ class Utilities {
         static void removeStrWhiteSpace(string& str);
         static bool isNCharsWhiteSpace(int N, string& str);
 
+        static int computeAverage(vector<int> values);
         static bool isInVector(string& value, vector<string>& vector);
 };
 
