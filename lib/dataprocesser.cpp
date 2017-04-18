@@ -13,7 +13,9 @@
 #include "DataProcesser/src/Utilities/JSONEncoder.h"
 #include "DataProcesser/src/DatabaseInteracter/DatabaseInteracter.h"
 #include "DataProcesser/src/Mapper/Mapper.h"
-#include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.h"  
+#include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.h" 
+#include "DataProcesser/src/StatisticalAnalyzer/KMeans/KMeansController.h"  
+ 
 
 using namespace Rice;
 using namespace std;
@@ -70,6 +72,28 @@ void insertToDB()
 	cout << "Done inserting grades and assignments to DB"	<< endl;
 }
 
+string getKMeansAsJSON()
+{
+	int dataDimension = 2;
+	int bestClusterAmount = 19; //tested manually with elbow method
+	int iterationAmount = 100;
+
+	auto gradesAndExcersisePerStudent = BasicAnalyses::getGradesAndAmountOfExercisesStartedPerStudent();
+	KMeansController kmController (gradesAndExcersisePerStudent, iterationAmount, bestClusterAmount, dataDimension);
+	kmController.run();
+
+	cout << "kmController.finalClusters size = " << kmController.finalClusters.size() << endl;
+	string clustersAsJSON = JSONEncoder::clustersToJSON(kmController.finalClusters); 
+	return clustersAsJSON;
+}
+
+string getAmountOfStartedExcersisesPerStudentAsJSON()
+{
+	map<string, int> amountOfStartedExcersisesPerStudent = BasicAnalyses::getAmountOfStartedExcersisesPerStudent();
+	string asJSON = JSONEncoder::mapToJson(amountOfStartedExcersisesPerStudent);
+	return asJSON;
+} 
+
 string getGradeAvgPerClassAsJSON()
 {
 	vector<pair<string, int>> gradesAvgsPerClass = BasicAnalyses::getGradeAvgPerClass();
@@ -93,8 +117,10 @@ extern "C"
 void Init_dataprocesser()
 {
   Class rb_c = define_class("Dataprocesser")
-	  .define_method("parseAndGetAssignments", &parseAndGetAssignments)   
-    .define_method("getGradeAvgPerClassAsJSON", &getGradeAvgPerClassAsJSON)    		 
+	.define_method("parseAndGetAssignments", &parseAndGetAssignments)
+    .define_method("getKMeansAsJSON", &getKMeansAsJSON)    		 		   
+    .define_method("getAmountOfStartedExcersisesPerStudentAsJSON", &getAmountOfStartedExcersisesPerStudentAsJSON)    		 	
+    .define_method("getGradeAvgPerClassAsJSON", &getGradeAvgPerClassAsJSON)  
     .define_method("insertToDB", &insertToDB);    
 }
 

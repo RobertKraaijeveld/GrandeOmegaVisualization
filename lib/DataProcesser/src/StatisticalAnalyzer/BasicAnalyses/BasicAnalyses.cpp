@@ -11,6 +11,48 @@
 
 using namespace std;
 
+map<string, pair<int, int>> BasicAnalyses::getGradesAndAmountOfExercisesStartedPerStudent()
+{
+    //note that not all students have grades
+    map<string, pair<int, int>> gradesAndAmountOfExercisesPerStudent; 
+
+    map<string, int> excersiseAmountPerStudent = BasicAnalyses::getAmountOfStartedExcersisesPerStudent();
+    
+    DatabaseInteracter dbInteracter;     
+    auto allStudentIdsAndGrades = dbInteracter.executeSelectQuery("SELECT student_id, grade FROM grades;"); 
+
+    for(auto idAndGrade: allStudentIdsAndGrades) 
+    {
+        string id = string(idAndGrade[0].c_str());
+        string grade = string(idAndGrade[1].c_str());
+        
+        //Do something with NDs elsewhere, or cast it to a int value
+        if(excersiseAmountPerStudent.count(id) != 0 && grade != "ND")
+        {
+            cout << "Adding student id " << id << " who has grade " << grade << " and excersise amount " << excersiseAmountPerStudent[id] << endl;
+            pair<int, int> gradeAndExcersise = make_pair(atoi(grade.c_str()), excersiseAmountPerStudent[id]);
+            gradesAndAmountOfExercisesPerStudent.insert(make_pair(id, gradeAndExcersise));
+        }
+    }       
+    return gradesAndAmountOfExercisesPerStudent;
+}
+
+
+map<string, int> BasicAnalyses::getAmountOfStartedExcersisesPerStudent()
+{
+    map<string, int> returnMap;
+    DatabaseInteracter dbInteracter;
+    
+    auto allStudentOccurences = dbInteracter.executeSelectQuery("SELECT student_id FROM assignments;");
+
+    for(auto occurenceRow: allStudentOccurences) 
+    {
+        string occurenceStudentIdStr = string(occurenceRow[0].c_str());        
+        returnMap[occurenceStudentIdStr] = returnMap[occurenceStudentIdStr] + 1; 
+    }    
+    return returnMap;
+}
+
 vector<pair<string, int>> BasicAnalyses::getGradeAvgPerClass()
 {
     vector<pair<string, int>> returnValues;
@@ -34,7 +76,8 @@ vector<pair<string, int>> BasicAnalyses::getGradeAvgPerClass()
     for(it = gradesWithSameClass.begin(); it != gradesWithSameClass.end(); ++it)
     {
         int averageClassGrade = Utilities::computeAverage(it->second);
-        returnValues.push_back(make_pair(it->first, averageClassGrade));
+        //ugly literal for frontend
+        returnValues.push_back(make_pair("class no. " + it->first, averageClassGrade));
     }
     return returnValues;
 }

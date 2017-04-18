@@ -196,6 +196,7 @@ LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/l
 
 TESTSDIR = DataProcesser/tests/
 PROCESSERDIR = DataProcesser/src/
+KMEANSDIR = DataProcesser/src/StatisticalAnalyzer/KMeans/
 
 define ORIG_SRCS 
  $(TESTSDIR)runAllTests.cpp
@@ -208,14 +209,18 @@ define ORIG_SRCS
  $(PROCESSERDIR)Utilities/Utilities.cpp   
  $(PROCESSERDIR)Utilities/JSONEncoder.cpp    
  $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.cpp  
- $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.cpp     
+ $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.cpp  
+ $(KMEANSDIR)CustomTypes/GenericVector.cpp
+ $(KMEANSDIR)CustomTypes/Point.cpp
+ $(KMEANSDIR)/KMeansController.cpp
+ $(KMEANSDIR)/KMeansIteration.cpp
  dataprocesser.cpp
 endef 
 SRCS = $(ORIG_SRCS) 
 
 #Why the fuck is this the only valid way to declare this?
-OBJS = $(TESTSDIR)runAllTests.o $(TESTSDIR)UtilitiesTest.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.o $(PROCESSERDIR)YamlParser/YamlParser.o $(PROCESSERDIR)YamlParser/YamlObject.o $(PROCESSERDIR)YamlParser/YamlConverter.o $(PROCESSERDIR)CsvParser/CsvParser.o $(PROCESSERDIR)Mapper/Mapper.o $(PROCESSERDIR)Utilities/JSONEncoder.o $(PROCESSERDIR)Utilities/Utilities.o $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
-HDRS = $(TESTSDIR)UtilitiesTest.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.h $(PROCESSERDIR)YamlParser/YamlParser.h $(PROCESSERDIR)YamlParser/YamlObject.h $(PROCESSERDIR)YamlParser/YamlConverter.h $(PROCESSERDIR)CsvParser/CsvParser.h $(PROCESSERDIR)Mapper/Mapper.h $(PROCESSERDIR)Utilities/JSONEncoder.h $(PROCESSERDIR)Utilities/Utilities.h $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.h   
+OBJS = $(TESTSDIR)runAllTests.o $(TESTSDIR)UtilitiesTest.o $(KMEANSDIR)/KMeansIteration.o $(KMEANSDIR)/KMeansController.o $(KMEANSDIR)CustomTypes/Point.o $(KMEANSDIR)CustomTypes/GenericVector.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.o $(PROCESSERDIR)YamlParser/YamlParser.o $(PROCESSERDIR)YamlParser/YamlObject.o $(PROCESSERDIR)YamlParser/YamlConverter.o $(PROCESSERDIR)CsvParser/CsvParser.o $(PROCESSERDIR)Mapper/Mapper.o $(PROCESSERDIR)Utilities/JSONEncoder.o $(PROCESSERDIR)Utilities/Utilities.o $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
+HDRS = $(TESTSDIR)UtilitiesTest.h $(KMEANSDIR)/KMeansIteration.h $(KMEANSDIR)/KMeansController.h $(KMEANSDIR)CustomTypes/Point.h $(KMEANSDIR)CustomTypes/GenericVector.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.h $(PROCESSERDIR)YamlParser/YamlParser.h $(PROCESSERDIR)YamlParser/YamlObject.h $(PROCESSERDIR)YamlParser/YamlConverter.h $(PROCESSERDIR)CsvParser/CsvParser.h $(PROCESSERDIR)Mapper/Mapper.h $(PROCESSERDIR)Utilities/JSONEncoder.h $(PROCESSERDIR)Utilities/Utilities.h $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.h   
 
 #### END GRANDEOMEGAPRJ ######
 
