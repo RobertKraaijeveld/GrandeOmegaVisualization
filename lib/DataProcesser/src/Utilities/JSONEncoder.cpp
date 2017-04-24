@@ -25,7 +25,7 @@ string JSONEncoder::pairsToJson(vector<pair<string, int>> pairs)
             returnJSONStr << '"' << pairs[i].first << '"' << ':' << ' ' << '"' << to_string(pairs[i].second) << '"' << endl;              
     }
     returnJSONStr << " }";
-    return returnJSONStr.str();
+    return returnJSONStr.str();  
 }
 
 //DUPLICATION WITH ABOVE
@@ -54,26 +54,43 @@ string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
 {
     stringstream returnJSONStr;
 
-    returnJSONStr << "{ \n";
+    returnJSONStr << "[ \n";
 
+    //all clusters
     for(int i = 0; i < clusters.size(); i++)
     {
+        size_t lastClusterIndex = clusters.size();
+        returnJSONStr << "[";
+
+        //vectors in a single cluster
         for(int j = 0; j < clusters[i].size(); j++)
         {
+            returnJSONStr << '[';
+            //values in a single vector
             for(int z = 0; z < clusters[i][j].vector.values.size(); z++)
             {
-                returnJSONStr << '"' << clusters[i][j].vector.values[z];
+                size_t currVectorSize = clusters[i][j].vector.values.size();
 
-                if(z == 0)
-                    returnJSONStr << '"' << ": ";                
-                else if (i < clusters[i].size() - 1)
-                    returnJSONStr << '"' << ", ";
-                else 
-                    returnJSONStr << '"' << ", ";
+                if(z < (currVectorSize - 1))
+                    returnJSONStr << clusters[i][j].vector.values[z] << ',';
+                else
+                    returnJSONStr << clusters[i][j].vector.values[z];
             }
-        } 
+            size_t lastClusterVectorIndex = clusters[i].size() - 1; 
+
+            if(i != lastClusterIndex && j != lastClusterVectorIndex)
+                returnJSONStr << "], ";
+            else
+                returnJSONStr << ']';
+        }
+
+        //duplication
+        if(i != (lastClusterIndex- 1))
+            returnJSONStr << "]," << endl;
+        else
+            returnJSONStr << "]" << endl;
     }
-    returnJSONStr << " }";
+    returnJSONStr << " ]" << endl;
     return returnJSONStr.str();
 }
 

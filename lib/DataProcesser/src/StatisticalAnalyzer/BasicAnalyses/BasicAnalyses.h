@@ -14,7 +14,7 @@ class BasicAnalyses
     private:
       static map<string, vector<int>> getGradesWithSameClass(multimap<string, int> classesAndGrades);
     public:
-      static map<string, pair<int, int>> getGradesAndAmountOfExercisesStartedPerStudent();
+      static map<string, pair<int, int>> getAmountOfExercisesAndGradesStartedPerStudent();
       static map<string, int> getAmountOfStartedExcersisesPerStudent();
       static vector<pair<string, int>> getGradeAvgPerClass();
 

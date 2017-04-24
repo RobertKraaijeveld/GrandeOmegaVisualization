@@ -16,6 +16,7 @@ class KMeansController {
         map<string, pair<int, int>> inputValues;
         vector<Point> points;
         vector<KMeansIteration> iterations;
+        vector<vector<Point>> finalClusters;
 
         void convertGradesAndExcersiseMapToPoints();
         vector<float> convertYamlObjectWantedValues(YamlObject& currentYamlObject);
@@ -37,7 +38,8 @@ class KMeansController {
         };
         
         void run();
-        vector<vector<Point>> finalClusters;
+        vector<vector<Point>> getFinalNonEmptyClusters();
+
 };
 
 

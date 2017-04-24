@@ -73,16 +73,16 @@ void insertToDB()
 	dbInteracter.InsertGradesYaml(gradeYamlObjects);
 }
 
-string getKMeansAsJSON()
+string getKMeansAsJSON() 
 {
 	int dataDimension = 2;
 	int bestClusterAmount = 19; //tested manually with elbow method
 	int iterationAmount = 100;
 
-	auto gradesAndExcersisePerStudent = BasicAnalyses::getGradesAndAmountOfExercisesStartedPerStudent();
+	auto gradesAndExcersisePerStudent = BasicAnalyses::getAmountOfExercisesAndGradesStartedPerStudent();
 	KMeansController kmController (gradesAndExcersisePerStudent, iterationAmount, bestClusterAmount, dataDimension);
 	kmController.run();
-	string clustersAsJSON = JSONEncoder::clustersToJSON(kmController.finalClusters); 
+	string clustersAsJSON = JSONEncoder::clustersToJSON(kmController.getFinalNonEmptyClusters()); 
 	return clustersAsJSON;
 }
 

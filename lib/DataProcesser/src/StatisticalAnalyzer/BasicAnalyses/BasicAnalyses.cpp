@@ -11,10 +11,10 @@
 
 using namespace std;
 
-map<string, pair<int, int>> BasicAnalyses::getGradesAndAmountOfExercisesStartedPerStudent()
+map<string, pair<int, int>> BasicAnalyses::getAmountOfExercisesAndGradesStartedPerStudent()
 {
     //note that not all students have grades
-    map<string, pair<int, int>> gradesAndAmountOfExercisesPerStudent; 
+    map<string, pair<int, int>> amountOfExercisesAndGradePerStudent; 
 
     map<string, int> excersiseAmountPerStudent = BasicAnalyses::getAmountOfStartedExcersisesPerStudent();
     
@@ -29,12 +29,11 @@ map<string, pair<int, int>> BasicAnalyses::getGradesAndAmountOfExercisesStartedP
         //Do something with NDs elsewhere, or cast it to a int value
         if(excersiseAmountPerStudent.count(id) != 0 && grade != "ND")
         {
-            cout << "Adding student id " << id << " who has grade " << grade << " and excersise amount " << excersiseAmountPerStudent[id] << endl;
-            pair<int, int> gradeAndExcersise = make_pair(atoi(grade.c_str()), excersiseAmountPerStudent[id]);
-            gradesAndAmountOfExercisesPerStudent.insert(make_pair(id, gradeAndExcersise));
+            pair<int, int> excersiseAmountAndGrade = make_pair(excersiseAmountPerStudent[id], atoi(grade.c_str()));
+            amountOfExercisesAndGradePerStudent.insert(make_pair(id, excersiseAmountAndGrade));
         }
     }       
-    return gradesAndAmountOfExercisesPerStudent;
+    return amountOfExercisesAndGradePerStudent;
 }
 
 
@@ -58,7 +57,7 @@ vector<pair<string, int>> BasicAnalyses::getGradeAvgPerClass()
     vector<pair<string, int>> returnValues;
 
     //make multiline
-    //ND is a dutch abreviation for meaning 'did not take test'
+    //ND is a dutch abreviation for 'Niet deelgenomen', meaning 'did not attend'
     string query = "SELECT DISTINCT grades.grade, assignments.class, grades.student_id FROM assignments, grades WHERE assignments.student_id = grades.student_id AND grades.grade <> 'ND' AND assignments.class <> 'tester';";
     DatabaseInteracter dbInteracter;
     pqxx::result queryResult = dbInteracter.executeSelectQuery(query);

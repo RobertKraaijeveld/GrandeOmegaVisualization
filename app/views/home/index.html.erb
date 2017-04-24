@@ -8,13 +8,14 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<%= nav_bar brand: "The grand GrandeOmega visualization project" %>
+<%= nav_bar brand: "The Grand GrandeOmega visualization project" %>
 
-<h2>Average grade per class</h2>
-<%= column_chart @avgGradePerClass %>
+<h2>Average grade per class</h2>x
+<%= column_chart @avgGradePerClass, xtitle: "Class", ytitle: "Average grade" %>
 
 <h2>Amount of excersises done per student</h2>
-<%= line_chart @excersisesAmounts %>
+<%= line_chart @excersisesAmounts, xtitle: "Student id", ytitle: "Excersise amount" %>
 
-<h2>Clustering of excerises vs. grades</h2>
-<%= scatter_chart @gradesAndExcerisesClusters %>
+<h2>Clustering of excerise amount vs. grades</h2>
+<%= scatter_chart @hashTest, xtitle: "Excersise amount", ytitle: "Grade" %>
+

@@ -111,7 +111,6 @@ float KMeansIteration::computeSSE()
     {
         SSE += powf(points[i].distanceToCentroid, 2.0);
     }
-    cout << "Final SSE is " << SSE << " K is " << clusterAmount << endl; 
     return SSE;
 }
 
@@ -132,8 +131,3 @@ void KMeansIteration::runIteration()
     }
     sumOfSquaredErrors = computeSSE();
 }
-
-/*
-check the distance between the original centroid vector and its new one. Should get smaller and smaller
-as it homes in.
-*/
