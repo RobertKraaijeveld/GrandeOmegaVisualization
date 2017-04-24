@@ -32,7 +32,7 @@ void Mapper::createGradesYamlFile(ofstream& outfile)
 	for(size_t i = 0; i < 11; i++)  
 	{
 		//MAKE A CONSTANT
-		ifstream currentGradeCsvFile ("/home/robert/Documents/Projects/GrandeOmegaProject/GrandeOmegaRailsPrj/ext/Parser/docs/Grades/" + to_string(i+1) + ".csv");
+		ifstream currentGradeCsvFile ("/home/robert/Documents/Projects/GrandeOmegaVisualization/lib/DataProcesser/docs/Grades/" + to_string(i+1) + ".csv");
 		
 		vector<pair<string, string>> numbersAndGradesOfFile = CsvParser::parseGradeFile(currentGradeCsvFile);
 
@@ -48,12 +48,12 @@ void Mapper::createGradesYamlFile(ofstream& outfile)
 	//fix student id deficiency in converter
 } 
 
-void Mapper::createYamlFilesWithClasses()
+void Mapper::createYamlFilesWithClasses() 
 {
 	studentIdsAndClasses = mapStudentIdsToClasses();
 
 	//MAKE A CONSTANT
-	string baseAssignmentFileString = "/home/robert/Documents/Projects/GrandeOmegaProject/GrandeOmegaRailsPrj/ext/Parser/docs/assignments/assignment_activities";
+	string baseAssignmentFileString = "/home/robert/Documents/Projects/GrandeOmegaVisualization/lib/DataProcesser/docs/assignments/assignment_activities";
     vector<string> assignmentFileNames = Utilities::getListOfNumberedFilesForBaseFile(baseAssignmentFileString);
 	ifstream initialStream = ifstream(assignmentFileNames[0]);
 	
@@ -114,22 +114,17 @@ vector<map<string, string>> Mapper::mapStudentIdsToGradesAsKVs(vector<pair<strin
 
 map<string, string> Mapper::mapStudentIdsToClasses()
 {
-	cout << "Mapping studentIds to classes..." << endl;
-	
 	map<string, string> studentIdsAndClasses;
 
 	map<string, string>::iterator studentIdAndEmailElement;
 	map<string, string>::iterator emailAndClassElement;
 	
 	emailsAndClasses = mapEmailsToClasses();
-	cout << "Amount of emailsAndClasses = " << emailsAndClasses.size() << endl;
-
 
 	for (studentIdAndEmailElement = studentIdsAndEmails.begin(); studentIdAndEmailElement != studentIdsAndEmails.end(); studentIdAndEmailElement++)
 	{
 		for (emailAndClassElement = emailsAndClasses.begin(); emailAndClassElement != emailsAndClasses.end(); emailAndClassElement++)		
 		{
-			cout << "studentIdAndEmailElement->second = " << studentIdAndEmailElement->second << " emailAndClassElement->first = " << emailAndClassElement->first << endl; 
 			if(studentIdAndEmailElement->second == emailAndClassElement->first)
 				studentIdsAndClasses.insert(make_pair(studentIdAndEmailElement->first, emailAndClassElement->second));		
 		}
@@ -140,7 +135,6 @@ map<string, string> Mapper::mapStudentIdsToClasses()
 
 map<string, string> Mapper::mapEmailsToClasses()
 {
-	cout << "Mapping emails to classes..." << endl;
     map<string, string> emailsAndClasses;
 
 	studentIdsAndEmails = mapStudentIdsToEmailsAdresses();
@@ -159,15 +153,11 @@ map<string, string> Mapper::mapEmailsToClasses()
 		if(emailsIt->second == "tester")
 			counter++;
 	}	
-	//is 24
-	cout << "AMOUNT OF TESTER emails" << counter << endl;
     return emailsAndClasses;
 }
 
 map<string, string> Mapper::mapStudentIdsToEmailsAdresses()
 {
-	cout << "Mapping studentIds to emails..." << endl;
-
 	map<string, string> studentIdsAndAdresses;
 	for (int fileCounter = 0; fileCounter < anonymousYamlObjects.size(); fileCounter++)
 	{
@@ -202,7 +192,8 @@ pair<string, string> Mapper::getClassAndEmailPair(string& emailAdress)
 	    if(Utilities::isInVector(emailAdress, emailAdressesPerClass[j]))
         {
      	   string anonymizedClassNumber = to_string(hash<string>()(to_string(j)));
-		   //making hash shorter
+		   
+		   //making hash shorter for readability later
 		   anonymizedClassNumber.erase(0,5);
 
 	       emailIsInAnyClass = true;

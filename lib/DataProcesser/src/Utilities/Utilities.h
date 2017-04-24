@@ -9,6 +9,8 @@ using namespace std;
 
 class Utilities {
     public: 
+        static vector<string> toArrayByDelim(string& s, char delim);
+
         static vector<string> getListOfNumberedFilesForBaseFile(string baseFileString);
 
         static void removeYamlReferences(string& str);

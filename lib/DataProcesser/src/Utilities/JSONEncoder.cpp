@@ -58,9 +58,6 @@ string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
 
     for(int i = 0; i < clusters.size(); i++)
     {
-        //returnJSONStr << '"' << i << '"' << ": " << '[' << endl;
-        
-        
         for(int j = 0; j < clusters[i].size(); j++)
         {
             for(int z = 0; z < clusters[i][j].vector.values.size(); z++)
@@ -75,11 +72,6 @@ string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
                     returnJSONStr << '"' << ", ";
             }
         } 
-
-        //if(i < clusters.size() - 1)
-            //returnJSONStr << "," << endl;
-        //else
-            //returnJSONStr << "]" << endl;
     }
     returnJSONStr << " }";
     return returnJSONStr.str();

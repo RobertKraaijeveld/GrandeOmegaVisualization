@@ -1,20 +1,13 @@
 require_relative './dataprocesser' 
 
 #TODO: just get a ref to a dataprocesser and call its' methods instead
-module DataProcesserCoupling    
-    def DataProcesserCoupling::getGradeAvgPerClassAsJSON
-        Dataprocesser.new.getGradeAvgPerClassAsJSON()
-    end
+module DataProcesserCoupling
+    @dataprocesser = Dataprocesser.new 
 
-    def DataProcesserCoupling::getAmountOfStartedExcersisesPerStudentAsJSON
-        Dataprocesser.new.getAmountOfStartedExcersisesPerStudentAsJSON()
-    end
-
-    def DataProcesserCoupling::getKMeansAsJSON
-        Dataprocesser.new.getKMeansAsJSON()
+    def self.getDataProcesser
+        @dataprocesser
     end
 end
 
-puts DataProcesserCoupling::getAmountOfStartedExcersisesPerStudentAsJSON
-puts DataProcesserCoupling::getGradeAvgPerClassAsJSON
-puts DataProcesserCoupling::getKMeansAsJSON
+puts DataProcesserCoupling.getDataProcesser.getKMeansAsJSON
+#utcTimeTest

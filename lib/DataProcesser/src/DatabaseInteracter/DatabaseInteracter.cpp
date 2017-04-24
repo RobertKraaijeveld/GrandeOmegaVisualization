@@ -87,8 +87,6 @@ void DatabaseInteracter::InsertAssignmentYaml(vector<YamlObject>& assignmentsObj
             << "\', \'" << assignmentsObjects[i].values["teaching_unit_id"] << "\', \'" << update_timestamp << "\');";
 
             string insertionString = insertionStream.str();
-            cout << "Insertionstr = " << insertionString << endl;
-
             worker.exec(insertionString);
         }
         worker.commit();        

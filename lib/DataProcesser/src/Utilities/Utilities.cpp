@@ -1,5 +1,6 @@
 #include "Utilities.h"
 #include <string>
+#include <sstream>
 #include <vector>
 #include <algorithm> 
 #include <functional> 
@@ -8,6 +9,20 @@
  
 
 using namespace std;
+
+
+vector<string> Utilities::toArrayByDelim(string& s, char delim)
+{
+    vector<string> result;
+    stringstream sstr(s);
+
+    string token;
+    while(getline(sstr, token, delim))
+    {
+        result.push_back(token);        
+    }
+    return result;
+}
 
 vector<string> Utilities::getListOfNumberedFilesForBaseFile(string baseFileString)
 {
