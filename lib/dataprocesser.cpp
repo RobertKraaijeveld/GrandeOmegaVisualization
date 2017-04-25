@@ -15,7 +15,7 @@
 #include "DataProcesser/src/Utilities/UtcReader.h"
 #include "DataProcesser/src/DatabaseInteracter/DatabaseInteracter.h"
 #include "DataProcesser/src/Mapper/Mapper.h"
-#include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyses/BasicAnalyses.h" 
+#include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.h" 
 #include "DataProcesser/src/StatisticalAnalyzer/KMeans/KMeansController.h"  
  
 
@@ -30,11 +30,10 @@ vector<vector<string>> knownEmailsForClasses;
 vector<YamlObject> emailYamlObjects;
 vector<YamlObject> assignmentYamlObjects;
                    
-
 string utcTimeTest()
 {
 	//catch exception here instead to control wht is sent to ruby. also, unittest the utc stuff
-	string test = "HAHA-12-16 19:58:29.777448";
+	string test = "2016-12-16 19:58:29.777448";
 	UtcTime utcTime = UtcReader::toUtcTime(test);
 	return utcTime.ToString();
 }
@@ -75,27 +74,41 @@ void insertToDB()
 
 string getKMeansAsJSON() 
 {
-	int dataDimension = 2;
+	//make optional non-filtered basicanalyzer or provide standard
+	AnalysisFilter filterer { 1.5 };
+	BasicAnalyzer analyzer (filterer);
+
+	auto gradesAndExcersisePerStudent = analyzer.getAmountOfExercisesAndGradesStartedPerStudent();
+
+	int dataDimension = 2;  
 	int bestClusterAmount = 19; //tested manually with elbow method
 	int iterationAmount = 100;
 
-	auto gradesAndExcersisePerStudent = BasicAnalyses::getAmountOfExercisesAndGradesStartedPerStudent();
 	KMeansController kmController (gradesAndExcersisePerStudent, iterationAmount, bestClusterAmount, dataDimension);
 	kmController.run();
+
 	string clustersAsJSON = JSONEncoder::clustersToJSON(kmController.getFinalNonEmptyClusters()); 
 	return clustersAsJSON;
 }
 
 string getAmountOfStartedExcersisesPerStudentAsJSON()
 {
-	map<string, int> amountOfStartedExcersisesPerStudent = BasicAnalyses::getAmountOfStartedExcersisesPerStudent();
+	//make optional non-filtered basicanalyzer or provide standard
+	AnalysisFilter filterer { 1.5 };
+	BasicAnalyzer analyzer (filterer);
+	
+	map<string, int> amountOfStartedExcersisesPerStudent = analyzer.getAmountOfStartedExcersisesPerStudent();
 	string asJSON = JSONEncoder::mapToJson(amountOfStartedExcersisesPerStudent);
 	return asJSON;
 } 
 
 string getGradeAvgPerClassAsJSON()
 {
-	vector<pair<string, int>> gradesAvgsPerClass = BasicAnalyses::getGradeAvgPerClass();
+	//make optional non-filtered basicanalyzer or provide standard
+	AnalysisFilter filterer { 1.5 };
+	BasicAnalyzer analyzer (filterer);
+
+	vector<pair<string, int>> gradesAvgsPerClass = analyzer.getGradeAvgPerClass();
 	string pairsAsJSON = JSONEncoder::pairsToJson(gradesAvgsPerClass);   
 	return pairsAsJSON;  
 }

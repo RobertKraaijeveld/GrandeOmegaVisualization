@@ -9,5 +9,4 @@ module DataProcesserCoupling
     end
 end
 
-puts DataProcesserCoupling.getDataProcesser.getKMeansAsJSON
-#utcTimeTest
+puts DataProcesserCoupling.getDataProcesser.getKMeansAsJSON()

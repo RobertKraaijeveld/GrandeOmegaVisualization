@@ -13,15 +13,6 @@
 using namespace std; 
 
 class Mapper {
-    public:
-        Mapper(vector<YamlObject>& emailYaml, vector<YamlObject>& anonymousYaml, vector<vector<string>>& classEmails)
-        : emailYamlObjects(emailYaml), anonymousYamlObjects(anonymousYaml), emailAdressesPerClass (classEmails) {}
-
-        void createYamlFilesWithClasses();
-        void createGradesYamlFile(ofstream& outfile); 
-
-        void createYamlFileFromMap(map<string, string>& keysAndValues, string identifierKey);
-
     private:
         vector<YamlObject>& emailYamlObjects;
         vector<YamlObject>& anonymousYamlObjects;
@@ -42,6 +33,15 @@ class Mapper {
         pair<string, string> getClassAndEmailPair(string& emailAdress);        
         vector<string> getListOfMapValues(map<string, string>& map);
         void normalizeGrade(pair<string, string>& gradePair);
+   
+     public:
+        Mapper(vector<YamlObject>& emailYaml, vector<YamlObject>& anonymousYaml, vector<vector<string>>& classEmails)
+        : emailYamlObjects(emailYaml), anonymousYamlObjects(anonymousYaml), emailAdressesPerClass (classEmails) {}
+
+        void createYamlFilesWithClasses();
+        void createGradesYamlFile(ofstream& outfile); 
+
+        void createYamlFileFromMap(map<string, string>& keysAndValues, string identifierKey);
 };
 
 #endif

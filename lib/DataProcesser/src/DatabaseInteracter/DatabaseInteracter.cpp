@@ -81,10 +81,10 @@ void DatabaseInteracter::InsertAssignmentYaml(vector<YamlObject>& assignmentsObj
 
             std::ostringstream insertionStream;
 
-            insertionStream << "INSERT INTO assignments(id, creation_timestamp, sort, student_id, class, teaching_unit_id, update_timestamp) VALUES(\'"
+            insertionStream << "INSERT INTO assignments(id, creation_timestamp, sort, student_id, class, teaching_unit_id) VALUES(\'"
             << assignmentsObjects[i].values["- id"] << "\', \'" << creation_timestamp << "\', \'" << assignmentsObjects[i].values["sort"] 
             << "\', \'" << assignmentsObjects[i].values["student_id"] << "\', \'" << assignmentsObjects[i].values["class"] 
-            << "\', \'" << assignmentsObjects[i].values["teaching_unit_id"] << "\', \'" << update_timestamp << "\');";
+            << "\', \'" << assignmentsObjects[i].values["teaching_unit_id"] << "\');";
 
             string insertionString = insertionStream.str();
             worker.exec(insertionString);

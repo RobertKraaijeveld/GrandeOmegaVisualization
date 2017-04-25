@@ -10,3 +10,7 @@ make -f testmakefile
 mv Tests Buildfiles/
 cd Buildfiles/
 ./Tests
+
+echo "Running CppCheck statistical analysis..."
+cd ..
+cppcheck DataProcesser/ --enable=all
