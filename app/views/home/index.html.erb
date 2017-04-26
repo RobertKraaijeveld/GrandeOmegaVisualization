@@ -13,9 +13,9 @@
 <h2>Average grade per class</h2>x
 <%= column_chart @avgGradePerClass, xtitle: "Class", ytitle: "Average grade" %>
 
-<h2>Amount of excersises done per student</h2>
+<h2>Amount of completed excersises done per student</h2>
 <%= line_chart @excersisesAmounts, xtitle: "Student id", ytitle: "Excersise amount" %>
 
-<h2>Clustering of excerise amount vs. grades</h2>
+<h2>Clustering of completed excersise amount vs. grades</h2>
 <%= scatter_chart @hashTest, xtitle: "Excersise amount", ytitle: "Grade" %>
 

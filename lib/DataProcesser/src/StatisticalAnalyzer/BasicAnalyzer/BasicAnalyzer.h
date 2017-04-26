@@ -6,28 +6,20 @@
 #include <fstream>
 #include <iostream>
 
+#include "AnalysisFilter.h"
+
 using namespace std;
-
-struct AnalysisFilter {
-  double timeBetweenAssignmentsThreshold = 0.0;
-
-  AnalysisFilter();
-  AnalysisFilter(double t) 
-  {
-    timeBetweenAssignmentsThreshold = t;
-  };  
-};
 
 class BasicAnalyzer
 {
     private:
       AnalysisFilter& filter;   
-      bool isValidAssignmentTime(string previousTime, string currTime);
       map<string, vector<int>> getGradesWithSameClass(multimap<string, int> classesAndGrades);
+      int getTotalAmountOfGrades();
 
     public:
-      map<string, pair<int, int>> getAmountOfExercisesAndGradesStartedPerStudent();
-      map<string, int> getAmountOfStartedExcersisesPerStudent();
+      map<string, pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
+      map<string, int> getAmountOfCompletedExcersisesPerStudent();
       vector<pair<string, int>> getGradeAvgPerClass();
 
       BasicAnalyzer(AnalysisFilter& f) : filter(f) {}; 

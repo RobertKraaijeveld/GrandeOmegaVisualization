@@ -16,6 +16,7 @@
 #include "DataProcesser/src/DatabaseInteracter/DatabaseInteracter.h"
 #include "DataProcesser/src/Mapper/Mapper.h"
 #include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.h" 
+#include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.h" 
 #include "DataProcesser/src/StatisticalAnalyzer/KMeans/KMeansController.h"  
  
 
@@ -75,10 +76,12 @@ void insertToDB()
 string getKMeansAsJSON() 
 {
 	//make optional non-filtered basicanalyzer or provide standard
-	AnalysisFilter filterer { 1.5 };
+	AnalysisFilter filterer;
+	filterer.timeBetweenAssignmentsThreshold = 1.5;
+	filterer.upperPercentageOfGradesToBeSelected = 25;
 	BasicAnalyzer analyzer (filterer);
 
-	auto gradesAndExcersisePerStudent = analyzer.getAmountOfExercisesAndGradesStartedPerStudent();
+	auto gradesAndExcersisePerStudent = analyzer.getAmountOfExercisesCompletedAndGradesPerStudent();
 
 	int dataDimension = 2;  
 	int bestClusterAmount = 19; //tested manually with elbow method
@@ -94,10 +97,13 @@ string getKMeansAsJSON()
 string getAmountOfStartedExcersisesPerStudentAsJSON()
 {
 	//make optional non-filtered basicanalyzer or provide standard
-	AnalysisFilter filterer { 1.5 };
+	AnalysisFilter filterer;
+	filterer.timeBetweenAssignmentsThreshold = 1.5;
+	filterer.upperPercentageOfGradesToBeSelected = 100;
+
 	BasicAnalyzer analyzer (filterer);
-	
-	map<string, int> amountOfStartedExcersisesPerStudent = analyzer.getAmountOfStartedExcersisesPerStudent();
+
+	map<string, int> amountOfStartedExcersisesPerStudent = analyzer.getAmountOfCompletedExcersisesPerStudent();
 	string asJSON = JSONEncoder::mapToJson(amountOfStartedExcersisesPerStudent);
 	return asJSON;
 } 
@@ -105,7 +111,10 @@ string getAmountOfStartedExcersisesPerStudentAsJSON()
 string getGradeAvgPerClassAsJSON()
 {
 	//make optional non-filtered basicanalyzer or provide standard
-	AnalysisFilter filterer { 1.5 };
+	AnalysisFilter filterer;
+	filterer.timeBetweenAssignmentsThreshold = 1.5;
+	filterer.upperPercentageOfGradesToBeSelected = 100;
+
 	BasicAnalyzer analyzer (filterer);
 
 	vector<pair<string, int>> gradesAvgsPerClass = analyzer.getGradeAvgPerClass();
