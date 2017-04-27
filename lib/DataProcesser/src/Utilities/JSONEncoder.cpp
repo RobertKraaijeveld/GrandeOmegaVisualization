@@ -54,43 +54,48 @@ string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
 {
     stringstream returnJSONStr;
 
-    returnJSONStr << "[ \n";
+    //array opening brace
+    returnJSONStr << "[" << "\n";
 
     //all clusters
     for(int i = 0; i < clusters.size(); i++)
     {
         size_t lastClusterIndex = clusters.size();
-        returnJSONStr << "[";
+        size_t clusterCounter = i;
+        returnJSONStr << "{\"name\":\"Cluster " + to_string(clusterCounter + 1) + "\", \"data\": {";
 
-        //vectors in a single cluster
+            //vectors in a single cluster
         for(int j = 0; j < clusters[i].size(); j++)
         {
-            returnJSONStr << '[';
             //values in a single vector
             for(int z = 0; z < clusters[i][j].vector.values.size(); z++)
             {
                 size_t currVectorSize = clusters[i][j].vector.values.size();
 
-                if(z < (currVectorSize - 1))
-                    returnJSONStr << clusters[i][j].vector.values[z] << ',';
+                //todo: generify for > 2 dimensional KMeans 
+                if(z == 0)
+                    returnJSONStr << "\"" <<  clusters[i][j].vector.values[z] << "\"" << ':';
                 else
                     returnJSONStr << clusters[i][j].vector.values[z];
             }
             size_t lastClusterVectorIndex = clusters[i].size() - 1; 
 
+            //comma if theres clusters left to go                
             if(i != lastClusterIndex && j != lastClusterVectorIndex)
-                returnJSONStr << "], ";
-            else
-                returnJSONStr << ']';
+                returnJSONStr << ", ";
         }
+        //closing brace of "data" :            
+        returnJSONStr << "}";
 
         //duplication
+        //closing brace of entire cluster
         if(i != (lastClusterIndex- 1))
-            returnJSONStr << "]," << endl;
+            returnJSONStr << "}," << "\n";
         else
-            returnJSONStr << "]" << endl;
+            returnJSONStr << "}" << "\n";
     }
-    returnJSONStr << " ]" << endl;
+    //final json array closing brace 
+    returnJSONStr << " ]";
     return returnJSONStr.str();
 }
 

@@ -1,12 +1,9 @@
 <!-- remove, use gem instead -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<%= javascript_include_tag "application", "chartkick" %>
 
 <%= nav_bar brand: "The Grand GrandeOmega visualization project" %>
 
@@ -16,6 +13,16 @@
 <h2>Amount of completed excersises done per student</h2>
 <%= line_chart @excersisesAmounts, xtitle: "Student id", ytitle: "Excersise amount" %>
 
+
 <h2>Clustering of completed excersise amount vs. grades</h2>
-<%= scatter_chart @hashTest, xtitle: "Excersise amount", ytitle: "Grade" %>
+
+<!-- make multiples. also, generify -->
+<div class="form-group">
+  <label for="percentage">Percentage of grades to be used (from highest to lowest grade):</label>
+
+  <!-- generify style -->
+  <input type="number" class="form-control" id="percentage" min="1" max="100" style="width: 75px;">
+  <input type="button" class="form-control" value="Confirm" id="percentageConfirmation" style="width: 75px;">
+</div>
+<div id="excersisesCompletionAndGradesCluster" style="height: 300px"></div>
 

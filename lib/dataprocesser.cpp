@@ -23,6 +23,8 @@
 using namespace Rice;
 using namespace std;
 
+const double TIME_BETWEEN_ASSIGNMENTS_THRESHOLD = 1.5;
+
 string classFileBaseFileString = "/home/robert/Documents/Projects/GrandeOmegaVisualization/lib/DataProcesser/docs/classFiles/assignment_activities_with_class";
 
 ifstream explicitStudentsStream = ifstream("DataProcesser/docs/explicitStudents.yaml", ifstream::in); 
@@ -73,12 +75,12 @@ void insertToDB()
 	dbInteracter.InsertGradesYaml(gradeYamlObjects);
 }
 
-string getKMeansAsJSON() 
+string getKMeansAsJSON(double upperPercentageOfGradesToBeSelected) 
 {
 	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
-	filterer.timeBetweenAssignmentsThreshold = 1.5;
-	filterer.upperPercentageOfGradesToBeSelected = 25;
+	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
+	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 	BasicAnalyzer analyzer (filterer);
 
 	auto gradesAndExcersisePerStudent = analyzer.getAmountOfExercisesCompletedAndGradesPerStudent();
@@ -98,7 +100,7 @@ string getAmountOfStartedExcersisesPerStudentAsJSON()
 {
 	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
-	filterer.timeBetweenAssignmentsThreshold = 1.5;
+	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
 	filterer.upperPercentageOfGradesToBeSelected = 100;
 
 	BasicAnalyzer analyzer (filterer);
@@ -112,7 +114,7 @@ string getGradeAvgPerClassAsJSON()
 {
 	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
-	filterer.timeBetweenAssignmentsThreshold = 1.5;
+	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
 	filterer.upperPercentageOfGradesToBeSelected = 100;
 
 	BasicAnalyzer analyzer (filterer);

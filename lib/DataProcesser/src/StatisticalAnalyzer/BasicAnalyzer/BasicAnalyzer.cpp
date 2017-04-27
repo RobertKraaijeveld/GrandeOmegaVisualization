@@ -96,11 +96,8 @@ vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
                  << " AND grades.grade != 'ND' AND assignments.class != 'tester' "
                  << filter.getGradeSortingQuery(getTotalAmountOfGrades()) << ";";
 
-
-
-
-    //string query = queryStream.str();
-    pqxx::result queryResult = dbInteracter.executeSelectQuery("SELECT DISTINCT CAST(grades.grade AS int), assignments.class, grades.student_id FROM assignments, grades WHERE assignments.student_id = grades.student_id AND grades.grade != 'ND' AND assignments.class != 'tester' ORDER BY CAST(grades.grade AS int) DESC LIMIT 94;");
+    string query = queryStream.str();
+    pqxx::result queryResult = dbInteracter.executeSelectQuery(query);
 
     multimap<string, int> classesAndGrades;    
     for(auto row: queryResult)
