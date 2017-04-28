@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
  
 using namespace std;
  
@@ -18,8 +19,21 @@ class Utilities {
         static void removeStrWhiteSpace(string& str);
         static bool isNCharsWhiteSpace(int N, string& str);
 
-        static int computeAverage(vector<int> values);
+        template<class T>
+        static string genericToStr(const T& val);
+
+        static int computeAverage(vector<int>& values);
         static bool isInVector(string& value, vector<string>& vector);
 };
+
+//has to be declared here because of the template for it
+template<class T>
+string Utilities::genericToStr(const T& val)
+{
+    std::stringstream ss;
+    ss << val;
+    return ss.str();
+}
+
 
 #endif

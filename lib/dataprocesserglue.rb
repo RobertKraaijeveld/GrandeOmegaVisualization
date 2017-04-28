@@ -9,3 +9,4 @@ module DataProcesserCoupling
     end
 end
 
+puts DataProcesserCoupling.getDataProcesser.getGradeAvgPerClass()

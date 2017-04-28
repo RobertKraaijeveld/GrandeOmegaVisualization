@@ -63,7 +63,7 @@ bool Utilities::isNCharsWhiteSpace(int N, string& str)
     return true;
 }
 
-int Utilities::computeAverage(vector<int> values)
+int Utilities::computeAverage(vector<int>& values)
 {
     int totalValues = 0; 
     for(auto v: values)

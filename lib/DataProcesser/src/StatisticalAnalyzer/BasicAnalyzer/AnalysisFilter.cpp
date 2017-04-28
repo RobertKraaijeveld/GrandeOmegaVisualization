@@ -10,8 +10,6 @@
 int AnalysisFilter::calculateQueryLimit(int totalAmount) 
 {
     double percentAsDecimal = upperPercentageOfGradesToBeSelected * 0.01;
-    cout << "formula for percent to limit " <<  "upperPercentageOfGradesToBeSelected " << upperPercentageOfGradesToBeSelected << "*" << " 0.01 = " << percentAsDecimal << endl; 
-    cout << totalAmount << " * " << percentAsDecimal << " = " << (totalAmount * percentAsDecimal) << endl;  
     return ceil(totalAmount * percentAsDecimal);
 }
 
@@ -29,6 +27,5 @@ bool AnalysisFilter::isValidAssignmentTime(std::string previousTime, std::string
 std::string AnalysisFilter::getGradeSortingQuery(int totalGradesAmount)
 {
     //use bools to indicate what should and should not be chosen?
-    cout << "Query is " << ("ORDER BY CAST(grades.grade AS int) DESC LIMIT " + to_string(calculateQueryLimit(totalGradesAmount))) << endl; 
     return "ORDER BY CAST(grades.grade AS int) DESC LIMIT " + to_string(calculateQueryLimit(totalGradesAmount));
 }

@@ -33,13 +33,9 @@ vector<vector<string>> knownEmailsForClasses;
 vector<YamlObject> emailYamlObjects;
 vector<YamlObject> assignmentYamlObjects;
                    
-string utcTimeTest()
-{
-	//catch exception here instead to control wht is sent to ruby. also, unittest the utc stuff
-	string test = "2016-12-16 19:58:29.777448";
-	UtcTime utcTime = UtcReader::toUtcTime(test);
-	return utcTime.ToString();
-}
+/*
+	PARSING 
+*/
 
  //IMPORTANT: Add checks if files actually exist
 vector<YamlObject> parseAndGetGrades()
@@ -75,7 +71,30 @@ void insertToDB()
 	dbInteracter.InsertGradesYaml(gradeYamlObjects);
 }
 
-string getKMeansAsJSON(double upperPercentageOfGradesToBeSelected) 
+/*
+	DATA FOR VISUALIZATIONS
+*/
+
+string getSuccesFailureRate(double upperPercentageOfGradesToBeSelected) 
+{
+	AnalysisFilter filterer;
+	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
+	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
+	BasicAnalyzer analyzer (filterer);
+
+	//map<int, pair<int, int>> gradeAndSFRatePerStudent = analyzer.getAmountOfExercisesCompletedAndGradesPerStudent();
+	//map<int, pair<int, int>> test;
+	//test.insert(make_pair(0, make_pair(1,2)));
+
+	map<int, int> test;	
+	test.insert(make_pair(0,1));
+	
+	JSONEncoder::mapToJson(test);
+	return "x";
+}
+
+
+string getKMeans(double upperPercentageOfGradesToBeSelected) 
 {
 	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
@@ -92,11 +111,11 @@ string getKMeansAsJSON(double upperPercentageOfGradesToBeSelected)
 	KMeansController kmController (gradesAndExcersisePerStudent, iterationAmount, bestClusterAmount, dataDimension);
 	kmController.run();
 
-	string clustersAsJSON = JSONEncoder::clustersToJSON(kmController.getFinalNonEmptyClusters()); 
-	return clustersAsJSON;
+	string clusters = JSONEncoder::clustersToJSON(kmController.getFinalNonEmptyClusters()); 
+	return clusters;
 }
 
-string getAmountOfStartedExcersisesPerStudentAsJSON()
+string getAmountOfStartedExcersisesPerStudent()
 {
 	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
@@ -110,7 +129,7 @@ string getAmountOfStartedExcersisesPerStudentAsJSON()
 	return asJSON;
 } 
 
-string getGradeAvgPerClassAsJSON()
+string getGradeAvgPerClass()
 {
 	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
@@ -120,8 +139,8 @@ string getGradeAvgPerClassAsJSON()
 	BasicAnalyzer analyzer (filterer);
 
 	vector<pair<string, int>> gradesAvgsPerClass = analyzer.getGradeAvgPerClass();
-	string pairsAsJSON = JSONEncoder::pairsToJson(gradesAvgsPerClass);   
-	return pairsAsJSON;  
+	string pairs = JSONEncoder::pairsToJson(gradesAvgsPerClass);   
+	return pairs;  
 }
 
 
@@ -138,12 +157,13 @@ extern "C"
 void Init_dataprocesser()
 {
   Class rb_c = define_class("Dataprocesser")
-	.define_method("utcTimeTest", &utcTimeTest)  
+	.define_method("parseAndGetGrades", &parseAndGetGrades)  
 	.define_method("parseAndGetAssignments", &parseAndGetAssignments)
-    .define_method("getKMeansAsJSON", &getKMeansAsJSON)    		 		   
-    .define_method("getAmountOfStartedExcersisesPerStudentAsJSON", &getAmountOfStartedExcersisesPerStudentAsJSON)    		 	
-    .define_method("getGradeAvgPerClassAsJSON", &getGradeAvgPerClassAsJSON)  
-    .define_method("insertToDB", &insertToDB);    
+    .define_method("insertToDB", &insertToDB)  	
+    .define_method("getKMeans", &getKMeans)   
+    .define_method("getSuccesFailureRate", &getSuccesFailureRate)    		 		 		 		   
+    .define_method("getAmountOfStartedExcersisesPerStudent", &getAmountOfStartedExcersisesPerStudent)    		 	
+    .define_method("getGradeAvgPerClass", &getGradeAvgPerClass);
 }
 
 

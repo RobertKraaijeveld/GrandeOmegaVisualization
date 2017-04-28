@@ -1,19 +1,126 @@
 #ifndef JSONENCODER_H
 #define JSONENCODER_H
 
+#include "Utilities.h"
 #include "../StatisticalAnalyzer/KMeans/CustomTypes/Point.h"
 #include <vector>
 #include <string>
 
 using namespace std;
 
-//temporary stuff until ruby types are fixed or I use a lib
 class JSONEncoder {
     //make types generic
     public: 
-        static string pairsToJson(vector<pair<string, int>> pairList);
-        static string mapToJson(map<string, int> map);
+        template <class T, class J>
+        static string pairToJson(pair<T, J>& pair);
+
+        template <class T, class J>        
+        static string pairsToJson(vector<pair<T, J>>& pairList);
+
+        template <class T, class J>        
+        static string mapToJson(map<T, J>& map);
+        template <class T, class J>
+        static string mapToJson(map<T, pair<T, J>>& mapOfPairs);
+
         static string clustersToJSON(vector<vector<Point>> clusters);
 };
+
+template <class T, class J>        
+string JSONEncoder::pairsToJson(vector<pair<T, J>>& pairs)
+{
+    stringstream returnJSONStr;
+
+    returnJSONStr << "{ \n";
+    for(int i = 0; i < pairs.size(); i++)
+    {
+        //split this up
+        if(i < pairs.size() - 1)
+            returnJSONStr << '"' << Utilities::genericToStr(pairs[i].first) << '"' << ':' << ' ' << '"' << Utilities::genericToStr(pairs[i].second) << '"' << ',' << endl;  
+        else
+            returnJSONStr << '"' << Utilities::genericToStr(pairs[i].first) << '"' << ':' << ' ' << '"' << Utilities::genericToStr(pairs[i].second) << '"' << endl;              
+    }
+    returnJSONStr << " }";
+    return returnJSONStr.str();  
+}
+
+template <typename T, typename J>
+string JSONEncoder::mapToJson(map<T, J>& m)
+{
+    stringstream returnJSONStr;
+
+    returnJSONStr << "{ \n";
+
+    int counter = 0;
+    typename map<T, J>::iterator it;
+    for(it = m.begin(); it != m.end(); it++)
+    {
+        if(counter < (m.size() - 1))
+           returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' << ' ' << '"' << Utilities::genericToStr(it->second) << '"' << ',' << endl;  
+        else
+           returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' << ' ' << '"' << Utilities::genericToStr(it->second) << '"' << endl;       
+        
+        counter++;       
+    }
+    returnJSONStr << " }";
+    return returnJSONStr.str();
+}
+
+//recurse into a method that returns the JSON for said pair.
+template <typename T, typename J>
+string JSONEncoder::mapToJson(map<T, pair<T, J>>& mapOfPairs)   
+{
+    return "I art an map of pairs, most pristine";
+}
+
+string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
+{
+    stringstream returnJSONStr;
+
+    //array opening brace
+    returnJSONStr << "[" << "\n";
+
+    //all clusters
+    for(int i = 0; i < clusters.size(); i++)
+    {
+        size_t lastClusterIndex = clusters.size();
+        size_t clusterCounter = i;
+        returnJSONStr << "{\"name\":\"Cluster " + to_string(clusterCounter + 1) + "\", \"data\": {";
+
+            //vectors in a single cluster
+        for(int j = 0; j < clusters[i].size(); j++)
+        {
+            //values in a single vector
+            for(int z = 0; z < clusters[i][j].vector.values.size(); z++)
+            {
+                size_t currVectorSize = clusters[i][j].vector.values.size();
+
+                //todo: generify for > 2 dimensional KMeans 
+                if(z == 0)
+                    returnJSONStr << "\"" <<  clusters[i][j].vector.values[z] << "\"" << ':';
+                else
+                    returnJSONStr << clusters[i][j].vector.values[z];
+            }
+            size_t lastClusterVectorIndex = clusters[i].size() - 1; 
+
+            //comma if theres clusters left to go                
+            if(i != lastClusterIndex && j != lastClusterVectorIndex)
+                returnJSONStr << ", ";
+        }
+        //closing brace of "data" :            
+        returnJSONStr << "}";
+
+        //duplication
+        //closing brace of entire cluster
+        if(i != (lastClusterIndex- 1))
+            returnJSONStr << "}," << "\n";
+        else
+            returnJSONStr << "}" << "\n";
+    }
+    //final json array closing brace 
+    returnJSONStr << " ]";
+    return returnJSONStr.str();
+}
+
+
 
 #endif
