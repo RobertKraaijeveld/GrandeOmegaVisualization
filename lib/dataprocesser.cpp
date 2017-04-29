@@ -75,22 +75,18 @@ void insertToDB()
 	DATA FOR VISUALIZATIONS
 */
 
-string getSuccesFailureRate(double upperPercentageOfGradesToBeSelected) 
+string getSuccesRate(double upperPercentageOfGradesToBeSelected) 
 {
 	AnalysisFilter filterer;
 	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
 	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 	BasicAnalyzer analyzer (filterer);
 
-	//map<int, pair<int, int>> gradeAndSFRatePerStudent = analyzer.getAmountOfExercisesCompletedAndGradesPerStudent();
-	//map<int, pair<int, int>> test;
-	//test.insert(make_pair(0, make_pair(1,2)));
-
-	map<int, int> test;	
-	test.insert(make_pair(0,1));
+	//map<int, pair<int, int>> gradeAndSFRatePerStudent = analyzer.getGradesAndSuccesRates();
+	map<int, pair<int, int>> test;
+	test.insert(make_pair(0, make_pair(1,2)));
 	
-	JSONEncoder::mapToJson(test);
-	return "x";
+	return JSONEncoder::mapToJson(test);
 }
 
 
@@ -161,7 +157,7 @@ void Init_dataprocesser()
 	.define_method("parseAndGetAssignments", &parseAndGetAssignments)
     .define_method("insertToDB", &insertToDB)  	
     .define_method("getKMeans", &getKMeans)   
-    .define_method("getSuccesFailureRate", &getSuccesFailureRate)    		 		 		 		   
+    .define_method("getSuccesRate", &getSuccesRate)    		 		 		 		   
     .define_method("getAmountOfStartedExcersisesPerStudent", &getAmountOfStartedExcersisesPerStudent)    		 	
     .define_method("getGradeAvgPerClass", &getGradeAvgPerClass);
 }
