@@ -82,11 +82,9 @@ string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 	BasicAnalyzer analyzer (filterer);
 
-	//map<int, pair<int, int>> gradeAndSFRatePerStudent = analyzer.getGradesAndSuccesRates();
-	map<int, pair<int, int>> test;
-	test.insert(make_pair(0, make_pair(1,2)));
+	map<int, int> gradeAndSuccessRatePerStudent = analyzer.getGradesAndSuccessRates();
 	
-	return JSONEncoder::mapToJson(test);
+	return JSONEncoder::mapToJson(gradeAndSuccessRatePerStudent);
 }
 
 

@@ -19,8 +19,6 @@ class JSONEncoder {
 
         template <typename T, typename J>        
         static string mapToJson(map<T, J>& map);
-        template <typename T, typename J, typename L>
-        static string mapToJson(map<T, pair<J, L>>& mapOfPairs);
         
         static string clustersToJSON(vector<vector<Point>> clusters);
 };
@@ -62,43 +60,6 @@ string JSONEncoder::mapToJson(map<T, J>& m)
         counter++;       
     }
     returnJSONStr << " }";
-    return returnJSONStr.str();
-}
-
-//recurse into a method that returns the JSON for said pair.
-template <typename T, typename J, typename L>
-string JSONEncoder::mapToJson(map<T, pair<J, L>>& mapOfPairs)   
-{
-    //extract as much repetition as possible, like appending and prepending braces.
-    stringstream returnJSONStr;
-
-    returnJSONStr << "{ \n";
-
-    int counter = 0;
-    typename map<T, pair<J, L>>::iterator it;    
-    for(it = mapOfPairs.begin(); it != mapOfPairs.end(); it++)
-    {
-        J pairL = it->second.first;
-        L pairR = it->second.second;        
-
-        returnJSONStr << "{";
-
-        returnJSONStr << "\"name\":\"Student no." << Utilities::genericToStr(it->first);
-        returnJSONStr << "\"data\":";
-
-        returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' 
-           << ' ' << '"' << Utilities::genericToStr(pairL) << '"' << ',' << endl;  
-        
-        returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' 
-           << ' ' << '"' << Utilities::genericToStr(pairR) << '"' << endl;       
-
-        returnJSONStr << "}";
-        
-        counter++;       
-    }
-    returnJSONStr << " }";
-
-    cout << returnJSONStr.str(); 
     return returnJSONStr.str();
 }
 

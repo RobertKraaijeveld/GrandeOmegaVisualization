@@ -20,6 +20,7 @@ class BasicAnalyzer
     public:
       map<string, pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
       map<string, int> getAmountOfCompletedExcersisesPerStudent();
+      map<int, int> getGradesAndSuccessRates();
       vector<pair<string, int>> getGradeAvgPerClass();
 
       BasicAnalyzer(AnalysisFilter& f) : filter(f) {}; 

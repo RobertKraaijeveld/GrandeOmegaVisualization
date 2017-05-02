@@ -8,7 +8,7 @@
 #include "../../YamlParser/YamlConverter.h"
 #include "../../DatabaseInteracter/DatabaseInteracter.h"
 #include "../../Utilities/Utilities.h"
-#include "../../Utilities/UtcReader.h"
+#include "../../Utilities/UtcReader.h" 
 #include "../../Utilities/UtcTime.h"
 #include "BasicAnalyzer.h"
 #include "AnalysisFilter.h"
@@ -80,6 +80,32 @@ map<string, int> BasicAnalyzer::getAmountOfCompletedExcersisesPerStudent()
         }
         previousTime = currTime;        
     }    
+    return returnMap;
+}
+
+map<int, int> BasicAnalyzer::getGradesAndSuccessRates()
+{
+    map<int, int> returnMap;
+    DatabaseInteracter dbInteracter;
+    
+    std::ostringstream queryStream;
+    queryStream << "SELECT COUNT(assignments.student_id), grades.grade"
+                << " FROM assignments, grades WHERE assignments.sort != 'Failure'"
+                << " AND assignments.student_id = grades.student_id"
+                << " AND grades.grade != 'ND'"
+                << " GROUP BY assignments.student_id, grades.grade "
+                << filter.getGradeSortingQuery(getTotalAmountOfGrades()) << ";";
+
+    auto allStudentsuccessCountsAndGrades = dbInteracter.executeSelectQuery(queryStream.str()); 
+    
+    //TODO: Abstract these kinds of repetitve loops away.
+    for(auto row : allStudentsuccessCountsAndGrades)
+    {
+        int successCount = stoi(row[0].c_str());
+        int grade = stoi(row[1].c_str());
+        
+        returnMap.insert(make_pair(successCount, grade));
+    }
     return returnMap;
 }
 
