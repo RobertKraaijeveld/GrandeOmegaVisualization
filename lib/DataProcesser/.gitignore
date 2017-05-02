@@ -1,8 +1,5 @@
-Buildfiles/*
-Parser/CMakeLists.txt
-Parser/.vscode/*
-Parser/docs/*
-Parser/explicitStudents.yaml
-Parser/emailsAndClasses.csv
-Parser/makefile
-Parser/CMakeLists.txt
+
+.vscode/*
+docs/*
+
+
