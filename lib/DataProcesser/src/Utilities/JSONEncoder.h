@@ -19,10 +19,13 @@ class JSONEncoder {
 
         template <typename T, typename J>        
         static string mapToJson(map<T, J>& map);
+        template <typename T, typename J, typename L>
+        static string mapToJson(map<T, pair<J, L>>& mapOfPairs);
         
         static string clustersToJSON(vector<vector<Point>> clusters);
 };
 
+//duplication with map, only loop is different
 template <class T, class J>        
 string JSONEncoder::pairsToJson(vector<pair<T, J>>& pairs)
 {
@@ -63,6 +66,43 @@ string JSONEncoder::mapToJson(map<T, J>& m)
     return returnJSONStr.str();
 }
 
+template <typename T, typename J, typename L>
+string JSONEncoder::mapToJson(map<T, pair<J, L>>& mapOfPairs)   
+{
+    //extract as much repetition as possible, like appending and prepending braces.
+    stringstream returnJSONStr;
+
+    returnJSONStr << "{ \n";
+
+    int counter = 0;
+    typename map<T, pair<J, L>>::iterator it;    
+    for(it = mapOfPairs.begin(); it != mapOfPairs.end(); it++)
+    {
+        J pairL = it->second.first;
+        L pairR = it->second.second;        
+
+        returnJSONStr << "{";
+
+        returnJSONStr << "\"name\":\"Student no." << Utilities::genericToStr(it->first);
+        returnJSONStr << "\"data\":";
+
+        //WHAT TO PUT INSTEAD OF it->first?
+        returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' 
+           << ' ' << '"' << Utilities::genericToStr(pairL) << '"' << ',' << endl;  
+        
+        returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' 
+           << ' ' << '"' << Utilities::genericToStr(pairR) << '"' << endl;       
+
+        returnJSONStr << "}";
+        
+        counter++;       
+    }
+    returnJSONStr << " }";
+
+    cout << returnJSONStr.str(); 
+    return returnJSONStr.str();
+}
+
 string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
 {
     stringstream returnJSONStr;
@@ -77,7 +117,7 @@ string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
         size_t clusterCounter = i;
         returnJSONStr << "{\"name\":\"Cluster " + to_string(clusterCounter + 1) + "\", \"data\": {";
 
-            //vectors in a single cluster
+        //vectors in a single cluster
         for(int j = 0; j < clusters[i].size(); j++)
         {
             //values in a single vector
@@ -100,7 +140,6 @@ string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
         //closing brace of "data" :            
         returnJSONStr << "}";
 
-        //duplication
         //closing brace of entire cluster
         if(i != (lastClusterIndex- 1))
             returnJSONStr << "}," << "\n";

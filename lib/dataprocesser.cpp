@@ -3,6 +3,7 @@
 #include <fstream>
 #include <fstream>
 #include <sstream>
+#include <pqxx/pqxx>
 #include <vector>
 #include <map>
 #include <ctime>
@@ -75,6 +76,17 @@ void insertToDB()
 	DATA FOR VISUALIZATIONS
 */
 
+string getExcersiseDateTimeMetrics(double upperPercentageOfGradesToBeSelected) 
+{
+	AnalysisFilter filterer;
+	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
+	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
+	BasicAnalyzer analyzer (filterer);
+
+	map<string, int> excersiseDateTimeMeasurements = analyzer.getExceriseDateTimeMeasurements();	
+	return JSONEncoder::mapToJson(excersiseDateTimeMeasurements);
+}
+
 string getSuccesRate(double upperPercentageOfGradesToBeSelected) 
 {
 	AnalysisFilter filterer;
@@ -82,11 +94,10 @@ string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 	BasicAnalyzer analyzer (filterer);
 
-	map<int, int> gradeAndSuccessRatePerStudent = analyzer.getGradesAndSuccessRates();
+	map<string, pair<int, int>> gradeAndSuccessRatePerStudent = analyzer.getGradesAndSuccessRates();
 	
 	return JSONEncoder::mapToJson(gradeAndSuccessRatePerStudent);
 }
-
 
 string getKMeans(double upperPercentageOfGradesToBeSelected) 
 {
@@ -109,12 +120,11 @@ string getKMeans(double upperPercentageOfGradesToBeSelected)
 	return clusters;
 }
 
-string getAmountOfStartedExcersisesPerStudent()
+string getAmountOfStartedExcersisesPerStudent(double upperPercentageOfGradesToBeSelected)
 {
-	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
 	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filterer.upperPercentageOfGradesToBeSelected = 100;
+	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 
 	BasicAnalyzer analyzer (filterer);
 
@@ -123,12 +133,12 @@ string getAmountOfStartedExcersisesPerStudent()
 	return asJSON;
 } 
 
-string getGradeAvgPerClass()
+string getGradeAvgPerClass(double upperPercentageOfGradesToBeSelected)
 {
 	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
 	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filterer.upperPercentageOfGradesToBeSelected = 100;
+	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 
 	BasicAnalyzer analyzer (filterer);
 

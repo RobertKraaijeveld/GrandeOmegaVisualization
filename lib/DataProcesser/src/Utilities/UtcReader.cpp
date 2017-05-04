@@ -6,23 +6,32 @@
 #include "UtcTime.h" 
 #include "Utilities.h"
 
-//unit test this shit
-UtcTime UtcReader::toUtcTime(std::string& s)
+bool UtcReader::allTimeValuesPresent(vector<std::string> ymdVector, vector<std::string> hmsVector)
 {
+    return ymdVector.size() == 3 && hmsVector.size() == 3;  
+}
+
+
+UtcTime UtcReader::toUtcTime(std::string& s)
+{ 
     //separate in year month day first (so, until the last '-' delimiter hit plus 2)
     std::string ymdSeparator = " ";
 
-    //do exception handling here and shit
     try
     {
         std::string yearMonthDay = s.substr(0, s.find(ymdSeparator)); 
-        std::string hoursMinutesSeconds = s.substr(s.find(ymdSeparator)+1, s.size()-1);
+        std::string hoursMinutesSeconds = s.substr(s.find(ymdSeparator) + 1, s.size() - 1);
 
-        auto ymdVector = Utilities::toArrayByDelim(yearMonthDay, '-');
-        auto hmsVector = Utilities::toArrayByDelim(hoursMinutesSeconds, ':');
+        vector<std::string> ymdVector = Utilities::toArrayByDelim(yearMonthDay, '-');
+        vector<std::string> hmsVector = Utilities::toArrayByDelim(hoursMinutesSeconds, ':');
 
-        return UtcTime (stoi(ymdVector[0]), stoi(ymdVector[1]), stoi(ymdVector[2]), 
+        if(allTimeValuesPresent(ymdVector, hmsVector))
+        {
+                    return UtcTime (stoi(ymdVector[0]), stoi(ymdVector[1]), stoi(ymdVector[2]), 
                         stoi(hmsVector[0]), stoi(hmsVector[1]), stod(hmsVector[2]));
+        }
+        else
+            throw "EXCEPTION: UtcReader::toUtcTime allTimeValuesPresent is false";
     } 
     catch (const std::invalid_argument& invalidArgEx) 
     {

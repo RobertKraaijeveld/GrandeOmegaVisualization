@@ -15,6 +15,12 @@
 
 using namespace std;
 
+map<string, int> BasicAnalyzer::getExceriseDateTimeMeasurements()
+{
+
+}
+
+//check if still correct; nein
 map<string, pair<int, int>> BasicAnalyzer::getAmountOfExercisesCompletedAndGradesPerStudent()
 {
     //note that not all students have grades
@@ -23,12 +29,7 @@ map<string, pair<int, int>> BasicAnalyzer::getAmountOfExercisesCompletedAndGrade
     map<string, int> excersiseAmountPerStudent = getAmountOfCompletedExcersisesPerStudent();
     
     DatabaseInteracter dbInteracter;
-    std::ostringstream queryStream;
-
-    queryStream << "SELECT student_id, grade FROM grades WHERE grade != 'ND' "   
-                << filter.getGradeSortingQuery(getTotalAmountOfGrades()) << ";";
-    string query = queryStream.str();   
-    
+    string query = "SELECT student_id, grade FROM grades WHERE grade != 'ND';";   
     auto allStudentIdsAndGrades = dbInteracter.executeSelectQuery(query); 
 
     for(auto idAndGrade: allStudentIdsAndGrades) 
@@ -46,67 +47,53 @@ map<string, pair<int, int>> BasicAnalyzer::getAmountOfExercisesCompletedAndGrade
     return amountOfExercisesAndGradePerStudent;
 }
 
-int BasicAnalyzer::getTotalAmountOfGrades()
-{
-    DatabaseInteracter dbInteracter;
-    string amountOfGradesQuery = "SELECT COUNT(grade) FROM grades;";
-
-    pqxx::result amountOfGradesQueryResult = dbInteracter.executeSelectQuery(amountOfGradesQuery);
-
-    return stoi(amountOfGradesQueryResult[0][0].c_str());
-}
-
-
-
 map<string, int> BasicAnalyzer::getAmountOfCompletedExcersisesPerStudent()
 {
     map<string, int> returnMap;
     DatabaseInteracter dbInteracter;
-    
-    auto allStudentOccurences = dbInteracter.executeSelectQuery("SELECT student_id, creation_timestamp FROM assignments WHERE sort = 'completion';");
 
-    //DIRTY CONSTANT
-    string previousTime = "0000-12-12 00:00:0.0";
-    string currTime;
+    string query = "SELECT student_id, creation_timestamp FROM assignments WHERE sort = 'completion';";
 
-    for(auto occurenceRow: allStudentOccurences) 
+    //Duplication
+    int studentIdColumnIndex = 0;
+    int timestampColumnIndex = 1;        
+    FilterQueryColumnIndexes filterIndexes (studentIdColumnIndex, timestampColumnIndex);
+    filter.queryIndexes = filterIndexes;
+    vector<pqxx::tuple> filteredRows = filter.getFilteredQueryRows(query);
+
+    for(auto row: filteredRows)
     {
-        currTime = string(occurenceRow[1].c_str());
-        
-        if(filter.isValidAssignmentTime(previousTime, currTime))
-        {
-            string occurenceStudentIdStr = string(occurenceRow[0].c_str());        
-            returnMap[occurenceStudentIdStr] = returnMap[occurenceStudentIdStr] + 1; 
-        }
-        previousTime = currTime;        
-    }    
+        string occurenceStudentIdStr = string(row[0].c_str());
+        returnMap[occurenceStudentIdStr] = returnMap[occurenceStudentIdStr] + 1; 
+    }
     return returnMap;
 }
 
-map<int, int> BasicAnalyzer::getGradesAndSuccessRates()
+map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
 {
-    map<int, int> returnMap;
+    map<string, pair<int, int>> returnMapOfPairs;
     DatabaseInteracter dbInteracter;
     
+    //Select count does not work with filtering ><
     std::ostringstream queryStream;
-    queryStream << "SELECT COUNT(assignments.student_id), grades.grade"
+    queryStream << "SELECT assignments.student_id, grades.grade, assignments.creation_timestamp"
                 << " FROM assignments, grades WHERE assignments.sort != 'Failure'"
-                << " AND assignments.student_id = grades.student_id"
-                << " AND grades.grade != 'ND'"
-                << " GROUP BY assignments.student_id, grades.grade "
-                << filter.getGradeSortingQuery(getTotalAmountOfGrades()) << ";";
+                << " AND assignments.student_id = grades.student_id;";
 
-    auto allStudentsuccessCountsAndGrades = dbInteracter.executeSelectQuery(queryStream.str()); 
-    
-    //TODO: Abstract these kinds of repetitve loops away.
-    for(auto row : allStudentsuccessCountsAndGrades)
+    int studentIdColumnIndex = 0;
+    int timestampColumnIndex = 2;    
+    filter.queryIndexes = FilterQueryColumnIndexes (studentIdColumnIndex, timestampColumnIndex);
+    vector<pqxx::tuple> filteredStudentSuccessCountsAndGrades = filter.getFilteredQueryRows(queryStream.str());
+
+    for(auto row: filteredStudentSuccessCountsAndGrades)
     {
-        int successCount = stoi(row[0].c_str());
-        int grade = stoi(row[1].c_str());
-        
-        returnMap.insert(make_pair(successCount, grade));
+        string studentIdStr = string(row[0].c_str());
+        int newSuccesRate = returnMapOfPairs[studentIdStr].second + 1; 
+        int gradeOfRow = stoi(row[1].c_str());
+
+        returnMapOfPairs[studentIdStr] = make_pair(gradeOfRow, newSuccesRate); 
     }
-    return returnMap;
+    return returnMapOfPairs;
 }
 
 vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
@@ -119,14 +106,18 @@ vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
     //note: ND is a dutch abreviation for 'Niet Deelgenomen', meaning 'did not attend'
      queryStream << "SELECT DISTINCT CAST(grades.grade AS int), assignments.class, grades.student_id"
                  << " FROM assignments, grades WHERE assignments.student_id = grades.student_id"
-                 << " AND grades.grade != 'ND' AND assignments.class != 'tester' "
-                 << filter.getGradeSortingQuery(getTotalAmountOfGrades()) << ";";
+                 << " AND assignments.class != 'tester';";
 
     string query = queryStream.str();
-    pqxx::result queryResult = dbInteracter.executeSelectQuery(query);
+
+    //Duplication. ALSO INCORRECT; MAKE FILTER HAVE OPTIONALS
+    int studentIdColumnIndex = 0;
+    int timestampColumnIndex = 2;        
+    FilterQueryColumnIndexes filterIndexes (studentIdColumnIndex, timestampColumnIndex);
+    vector<pqxx::tuple> filteredGradeCountsPerClass = filter.getFilteredQueryRows(queryStream.str());
 
     multimap<string, int> classesAndGrades;    
-    for(auto row: queryResult)
+    for(auto row: filteredGradeCountsPerClass)
     {
         auto rowGrade = row[0].c_str();        
         string rowClass = string(row[1].c_str());
