@@ -37,8 +37,7 @@ map<string, pair<int, int>> BasicAnalyzer::getAmountOfExercisesCompletedAndGrade
         string id = string(idAndGrade[0].c_str());
         string grade = string(idAndGrade[1].c_str());
 
-        //Do something with NDs elsewhere, or cast it to a int value
-        if(excersiseAmountPerStudent.count(id) != 0)
+        if(excersiseAmountPerStudent.count(id) == 1)
         {
             pair<int, int> excersiseAmountAndGrade = make_pair(excersiseAmountPerStudent[id], atoi(grade.c_str()));
             amountOfExercisesAndGradePerStudent.insert(make_pair(id, excersiseAmountAndGrade));
@@ -54,100 +53,56 @@ map<string, int> BasicAnalyzer::getAmountOfCompletedExcersisesPerStudent()
 
     string query = "SELECT student_id, creation_timestamp FROM assignments WHERE sort = 'completion';";
 
-    //Duplication
-    int studentIdColumnIndex = 0;
-    int timestampColumnIndex = 1;        
-    FilterQueryColumnIndexes filterIndexes (studentIdColumnIndex, timestampColumnIndex);
-    filter.queryIndexes = filterIndexes;
-    
-    /*
-    vector<pqxx::result::tuple> filteredRows = filter.getFilteredQueryRows(query);
+    //No guarantee that both struct indexes are set... catch exceptions for this and for incorrect indexes!!!
+    FilterQueryColumnIndexes queryIndexes;
+    queryIndexes.studentIdColumnIndex = 0;
+    queryIndexes.timestampIndex = 1;    
+    filter.queryIndexes = queryIndexes;
 
-    for(auto row: filteredRows)
+    pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
+    vector<pqxx::result::tuple> rowsFilteredOnGradePercentile = filter.getRowsWithValidGradePercentile(unfilteredRows);
+    vector<pqxx::result::tuple> fullyFilteredRows = filter.getRowsWithValidAssignmentTimes(rowsFilteredOnGradePercentile);        
+    
+    for(auto row: fullyFilteredRows)
     {
         string occurenceStudentIdStr = string(row[0].c_str());
         returnMap[occurenceStudentIdStr] = returnMap[occurenceStudentIdStr] + 1; 
     }
-    */
     return returnMap;
 }
-
-
-
-
-
-
-
-
-
-
-//Still coupling because each new filter kind needs to be added as a method.
-vector<pqxx::result::tuple> BasicAnalyzer::getFilteredQueryRows(std::string& query, vector<pqxx::result::tuple> gradeFilteredRows)
-{
-    vector<pqxx::result::tuple> assignmentTimeFilteredRows = filter.getRowsWithValidAssignmentTimes(gradeFilteredRows);
-    return gradeFilteredRows;
-} //the action of returning itself fucks it up; dont know why
 
 map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
 {
     map<string, pair<int, int>> returnMapOfPairs;
     DatabaseInteracter dbInteracter;
     
-    //Select count does not work with filtering ><
     std::ostringstream queryStream;
     queryStream << "SELECT assignments.student_id, grades.grade, assignments.creation_timestamp"
                 << " FROM assignments, grades WHERE assignments.sort != 'Failure'"
                 << " AND assignments.student_id = grades.student_id;";
 
-    int studentIdColumnIndex = 0;
-    int timestampColumnIndex = 2;    
-    filter.queryIndexes = FilterQueryColumnIndexes (studentIdColumnIndex, timestampColumnIndex);
+    //No guarantee that both struct indexes are set... catch exceptions for this and for incorrect indexes!!!
+    FilterQueryColumnIndexes queryIndexes;
+    queryIndexes.studentIdColumnIndex = 0;
+    queryIndexes.timestampIndex = 2;    
+    filter.queryIndexes = queryIndexes;
 
-    pqxx::result testquery = dbInteracter.executeSelectQuery(queryStream.str());
-    vector<pqxx::result::tuple> gradetest = filter.getRowsWithValidGradePercentile(testquery); 
-    vector<pqxx::result::tuple> assignmentstest = filter.getRowsWithValidAssignmentTimes(gradetest); 
+    pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(queryStream.str());
+    vector<pqxx::result::tuple> rowsFilteredOnGradePercentile = filter.getRowsWithValidGradePercentile(unfilteredRows);
+    vector<pqxx::result::tuple> filteredStudentSuccessCountsAndGrades = filter.getRowsWithValidAssignmentTimes(rowsFilteredOnGradePercentile);        
 
-    string query = queryStream.str();
-    vector<pqxx::result::tuple> filteredStudentSuccessCountsAndGrades = getFilteredQueryRows(query, gradetest);        
 
-    //forloop is fault?
-    for(int i = 0; i < filteredStudentSuccessCountsAndGrades.size(); i++)
-    {
-        auto y = filteredStudentSuccessCountsAndGrades.at(i);
-        cout << "filteredStudentSuccessCountsAndGrades = " << y[0].c_str() << endl; 
-    }
-
-    /*
     for(auto row: filteredStudentSuccessCountsAndGrades)
     {
-        cout << "row[0].c_str() = " << row[0].c_str() << endl;
         string studentIdStr = string(row[0].c_str());
-        cout << "studentIdStr " << studentIdStr << endl;
 
-        int newSuccesRate = returnMapOfPairs[studentIdStr].second + 1; 
-        cout << "newSuccesRate " << newSuccesRate << endl;
-
+        int newSuccesRate = returnMapOfPairs[studentIdStr].first + 1; 
         int gradeOfRow = stoi(row[1].c_str());
-        cout << "gradeOfRow " << gradeOfRow << endl;
 
-        returnMapOfPairs[studentIdStr] = make_pair(gradeOfRow, newSuccesRate); 
-    }*/
+        returnMapOfPairs[studentIdStr] = make_pair(newSuccesRate, gradeOfRow); 
+    }
     return returnMapOfPairs;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
 {
@@ -163,10 +118,14 @@ vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
 
     string query = queryStream.str();
 
-    //Duplication. ALSO INCORRECT; MAKE FILTER HAVE OPTIONALS
-    int studentIdColumnIndex = 0;
-    int timestampColumnIndex = 2;        
-    FilterQueryColumnIndexes filterIndexes (studentIdColumnIndex, timestampColumnIndex);
+    //No guarantee that both struct indexes are set... catch exceptions for this and for incorrect indexes!!!
+    FilterQueryColumnIndexes queryIndexes;
+    queryIndexes.studentIdColumnIndex = 0;
+    filter.queryIndexes = queryIndexes;
+
+    pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(queryStream.str());
+    vector<pqxx::result::tuple> filteredStudentSuccessCountsAndGrades = filter.getRowsWithValidGradePercentile(unfilteredRows);        
+
     
     /*
     vector<pqxx::result::tuple> filteredGradeCountsPerClass = filter.getFilteredQueryRows(queryStream.str());

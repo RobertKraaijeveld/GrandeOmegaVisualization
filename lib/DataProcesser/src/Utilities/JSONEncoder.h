@@ -83,23 +83,18 @@ string JSONEncoder::mapToJson(map<T, pair<J, L>>& mapOfPairs)
 
         returnJSONStr << "{";
 
-        returnJSONStr << "\"name\":\"Student no." << Utilities::genericToStr(it->first);
-        returnJSONStr << "\"data\":";
+        returnJSONStr << "\"name\":\"Student no." << Utilities::genericToStr(it->first) << "\", ";
+        returnJSONStr << "\"data\": ";
 
-        //WHAT TO PUT INSTEAD OF it->first?
-        returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' 
-           << ' ' << '"' << Utilities::genericToStr(pairL) << '"' << ',' << endl;  
+        returnJSONStr << '"' << Utilities::genericToStr(pairL) << '"' << ':' 
+           << ' ' << '"' << Utilities::genericToStr(pairR) << '"';  
         
-        returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' 
-           << ' ' << '"' << Utilities::genericToStr(pairR) << '"' << endl;       
-
-        returnJSONStr << "}";
+        returnJSONStr << "}" << endl;
         
         counter++;       
     }
     returnJSONStr << " }";
 
-    cout << returnJSONStr.str(); 
     return returnJSONStr.str();
 }
 

@@ -10,4 +10,4 @@ module DataProcesserCoupling
 end
 
 # getSuccesRate
-puts DataProcesserCoupling.getDataProcesser.getSuccesRate(10)
+puts DataProcesserCoupling.getDataProcesser.getSuccesRate(100)

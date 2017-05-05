@@ -8,18 +8,6 @@
 #include "../../DatabaseInteracter/DatabaseInteracter.h"
 #include "AnalysisFilter.h"
 
-//Still coupling because each new filter kind needs to be added as a method.
-vector<pqxx::result::tuple>& AnalysisFilter::getFilteredQueryRows(std::string& query)
-{
-    DatabaseInteracter dbInteracter;
-    pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
-
-    vector<pqxx::result::tuple> gradeFilteredRows = getRowsWithValidGradePercentile(unfilteredRows);
-    vector<pqxx::result::tuple> assignmentTimeFilteredRows = getRowsWithValidAssignmentTimes(gradeFilteredRows);
-    return gradeFilteredRows;
-} //the action of returning itself fucks it up; dont know why
-
-
 int AnalysisFilter::percentageToValue(int totalAmount) 
 {
     double percentAsDecimal = upperPercentageOfGradesToBeSelected * 0.01;
@@ -70,7 +58,7 @@ vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx
 
     for(int i = 0; i < unfilteredRows.size(); i++)
     {
-        int unfilteredRowStudentId = stoi(unfilteredRows[i][queryIndexes.assignmentIdIndex].c_str());   
+        int unfilteredRowStudentId = stoi(unfilteredRows[i][queryIndexes.studentIdColumnIndex].c_str());   
         for(int j = 0; j < gradeStudentIds.size(); j++)
         {
             if(unfilteredRowStudentId == gradeStudentIds[j])
@@ -87,18 +75,23 @@ vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidAssignmentTimes(vect
 {  
     vector<pqxx::result::tuple> filteredRows;
 
-    //dirty constant    
-    string previousTime = "0000-12-12 00:00:0.0";
+    map<string, string> studentsAndLatestTimestamps;
 
     for(pqxx::result::tuple row: gradeFilteredRows)
     {
+        string currStudentId = string(row[queryIndexes.studentIdColumnIndex].c_str());
         string currTime = string(row[queryIndexes.timestampIndex].c_str()); 
 
-        if(isValidAssignmentTime(previousTime, currTime))
+        if(studentsAndLatestTimestamps.count(currStudentId) == 1)
         {
-           filteredRows.push_back(row);
-        }
-        currTime = previousTime;
+            string& previousTime = studentsAndLatestTimestamps[currStudentId];
+
+            if(isValidAssignmentTime(previousTime, currTime))
+            {
+                filteredRows.push_back(row);
+            }
+        }                 
+        studentsAndLatestTimestamps[currStudentId] = currTime;        
     }
     return filteredRows;
 }
