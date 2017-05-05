@@ -31,9 +31,9 @@ class AnalysisFilter {
         //TEMP
         vector<int> getGradeIds();        
         vector<pqxx::result::tuple> getRowsWithValidGradePercentile(pqxx::result& unfilteredRows);
-        vector<pqxx::result::tuple> getRowsWithValidAssignmentTimes(vector<pqxx::result::tuple> gradeFilteredRows);                        
+        vector<pqxx::result::tuple> getRowsWithValidAssignmentTimes(vector<pqxx::result::tuple>& gradeFilteredRows);                        
 
-        vector<pqxx::result::tuple> getFilteredQueryRows(std::string query);
+        vector<pqxx::result::tuple>& getFilteredQueryRows(std::string& query);
         AnalysisFilter(){}
 };
 

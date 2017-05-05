@@ -9,15 +9,15 @@
 #include "AnalysisFilter.h"
 
 //Still coupling because each new filter kind needs to be added as a method.
-vector<pqxx::result::tuple> AnalysisFilter::getFilteredQueryRows(std::string query)
+vector<pqxx::result::tuple>& AnalysisFilter::getFilteredQueryRows(std::string& query)
 {
     DatabaseInteracter dbInteracter;
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
 
     vector<pqxx::result::tuple> gradeFilteredRows = getRowsWithValidGradePercentile(unfilteredRows);
-
-    return getRowsWithValidAssignmentTimes(gradeFilteredRows);
-} 
+    vector<pqxx::result::tuple> assignmentTimeFilteredRows = getRowsWithValidAssignmentTimes(gradeFilteredRows);
+    return gradeFilteredRows;
+} //the action of returning itself fucks it up; dont know why
 
 
 int AnalysisFilter::percentageToValue(int totalAmount) 
@@ -83,7 +83,7 @@ vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx
     return gradeFilteredRows;
 }
 
-vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidAssignmentTimes(vector<pqxx::result::tuple> gradeFilteredRows)
+vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidAssignmentTimes(vector<pqxx::result::tuple>& gradeFilteredRows)
 {  
     vector<pqxx::result::tuple> filteredRows;
 

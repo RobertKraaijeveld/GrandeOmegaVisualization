@@ -72,6 +72,22 @@ map<string, int> BasicAnalyzer::getAmountOfCompletedExcersisesPerStudent()
     return returnMap;
 }
 
+
+
+
+
+
+
+
+
+
+//Still coupling because each new filter kind needs to be added as a method.
+vector<pqxx::result::tuple> BasicAnalyzer::getFilteredQueryRows(std::string& query, vector<pqxx::result::tuple> gradeFilteredRows)
+{
+    vector<pqxx::result::tuple> assignmentTimeFilteredRows = filter.getRowsWithValidAssignmentTimes(gradeFilteredRows);
+    return gradeFilteredRows;
+} //the action of returning itself fucks it up; dont know why
+
 map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
 {
     map<string, pair<int, int>> returnMapOfPairs;
@@ -86,16 +102,19 @@ map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
     int studentIdColumnIndex = 0;
     int timestampColumnIndex = 2;    
     filter.queryIndexes = FilterQueryColumnIndexes (studentIdColumnIndex, timestampColumnIndex);
-    //auto filteredStudentSuccessCountsAndGrades = filter.getFilteredQueryRows(queryStream.str());
 
     pqxx::result testquery = dbInteracter.executeSelectQuery(queryStream.str());
     vector<pqxx::result::tuple> gradetest = filter.getRowsWithValidGradePercentile(testquery); 
+    vector<pqxx::result::tuple> assignmentstest = filter.getRowsWithValidAssignmentTimes(gradetest); 
+
+    string query = queryStream.str();
+    vector<pqxx::result::tuple> filteredStudentSuccessCountsAndGrades = getFilteredQueryRows(query, gradetest);        
 
     //forloop is fault?
-    for(int i = 0; i < gradetest.size(); i++)
+    for(int i = 0; i < filteredStudentSuccessCountsAndGrades.size(); i++)
     {
-        auto y = gradetest.at(i);
-        cout << y[0].c_str() << endl; 
+        auto y = filteredStudentSuccessCountsAndGrades.at(i);
+        cout << "filteredStudentSuccessCountsAndGrades = " << y[0].c_str() << endl; 
     }
 
     /*
@@ -115,6 +134,20 @@ map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
     }*/
     return returnMapOfPairs;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
 {

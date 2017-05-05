@@ -29,7 +29,11 @@ class BasicAnalyzer
       map<string, int> getExceriseDateTimeMeasurements();
       map<string, pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
       map<string, int> getAmountOfCompletedExcersisesPerStudent();
+
+      vector<pqxx::result::tuple> getFilteredQueryRows(std::string& query, vector<pqxx::result::tuple> gradeFilteredRows);
       map<string, pair<int, int>> getGradesAndSuccessRates();
+
+
       vector<pair<string, int>> getGradeAvgPerClass();
 
       BasicAnalyzer(AnalysisFilter& f) : filter(f) {}; 
