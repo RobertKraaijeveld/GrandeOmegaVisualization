@@ -8,6 +8,3 @@ module DataProcesserCoupling
         @dataprocesser
     end
 end
-
-# getSuccesRate
-puts DataProcesserCoupling.getDataProcesser.getSuccesRate(100)

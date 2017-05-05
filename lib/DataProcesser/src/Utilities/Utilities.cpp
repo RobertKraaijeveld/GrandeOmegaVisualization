@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm> 
 #include <functional> 
+#include <iostream> 
 #include <cctype>
 #include <locale>
  
@@ -71,6 +72,8 @@ int Utilities::computeAverage(vector<int>& values)
         totalValues += v;
     }
     
+    cout << "totalvalues = " << totalValues << " / " << values.size() << " = " << (totalValues / values.size()) << endl;
+
     if(values.size() > 0 )
         return totalValues / values.size();
     else

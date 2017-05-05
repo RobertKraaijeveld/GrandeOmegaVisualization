@@ -72,7 +72,7 @@ string JSONEncoder::mapToJson(map<T, pair<J, L>>& mapOfPairs)
     //extract as much repetition as possible, like appending and prepending braces.
     stringstream returnJSONStr;
 
-    returnJSONStr << "{ \n";
+    returnJSONStr << "[ ";
 
     int counter = 0;
     typename map<T, pair<J, L>>::iterator it;    
@@ -83,17 +83,26 @@ string JSONEncoder::mapToJson(map<T, pair<J, L>>& mapOfPairs)
 
         returnJSONStr << "{";
 
-        returnJSONStr << "\"name\":\"Student no." << Utilities::genericToStr(it->first) << "\", ";
-        returnJSONStr << "\"data\": ";
+        returnJSONStr << "\"name\":\"" << Utilities::genericToStr(it->first) << "\", ";
+        returnJSONStr << "\"data\": {";
 
-        returnJSONStr << '"' << Utilities::genericToStr(pairL) << '"' << ':' 
+        returnJSONStr << '"'  << Utilities::genericToStr(pairL) << '"'  << ':' 
            << ' ' << '"' << Utilities::genericToStr(pairR) << '"';  
-        
-        returnJSONStr << "}" << endl;
-        
+
+        //if not at last pair, add comma
+        if(counter < (mapOfPairs.size() - 1))
+        {
+            returnJSONStr << "}}," << endl;
+        }        
+        else
+        {
+            returnJSONStr << "}}" << endl;            
+        }
         counter++;       
     }
-    returnJSONStr << " }";
+    returnJSONStr << " ]";
+
+    cout << "returnJSONStr.str() = " << returnJSONStr.str() << endl; 
 
     return returnJSONStr.str();
 }

@@ -29,10 +29,18 @@ map<string, pair<int, int>> BasicAnalyzer::getAmountOfExercisesCompletedAndGrade
     map<string, int> excersiseAmountPerStudent = getAmountOfCompletedExcersisesPerStudent();
     
     DatabaseInteracter dbInteracter;
-    string query = "SELECT student_id, grade FROM grades WHERE grade != 'ND';";   
-    auto allStudentIdsAndGrades = dbInteracter.executeSelectQuery(query); 
+    string query = "SELECT student_id, grade FROM grades;"; 
 
-    for(auto idAndGrade: allStudentIdsAndGrades) 
+    //No guarantee that both struct indexes are set... catch exceptions for this and for incorrect indexes!!!
+    FilterQueryColumnIndexes queryIndexes;
+    queryIndexes.studentIdColumnIndex = 0;
+    filter.queryIndexes = queryIndexes;
+
+    pqxx::result allStudentIdsAndGradesUnFiltered = dbInteracter.executeSelectQuery(query); 
+    vector<pqxx::result::tuple> filteredIdsAndGrades = filter.getRowsWithValidGradePercentile(allStudentIdsAndGradesUnFiltered);
+
+
+    for(auto idAndGrade: filteredIdsAndGrades) 
     {
         string id = string(idAndGrade[0].c_str());
         string grade = string(idAndGrade[1].c_str());
@@ -59,6 +67,7 @@ map<string, int> BasicAnalyzer::getAmountOfCompletedExcersisesPerStudent()
     queryIndexes.timestampIndex = 1;    
     filter.queryIndexes = queryIndexes;
 
+    //extract to a method
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
     vector<pqxx::result::tuple> rowsFilteredOnGradePercentile = filter.getRowsWithValidGradePercentile(unfilteredRows);
     vector<pqxx::result::tuple> fullyFilteredRows = filter.getRowsWithValidAssignmentTimes(rowsFilteredOnGradePercentile);        
@@ -87,6 +96,7 @@ map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
     queryIndexes.timestampIndex = 2;    
     filter.queryIndexes = queryIndexes;
 
+    //extract to a method    
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(queryStream.str());
     vector<pqxx::result::tuple> rowsFilteredOnGradePercentile = filter.getRowsWithValidGradePercentile(unfilteredRows);
     vector<pqxx::result::tuple> filteredStudentSuccessCountsAndGrades = filter.getRowsWithValidAssignmentTimes(rowsFilteredOnGradePercentile);        
@@ -94,7 +104,8 @@ map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
 
     for(auto row: filteredStudentSuccessCountsAndGrades)
     {
-        string studentIdStr = string(row[0].c_str());
+        //literal for frontend
+        string studentIdStr = "Student id " + string(row[0].c_str());
 
         int newSuccesRate = returnMapOfPairs[studentIdStr].first + 1; 
         int gradeOfRow = stoi(row[1].c_str());
@@ -112,63 +123,19 @@ vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
     
     std::ostringstream queryStream;
     //note: ND is a dutch abreviation for 'Niet Deelgenomen', meaning 'did not attend'
-     queryStream << "SELECT DISTINCT CAST(grades.grade AS int), assignments.class, grades.student_id"
+     queryStream << "SELECT avg(grades.grade), assignments.class"
                  << " FROM assignments, grades WHERE assignments.student_id = grades.student_id"
-                 << " AND assignments.class != 'tester';";
-
+                 << " AND assignments.class != 'tester' GROUP BY assignments.class";
     string query = queryStream.str();
 
-    //No guarantee that both struct indexes are set... catch exceptions for this and for incorrect indexes!!!
-    FilterQueryColumnIndexes queryIndexes;
-    queryIndexes.studentIdColumnIndex = 0;
-    filter.queryIndexes = queryIndexes;
+    //no filtering necessary or helpfull here    
+    pqxx::result averageAndClassRows = dbInteracter.executeSelectQuery(queryStream.str());
 
-    pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(queryStream.str());
-    vector<pqxx::result::tuple> filteredStudentSuccessCountsAndGrades = filter.getRowsWithValidGradePercentile(unfilteredRows);        
-
-    
-    /*
-    vector<pqxx::result::tuple> filteredGradeCountsPerClass = filter.getFilteredQueryRows(queryStream.str());
-
-    multimap<string, int> classesAndGrades;    
-    for(auto row: filteredGradeCountsPerClass)
+    for(auto row: averageAndClassRows)
     {
-        auto rowGrade = row[0].c_str();        
+        auto rowGradeAverage = row[0].c_str();        
         string rowClass = string(row[1].c_str());
-        classesAndGrades.insert(make_pair(rowClass, atoi(rowGrade)));
+        returnValues.push_back(make_pair(("class no. " + rowClass), atoi(rowGradeAverage)));
     }  
-
-    map<string, vector<int>> gradesWithSameClass = getGradesWithSameClass(classesAndGrades);
-    map<string, vector<int>>::iterator it;
-    for(it = gradesWithSameClass.begin(); it != gradesWithSameClass.end(); ++it)
-    {
-        int averageClassGrade = Utilities::computeAverage(it->second);
-        
-        //ugly literal for frontend
-        returnValues.push_back(make_pair("class no. " + it->first, averageClassGrade));
-    }
-    */
     return returnValues;
 }
-
-map<string, vector<int>> BasicAnalyzer::getGradesWithSameClass(multimap<string, int> classesAndGrades) 
-{
-    map<string, vector<int>> gradesWithSameClass;
-
-    multimap<string, int>::iterator it;
-    for(it = classesAndGrades.begin(); it != classesAndGrades.end(); ++it)
-    {
-        string currentClass = it->first;
-        vector<int> gradesForCurrentClass;
-        
-        auto rangeForCurrentClass = classesAndGrades.equal_range(currentClass);
-        for(multimap<string, int>::iterator currClassIt = rangeForCurrentClass.first; currClassIt != rangeForCurrentClass.second; ++currClassIt)
-        {
-            gradesForCurrentClass.push_back(currClassIt->second);
-        }
-        gradesWithSameClass.insert(make_pair(currentClass, gradesForCurrentClass));
-    }
-    return gradesWithSameClass;
-}
-
-

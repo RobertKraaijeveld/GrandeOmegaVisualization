@@ -133,12 +133,11 @@ string getAmountOfStartedExcersisesPerStudent(double upperPercentageOfGradesToBe
 	return asJSON;
 } 
 
-string getGradeAvgPerClass(double upperPercentageOfGradesToBeSelected)
+string getGradeAvgPerClass()
 {
 	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
 	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 
 	BasicAnalyzer analyzer (filterer);
 

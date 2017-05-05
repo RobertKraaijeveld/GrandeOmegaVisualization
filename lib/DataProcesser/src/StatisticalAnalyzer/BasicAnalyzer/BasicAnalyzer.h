@@ -23,14 +23,11 @@ class BasicAnalyzer
       map<string, int> getExcersisesInDayAmount();                  
       map<string, int> getExcersisesInNightAmount();                  
 
-      map<string, vector<int>> getGradesWithSameClass(multimap<string, int> classesAndGrades);
-
     public:
       map<string, int> getExceriseDateTimeMeasurements();
       map<string, pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
       map<string, int> getAmountOfCompletedExcersisesPerStudent();
       map<string, pair<int, int>> getGradesAndSuccessRates();
-
       vector<pair<string, int>> getGradeAvgPerClass();
 
       BasicAnalyzer(AnalysisFilter f) { filter = f; }; 

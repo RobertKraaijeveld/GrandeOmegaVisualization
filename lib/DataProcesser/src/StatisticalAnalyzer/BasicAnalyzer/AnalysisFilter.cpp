@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <algorithm>
 #include <cmath>
 #include <pqxx/pqxx>
 
@@ -59,14 +60,11 @@ vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx
     for(int i = 0; i < unfilteredRows.size(); i++)
     {
         int unfilteredRowStudentId = stoi(unfilteredRows[i][queryIndexes.studentIdColumnIndex].c_str());   
-        for(int j = 0; j < gradeStudentIds.size(); j++)
+        
+        if(std::find(gradeStudentIds.begin(), gradeStudentIds.end(), unfilteredRowStudentId) != gradeStudentIds.end())
         {
-            if(unfilteredRowStudentId == gradeStudentIds[j])
-            {
-                gradeFilteredRows.push_back(unfilteredRows[i]);
-                break;
-            }   
-        }
+            gradeFilteredRows.push_back(unfilteredRows[i]);
+        }   
     }
     return gradeFilteredRows;
 }
@@ -88,9 +86,9 @@ vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidAssignmentTimes(vect
 
             if(isValidAssignmentTime(previousTime, currTime))
             {
-                filteredRows.push_back(row);
+              filteredRows.push_back(row);
             }
-        }                 
+        }
         studentsAndLatestTimestamps[currStudentId] = currTime;        
     }
     return filteredRows;
