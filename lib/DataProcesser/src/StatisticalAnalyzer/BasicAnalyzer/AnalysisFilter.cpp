@@ -9,15 +9,15 @@
 #include "AnalysisFilter.h"
 
 //Still coupling because each new filter kind needs to be added as a method.
-vector<pqxx::tuple> AnalysisFilter::getFilteredQueryRows(std::string query)
+vector<pqxx::result::tuple> AnalysisFilter::getFilteredQueryRows(std::string query)
 {
     DatabaseInteracter dbInteracter;
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
 
-    vector<pqxx::tuple> gradeFilteredRows = getRowsWithValidGradePercentile(unfilteredRows);
+    vector<pqxx::result::tuple> gradeFilteredRows = getRowsWithValidGradePercentile(unfilteredRows);
 
     return getRowsWithValidAssignmentTimes(gradeFilteredRows);
-}
+} 
 
 
 int AnalysisFilter::percentageToValue(int totalAmount) 
@@ -63,14 +63,14 @@ int AnalysisFilter::getTotalAmountOfGrades()
     return stoi(amountOfGradesQueryResult[0][0].c_str());
 }
 
-vector<pqxx::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx::result& unfilteredRows)
+vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx::result& unfilteredRows)
 {
-    vector<pqxx::tuple> gradeFilteredRows;
+    vector<pqxx::result::tuple> gradeFilteredRows;
     vector<int> gradeStudentIds = getGradeIds();
 
     for(int i = 0; i < unfilteredRows.size(); i++)
     {
-        int unfilteredRowStudentId = stoi(unfilteredRows[i][queryIndexes.assignmentIdIndex].c_str());        
+        int unfilteredRowStudentId = stoi(unfilteredRows[i][queryIndexes.assignmentIdIndex].c_str());   
         for(int j = 0; j < gradeStudentIds.size(); j++)
         {
             if(unfilteredRowStudentId == gradeStudentIds[j])
@@ -83,17 +83,16 @@ vector<pqxx::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx::result
     return gradeFilteredRows;
 }
 
-vector<pqxx::tuple> AnalysisFilter::getRowsWithValidAssignmentTimes(vector<pqxx::tuple>& gradeFilteredRows)
+vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidAssignmentTimes(vector<pqxx::result::tuple> gradeFilteredRows)
 {  
-    vector<pqxx::tuple> filteredRows;
+    vector<pqxx::result::tuple> filteredRows;
 
     //dirty constant    
     string previousTime = "0000-12-12 00:00:0.0";
 
-    for(auto row: gradeFilteredRows)
+    for(pqxx::result::tuple row: gradeFilteredRows)
     {
         string currTime = string(row[queryIndexes.timestampIndex].c_str()); 
-        cout << "CURRTIME is " << currTime << endl; 
 
         if(isValidAssignmentTime(previousTime, currTime))
         {

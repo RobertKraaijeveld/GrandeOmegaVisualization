@@ -59,13 +59,16 @@ map<string, int> BasicAnalyzer::getAmountOfCompletedExcersisesPerStudent()
     int timestampColumnIndex = 1;        
     FilterQueryColumnIndexes filterIndexes (studentIdColumnIndex, timestampColumnIndex);
     filter.queryIndexes = filterIndexes;
-    vector<pqxx::tuple> filteredRows = filter.getFilteredQueryRows(query);
+    
+    /*
+    vector<pqxx::result::tuple> filteredRows = filter.getFilteredQueryRows(query);
 
     for(auto row: filteredRows)
     {
         string occurenceStudentIdStr = string(row[0].c_str());
         returnMap[occurenceStudentIdStr] = returnMap[occurenceStudentIdStr] + 1; 
     }
+    */
     return returnMap;
 }
 
@@ -83,16 +86,33 @@ map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
     int studentIdColumnIndex = 0;
     int timestampColumnIndex = 2;    
     filter.queryIndexes = FilterQueryColumnIndexes (studentIdColumnIndex, timestampColumnIndex);
-    vector<pqxx::tuple> filteredStudentSuccessCountsAndGrades = filter.getFilteredQueryRows(queryStream.str());
+    //auto filteredStudentSuccessCountsAndGrades = filter.getFilteredQueryRows(queryStream.str());
 
+    pqxx::result testquery = dbInteracter.executeSelectQuery(queryStream.str());
+    vector<pqxx::result::tuple> gradetest = filter.getRowsWithValidGradePercentile(testquery); 
+
+    //forloop is fault?
+    for(int i = 0; i < gradetest.size(); i++)
+    {
+        auto y = gradetest.at(i);
+        cout << y[0].c_str() << endl; 
+    }
+
+    /*
     for(auto row: filteredStudentSuccessCountsAndGrades)
     {
+        cout << "row[0].c_str() = " << row[0].c_str() << endl;
         string studentIdStr = string(row[0].c_str());
+        cout << "studentIdStr " << studentIdStr << endl;
+
         int newSuccesRate = returnMapOfPairs[studentIdStr].second + 1; 
+        cout << "newSuccesRate " << newSuccesRate << endl;
+
         int gradeOfRow = stoi(row[1].c_str());
+        cout << "gradeOfRow " << gradeOfRow << endl;
 
         returnMapOfPairs[studentIdStr] = make_pair(gradeOfRow, newSuccesRate); 
-    }
+    }*/
     return returnMapOfPairs;
 }
 
@@ -114,7 +134,9 @@ vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
     int studentIdColumnIndex = 0;
     int timestampColumnIndex = 2;        
     FilterQueryColumnIndexes filterIndexes (studentIdColumnIndex, timestampColumnIndex);
-    vector<pqxx::tuple> filteredGradeCountsPerClass = filter.getFilteredQueryRows(queryStream.str());
+    
+    /*
+    vector<pqxx::result::tuple> filteredGradeCountsPerClass = filter.getFilteredQueryRows(queryStream.str());
 
     multimap<string, int> classesAndGrades;    
     for(auto row: filteredGradeCountsPerClass)
@@ -133,6 +155,7 @@ vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
         //ugly literal for frontend
         returnValues.push_back(make_pair("class no. " + it->first, averageClassGrade));
     }
+    */
     return returnValues;
 }
 
