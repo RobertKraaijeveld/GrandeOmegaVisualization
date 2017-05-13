@@ -1,3 +1,6 @@
+#ifndef UTILITIESTEST_H
+#define UTILITIESTEST_H
+
 #include <cppunit/TestCase.h>
 #include <cppunit/TestFixture.h>
 #include <cppunit/TestResult.h>
@@ -19,8 +22,7 @@ class UtilitiesTest : public CppUnit::TestFixture
         suiteOfTests->addTest(new CppUnit::TestCaller<UtilitiesTest>("testIsNCharsWhiteSpace", &UtilitiesTest::testIsNCharsWhiteSpace));
         return suiteOfTests;
     }
-   //void setUp();
-   //void tearDown();
-
    void testIsNCharsWhiteSpace();
 };
+
+#endif

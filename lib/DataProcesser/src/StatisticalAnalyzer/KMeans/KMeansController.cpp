@@ -22,7 +22,7 @@ void KMeansController::convertGradesAndExcersiseMapToPoints()
 
         GenericVector newGv (valuesForGV);
         
-        Point newPoint (counter, newGv);
+        KMeansPoint newPoint (counter, newGv);
         points.push_back(newPoint);
 
         counter++;
@@ -65,14 +65,13 @@ void KMeansController::run()
     finalClusters = getClustersOfBestIteration();
 }
 
-vector<vector<Point>> KMeansController::getClustersOfBestIteration()
+vector<vector<KMeansPoint>> KMeansController::getClustersOfBestIteration()
 {
-    vector<vector<Point>> returnClusters;
+    vector<vector<KMeansPoint>> returnClusters;
 
-    //TEST TEMP
     for(int i = 0; i <= clusterAmount; i++)
     {
-        vector<Point> fillerVector;
+        vector<KMeansPoint> fillerVector;
         returnClusters.push_back(fillerVector);
     }
 
@@ -86,11 +85,11 @@ vector<vector<Point>> KMeansController::getClustersOfBestIteration()
     return returnClusters;
 }
 
-vector<vector<Point>> KMeansController::getFinalNonEmptyClusters()
+vector<vector<KMeansPoint>> KMeansController::getFinalNonEmptyClusters()
 {
-    vector<vector<Point>> nonEmptyClusters;
+    vector<vector<KMeansPoint>> nonEmptyClusters;
 
-    for(vector<Point> cluster : finalClusters)
+    for(vector<KMeansPoint> cluster : finalClusters)
     {
         if(cluster.size() > 0)
             nonEmptyClusters.push_back(cluster);

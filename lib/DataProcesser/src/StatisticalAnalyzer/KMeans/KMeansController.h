@@ -1,8 +1,8 @@
 #ifndef KMEANSCONTROLLER_H
 #define KMEANSCONTROLLER_H
 
-#include "CustomTypes/Point.h"
-#include "CustomTypes/GenericVector.h"
+#include "CustomTypes/KMeansPoint.h"
+#include "../GenericVector/GenericVector.h"
 #include "KMeansIteration.h"
 #include "../../YamlParser/YamlObject.h"
 
@@ -14,15 +14,15 @@ class KMeansController {
 
         //MAKE GENERIC
         map<string, pair<int, int>> inputValues;
-        vector<Point> points;
+        vector<KMeansPoint> points;
         vector<KMeansIteration> iterations;
-        vector<vector<Point>> finalClusters;
+        vector<vector<KMeansPoint>> finalClusters;
 
         void convertGradesAndExcersiseMapToPoints();
         vector<float> convertYamlObjectWantedValues(YamlObject& currentYamlObject);
 
         KMeansIteration getIterationWithBestSSE();
-        vector<vector<Point>> getClustersOfBestIteration();
+        vector<vector<KMeansPoint>> getClustersOfBestIteration();
 
 
     public:
@@ -38,7 +38,7 @@ class KMeansController {
         };
         
         void run();
-        vector<vector<Point>> getFinalNonEmptyClusters();
+        vector<vector<KMeansPoint>> getFinalNonEmptyClusters();
 
 };
 

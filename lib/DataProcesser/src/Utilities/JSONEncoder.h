@@ -2,14 +2,19 @@
 #define JSONENCODER_H
 
 #include "Utilities.h"
-#include "../StatisticalAnalyzer/KMeans/CustomTypes/Point.h"
+#include "../StatisticalAnalyzer/GenericVector/GenericVector.h"
+#include "../StatisticalAnalyzer/KMeans/CustomTypes/KMeansPoint.h"
 #include <vector>
 #include <string>
 
 using namespace std;
 
 class JSONEncoder {
-    //make types generic
+    //make types more, generic this will still sometimes fail
+    private:
+        template <typename T, typename J>    
+        static string kvToJson(T& k, J& v);
+
     public: 
         template <typename T, typename J>
         static string pairToJson(pair<T, J>& pair);
@@ -22,8 +27,18 @@ class JSONEncoder {
         template <typename T, typename J, typename L>
         static string mapToJson(map<T, pair<J, L>>& mapOfPairs);
         
-        static string clustersToJSON(vector<vector<Point>> clusters);
+        static string clustersToJSON(vector<vector<KMeansPoint>> clusters);
 };
+
+template <typename T, typename J>    
+string JSONEncoder::kvToJson(T& k, J& v)
+{
+    stringstream returnStr;    
+    returnStr << "\"x\"" << ':' << ' ' << '"' << Utilities::genericToStr(k) << '"' << ", ";
+    returnStr << "\"y\"" << ':' << ' ' << '"' << Utilities::genericToStr(v) << '"';
+    return returnStr.str();
+}
+
 
 //duplication with map, only loop is different
 template <class T, class J>        
@@ -31,38 +46,46 @@ string JSONEncoder::pairsToJson(vector<pair<T, J>>& pairs)
 {
     stringstream returnJSONStr;
 
-    returnJSONStr << "{ \n";
+    returnJSONStr << "[ \n";
     for(int i = 0; i < pairs.size(); i++)
     {
-        //split this up
+        returnJSONStr << "{ ";
+
+        returnJSONStr << kvToJson(pairs[i].first, pairs[i].second);
+
+        //add comma after object if not at last pair
         if(i < pairs.size() - 1)
-            returnJSONStr << '"' << Utilities::genericToStr(pairs[i].first) << '"' << ':' << ' ' << '"' << Utilities::genericToStr(pairs[i].second) << '"' << ',' << endl;  
+             returnJSONStr << "}," << endl;  
         else
-            returnJSONStr << '"' << Utilities::genericToStr(pairs[i].first) << '"' << ':' << ' ' << '"' << Utilities::genericToStr(pairs[i].second) << '"' << endl;              
+             returnJSONStr << "}" << endl;          
     }
-    returnJSONStr << " }";
+    returnJSONStr << " ]";
     return returnJSONStr.str();  
 }
 
+//TODO: eerily familiar with above method
 template <typename T, typename J>
 string JSONEncoder::mapToJson(map<T, J>& m)
 {
     stringstream returnJSONStr;
 
-    returnJSONStr << "{ \n";
+    returnJSONStr << "[ \n";
 
     int counter = 0;
     typename map<T, J>::iterator it;
     for(it = m.begin(); it != m.end(); it++)
     {
+        returnJSONStr << "{";
+        returnJSONStr << kvToJson(it->first, it->second);
+        
         if(counter < (m.size() - 1))
-           returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' << ' ' << '"' << Utilities::genericToStr(it->second) << '"' << ',' << endl;  
+            returnJSONStr << "}," << endl;  
         else
-           returnJSONStr << '"' << Utilities::genericToStr(it->first) << '"' << ':' << ' ' << '"' << Utilities::genericToStr(it->second) << '"' << endl;       
+            returnJSONStr << "}" << endl;        
         
         counter++;       
     }
-    returnJSONStr << " }";
+    returnJSONStr << " ]";
     return returnJSONStr.str();
 }
 
@@ -86,8 +109,8 @@ string JSONEncoder::mapToJson(map<T, pair<J, L>>& mapOfPairs)
         returnJSONStr << "\"name\":\"" << Utilities::genericToStr(it->first) << "\", ";
         returnJSONStr << "\"data\": {";
 
-        returnJSONStr << '"'  << Utilities::genericToStr(pairL) << '"'  << ':' 
-           << ' ' << '"' << Utilities::genericToStr(pairR) << '"';  
+        returnJSONStr << "\"x\": " << '"'  << Utilities::genericToStr(pairL) << '"'  << ',' 
+           << " \"y\": " << '"' << Utilities::genericToStr(pairR) << '"';  
 
         //if not at last pair, add comma
         if(counter < (mapOfPairs.size() - 1))
@@ -107,11 +130,11 @@ string JSONEncoder::mapToJson(map<T, pair<J, L>>& mapOfPairs)
     return returnJSONStr.str();
 }
 
-string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
+string JSONEncoder::clustersToJSON(vector<vector<KMeansPoint>> clusters)
 {
     stringstream returnJSONStr;
 
-    //array opening brace
+    //obj opening brace
     returnJSONStr << "[" << "\n";
 
     //all clusters
@@ -119,11 +142,16 @@ string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
     {
         size_t lastClusterIndex = clusters.size();
         size_t clusterCounter = i;
-        returnJSONStr << "{\"name\":\"Cluster " + to_string(clusterCounter + 1) + "\", \"data\": {";
+
+        //opening brace for cluster
+        returnJSONStr << "{ \"name\": \"" << clusterCounter << "\", \"data\": [" << endl;
 
         //vectors in a single cluster
         for(int j = 0; j < clusters[i].size(); j++)
         {
+            //opening brace for vector pair            
+            returnJSONStr << "{";
+            
             //values in a single vector
             for(int z = 0; z < clusters[i][j].vector.values.size(); z++)
             {
@@ -131,26 +159,26 @@ string JSONEncoder::clustersToJSON(vector<vector<Point>> clusters)
 
                 //todo: generify for > 2 dimensional KMeans 
                 if(z == 0)
-                    returnJSONStr << "\"" <<  clusters[i][j].vector.values[z] << "\"" << ':';
+                    returnJSONStr << "\"x\": " << '"' << clusters[i][j].vector.values[z] << '"' << ',';
                 else
-                    returnJSONStr << clusters[i][j].vector.values[z];
+                    returnJSONStr << "\"y\": " << '"' << clusters[i][j].vector.values[z] << '"';
             }
             size_t lastClusterVectorIndex = clusters[i].size() - 1; 
+
+            //closing brace for vector pair
+            returnJSONStr << "}";
 
             //comma if theres clusters left to go                
             if(i != lastClusterIndex && j != lastClusterVectorIndex)
                 returnJSONStr << ", ";
         }
-        //closing brace of "data" :            
-        returnJSONStr << "}";
-
         //closing brace of entire cluster
         if(i != (lastClusterIndex- 1))
-            returnJSONStr << "}," << "\n";
+            returnJSONStr << "] }," << endl;
         else
-            returnJSONStr << "}" << "\n";
+            returnJSONStr << "] }" << endl;            
     }
-    //final json array closing brace 
+    //final json obj closing brace 
     returnJSONStr << " ]";
     return returnJSONStr.str();
 }

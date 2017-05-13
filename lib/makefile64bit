@@ -197,6 +197,7 @@ LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/l
 TESTSDIR = DataProcesser/tests/
 PROCESSERDIR = DataProcesser/src/
 KMEANSDIR = DataProcesser/src/StatisticalAnalyzer/KMeans/
+ANALYZERDIR = DataProcesser/src/StatisticalAnalyzer/
 
 define ORIG_SRCS 
  $(TESTSDIR)runAllTests.cpp
@@ -212,17 +213,21 @@ define ORIG_SRCS
  $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.cpp  
  $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.cpp 
  $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.cpp
- $(KMEANSDIR)CustomTypes/GenericVector.cpp
- $(KMEANSDIR)CustomTypes/Point.cpp
- $(KMEANSDIR)/KMeansController.cpp
- $(KMEANSDIR)/KMeansIteration.cpp
+ $(ANALYZERDIR)Regression/SimpleLinearRegression.cpp
+ $(ANALYZERDIR)StatisticalTools/StatisticalTools.cpp
+ $(ANALYZERDIR)GenericVector/GenericVector.cpp
+ $(ANALYZERDIR)GenericVector/GenericVector.cpp
+ $(KMEANSDIR)CustomTypes/KMeansPoint.cpp
+ $(KMEANSDIR)KMeansController.cpp
+ $(KMEANSDIR)KMeansIteration.cpp
  dataprocesser.cpp
 endef 
 SRCS = $(ORIG_SRCS) 
 
 #Why the fuck is this the only valid way to declare this?
-OBJS = $(TESTSDIR)runAllTests.o $(TESTSDIR)UtilitiesTest.o $(KMEANSDIR)/KMeansIteration.o $(KMEANSDIR)/KMeansController.o $(KMEANSDIR)CustomTypes/Point.o $(KMEANSDIR)CustomTypes/GenericVector.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.o $(PROCESSERDIR)YamlParser/YamlParser.o $(PROCESSERDIR)YamlParser/YamlObject.o $(PROCESSERDIR)YamlParser/YamlConverter.o $(PROCESSERDIR)CsvParser/CsvParser.o $(PROCESSERDIR)Mapper/Mapper.o $(PROCESSERDIR)Utilities/UtcTime.o $(PROCESSERDIR)Utilities/UtcReader.o $(PROCESSERDIR)Utilities/Utilities.o $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
-HDRS = $(TESTSDIR)UtilitiesTest.h $(KMEANSDIR)/KMeansIteration.h $(KMEANSDIR)/KMeansController.h $(KMEANSDIR)CustomTypes/Point.h $(KMEANSDIR)CustomTypes/GenericVector.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.h $(PROCESSERDIR)YamlParser/YamlParser.h $(PROCESSERDIR)YamlParser/YamlObject.h $(PROCESSERDIR)YamlParser/YamlConverter.h $(PROCESSERDIR)CsvParser/CsvParser.h $(PROCESSERDIR)Mapper/Mapper.h $(PROCESSERDIR)Utilities/UtcTime.h $(PROCESSERDIR)Utilities/UtcReader.h $(PROCESSERDIR)Utilities/JSONEncoder.h $(PROCESSERDIR)Utilities/Utilities.h $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.h   
+ 
+OBJS = $(TESTSDIR)runAllTests.o $(TESTSDIR)UtilitiesTest.o $(KMEANSDIR)/KMeansIteration.o $(KMEANSDIR)/KMeansController.o $(KMEANSDIR)CustomTypes/KMeansPoint.o $(ANALYZERDIR)GenericVector/GenericVector.o  $(ANALYZERDIR)Regression/SimpleLinearRegression.o $(ANALYZERDIR)StatisticalTools/StatisticalTools.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.o $(PROCESSERDIR)YamlParser/YamlParser.o $(PROCESSERDIR)YamlParser/YamlObject.o $(PROCESSERDIR)YamlParser/YamlConverter.o $(PROCESSERDIR)CsvParser/CsvParser.o $(PROCESSERDIR)Mapper/Mapper.o $(PROCESSERDIR)Utilities/UtcTime.o $(PROCESSERDIR)Utilities/UtcReader.o $(PROCESSERDIR)Utilities/Utilities.o $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
+HDRS = $(TESTSDIR)UtilitiesTest.h $(KMEANSDIR)/KMeansIteration.h $(KMEANSDIR)/KMeansController.h $(KMEANSDIR)CustomTypes/KMeansPoint.h $(ANALYZERDIR)GenericVector/GenericVector.h $(ANALYZERDIR)Regression/IRegression.h $(ANALYZERDIR)Regression/SimpleLinearRegression.h $(ANALYZERDIR)StatisticalTools/StatisticalTools.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.h $(PROCESSERDIR)YamlParser/YamlParser.h $(PROCESSERDIR)YamlParser/YamlObject.h $(PROCESSERDIR)YamlParser/YamlConverter.h $(PROCESSERDIR)CsvParser/CsvParser.h $(PROCESSERDIR)Mapper/Mapper.h $(PROCESSERDIR)Utilities/UtcTime.h $(PROCESSERDIR)Utilities/UtcReader.h $(PROCESSERDIR)Utilities/JSONEncoder.h $(PROCESSERDIR)Utilities/Utilities.h $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.h   
 
 #### END GRANDEOMEGAPRJ ######
 

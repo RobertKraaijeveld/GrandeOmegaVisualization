@@ -1,6 +1,6 @@
 #include "KMeansIteration.h"
-#include "CustomTypes/Point.h"
-#include "CustomTypes/GenericVector.h"
+#include "CustomTypes/KMeansPoint.h"
+#include "../GenericVector/GenericVector.h"
 #include <iostream>
 #include <limits>
 #include <math.h>
@@ -42,7 +42,7 @@ void KMeansIteration::reassignPointClusters()
     }
 }
 
-pair<Centroid, float> KMeansIteration::getClosestCentroidAndDistance(Point p)
+pair<Centroid, float> KMeansIteration::getClosestCentroidAndDistance(KMeansPoint p)
 {
     //duplicated in kmeanscontroller
     float MAX_float = 1.7976931348623158e+308;
@@ -67,7 +67,7 @@ void KMeansIteration::recomputeCentroids()
     for(int i = 0; i < centroids.size(); i++)
     {
         GenericVector oldVector = centroids[i].vector;
-        vector<Point> pointsForThisCluster = KMeansIteration::getPointsOfCluster(centroids[i].id);
+        vector<KMeansPoint> pointsForThisCluster = KMeansIteration::getPointsOfCluster(centroids[i].id);
 
         for(int j = 0; j < pointsForThisCluster.size(); j++)
         {
@@ -80,9 +80,9 @@ void KMeansIteration::recomputeCentroids()
     }
 }
 
-vector<Point> KMeansIteration::getPointsOfCluster(int centroidId)
+vector<KMeansPoint> KMeansIteration::getPointsOfCluster(int centroidId)
 {
-    vector<Point> pointsForCluster;
+    vector<KMeansPoint> pointsForCluster;
     for(int i = 0; i < points.size(); i++)
     {
        if(points[i].centroidId == centroidId)

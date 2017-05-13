@@ -39,7 +39,6 @@ map<string, pair<int, int>> BasicAnalyzer::getAmountOfExercisesCompletedAndGrade
     pqxx::result allStudentIdsAndGradesUnFiltered = dbInteracter.executeSelectQuery(query); 
     vector<pqxx::result::tuple> filteredIdsAndGrades = filter.getRowsWithValidGradePercentile(allStudentIdsAndGradesUnFiltered);
 
-
     for(auto idAndGrade: filteredIdsAndGrades) 
     {
         string id = string(idAndGrade[0].c_str());
@@ -122,8 +121,7 @@ vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
     DatabaseInteracter dbInteracter;
     
     std::ostringstream queryStream;
-    //note: ND is a dutch abreviation for 'Niet Deelgenomen', meaning 'did not attend'
-     queryStream << "SELECT avg(grades.grade), assignments.class"
+    queryStream << "SELECT avg(grades.grade), assignments.class"
                  << " FROM assignments, grades WHERE assignments.student_id = grades.student_id"
                  << " AND assignments.class != 'tester' GROUP BY assignments.class";
     string query = queryStream.str();
@@ -135,7 +133,7 @@ vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
     {
         auto rowGradeAverage = row[0].c_str();        
         string rowClass = string(row[1].c_str());
-        returnValues.push_back(make_pair(("class no. " + rowClass), atoi(rowGradeAverage)));
+        returnValues.push_back(make_pair((rowClass), atoi(rowGradeAverage)));
     }  
     return returnValues;
 }

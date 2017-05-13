@@ -1,8 +1,8 @@
 #ifndef KMEANSITERATION_H
 #define KMEANSITERATION_H
 
-#include "CustomTypes/Point.h"
-#include "CustomTypes/GenericVector.h"
+#include "CustomTypes/KMeansPoint.h"
+#include "../GenericVector/GenericVector.h"
 
 class KMeansIteration {
     private:
@@ -14,9 +14,9 @@ class KMeansIteration {
         bool centroidsHaveChanged();
         vector<Centroid> createRandomCentroids();
         void reassignPointClusters();
-        pair<Centroid, float> getClosestCentroidAndDistance(Point p);
+        pair<Centroid, float> getClosestCentroidAndDistance(KMeansPoint p);
 
-        vector<Point> getPointsOfCluster(int centroidId);
+        vector<KMeansPoint> getPointsOfCluster(int centroidId);
         void recomputeCentroids();
         void recordVectorChange(GenericVector& oldCentroidVector, Centroid& centroid);
 
@@ -27,9 +27,9 @@ class KMeansIteration {
         int iterationId;
         float sumOfSquaredErrors;
 
-        vector<Point> &points;        
+        vector<KMeansPoint> &points;        
 
-        KMeansIteration(vector<Point>& p, int& c, int& i, int& d) : points(p), clusterAmount(c),  iterationId(i), dimension(d) {};
+        KMeansIteration(vector<KMeansPoint>& p, int& c, int& i, int& d) : points(p), clusterAmount(c),  iterationId(i), dimension(d) {};
         void runIteration();
 };
 

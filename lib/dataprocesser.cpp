@@ -18,7 +18,11 @@
 #include "DataProcesser/src/Mapper/Mapper.h"
 #include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.h" 
 #include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.h" 
-#include "DataProcesser/src/StatisticalAnalyzer/KMeans/KMeansController.h"  
+#include "DataProcesser/src/StatisticalAnalyzer/KMeans/KMeansController.h"
+
+//temp
+#include "DataProcesser/src/StatisticalAnalyzer/StatisticalTools/StatisticalTools.h"  
+#include "DataProcesser/src/StatisticalAnalyzer/GenericVector/GenericVector.h"    
  
 
 using namespace Rice;
@@ -33,6 +37,18 @@ ifstream explicitStudentsStream = ifstream("DataProcesser/docs/explicitStudents.
 vector<vector<string>> knownEmailsForClasses;	
 vector<YamlObject> emailYamlObjects;
 vector<YamlObject> assignmentYamlObjects;
+
+/*
+	TESTING (TEMP)
+*/
+
+string regressionTest()
+{
+	GenericVector x = GenericVector({1,2,3});
+	GenericVector y = GenericVector({3,4,5});
+	return to_string(x.dotProduct(y));	
+}
+
                    
 /*
 	PARSING 
@@ -99,7 +115,7 @@ string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 	return JSONEncoder::mapToJson(gradeAndSuccessRatePerStudent);
 }
 
-string getKMeans(double upperPercentageOfGradesToBeSelected) 
+string getKMeans(double upperPercentageOfGradesToBeSelected)
 {
 	//make optional non-filtered basicanalyzer or provide standard
 	AnalysisFilter filterer;
@@ -160,6 +176,7 @@ extern "C"
 void Init_dataprocesser()
 {
   Class rb_c = define_class("Dataprocesser")
+	.define_method("regressionTest", &regressionTest)    
 	.define_method("parseAndGetGrades", &parseAndGetGrades)  
 	.define_method("parseAndGetAssignments", &parseAndGetAssignments)
     .define_method("insertToDB", &insertToDB)  	

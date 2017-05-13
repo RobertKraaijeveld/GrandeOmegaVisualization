@@ -8,3 +8,5 @@ module DataProcesserCoupling
         @dataprocesser
     end
 end
+
+puts DataProcesserCoupling.getDataProcesser.regressionTest

@@ -22,6 +22,8 @@ class Utilities {
         template<class T>
         static string genericToStr(const T& val);
 
+        static bool AreFloatsEqual(float f1, float f2);
+
         static int computeAverage(vector<int>& values);
         static bool isInVector(string& value, vector<string>& vector);
 };
