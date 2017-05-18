@@ -53,31 +53,6 @@ map<string, pair<int, int>> BasicAnalyzer::getAmountOfExercisesCompletedAndGrade
     return amountOfExercisesAndGradePerStudent;
 }
 
-map<string, int> BasicAnalyzer::getAmountOfCompletedExcersisesPerStudent()
-{
-    map<string, int> returnMap;
-    DatabaseInteracter dbInteracter;
-
-    string query = "SELECT student_id, creation_timestamp FROM assignments WHERE sort = 'completion';";
-
-    //No guarantee that both struct indexes are set... catch exceptions for this and for incorrect indexes!!!
-    FilterQueryColumnIndexes queryIndexes;
-    queryIndexes.studentIdColumnIndex = 0;
-    queryIndexes.timestampIndex = 1;    
-    filter.queryIndexes = queryIndexes;
-
-    //extract to a method
-    pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
-    vector<pqxx::result::tuple> rowsFilteredOnGradePercentile = filter.getRowsWithValidGradePercentile(unfilteredRows);
-    vector<pqxx::result::tuple> fullyFilteredRows = filter.getRowsWithValidAssignmentTimes(rowsFilteredOnGradePercentile);        
-    
-    for(auto row: fullyFilteredRows)
-    {
-        string occurenceStudentIdStr = string(row[0].c_str());
-        returnMap[occurenceStudentIdStr] = returnMap[occurenceStudentIdStr] + 1; 
-    }
-    return returnMap;
-}
 
 map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
 {
@@ -112,28 +87,4 @@ map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
         returnMapOfPairs[studentIdStr] = make_pair(newSuccesRate, gradeOfRow); 
     }
     return returnMapOfPairs;
-}
-
-vector<pair<string, int>> BasicAnalyzer::getGradeAvgPerClass()
-{
-    vector<pair<string, int>> returnValues;
-
-    DatabaseInteracter dbInteracter;
-    
-    std::ostringstream queryStream;
-    queryStream << "SELECT avg(grades.grade), assignments.class"
-                 << " FROM assignments, grades WHERE assignments.student_id = grades.student_id"
-                 << " AND assignments.class != 'tester' GROUP BY assignments.class";
-    string query = queryStream.str();
-
-    //no filtering necessary or helpfull here    
-    pqxx::result averageAndClassRows = dbInteracter.executeSelectQuery(queryStream.str());
-
-    for(auto row: averageAndClassRows)
-    {
-        auto rowGradeAverage = row[0].c_str();        
-        string rowClass = string(row[1].c_str());
-        returnValues.push_back(make_pair((rowClass), atoi(rowGradeAverage)));
-    }  
-    return returnValues;
 }

@@ -1,6 +1,7 @@
 #ifndef ANALYSISFILTER_H
 #define ANALYSISFILTER_H
 
+#include <vector>
 #include <string>
 #include <pqxx/pqxx>
 
@@ -20,7 +21,7 @@ class AnalysisFilter {
         std::string getGradeSortingQuery();
         int getTotalAmountOfGrades();
         
-        vector<int> getGradeIds();        
+        std::vector<int> getGradeIds();        
 
     public:
         //TODO: Change this: queries should have their own datastructure.
@@ -28,9 +29,9 @@ class AnalysisFilter {
         double timeBetweenAssignmentsThreshold = 0.0;
         double upperPercentageOfGradesToBeSelected = 100.0; 
 
-        //TODO: Template this for both pqxx::result as well as vector of result tuples
-        vector<pqxx::result::tuple> getRowsWithValidGradePercentile(pqxx::result& unfilteredRows);
-        vector<pqxx::result::tuple> getRowsWithValidAssignmentTimes(vector<pqxx::result::tuple>& gradeFilteredRows); 
+        //TODO: Template this for both pqxx::result as well as std::vector of result tuples
+        std::vector<pqxx::result::tuple> getRowsWithValidGradePercentile(pqxx::result& unfilteredRows);
+        std::vector<pqxx::result::tuple> getRowsWithValidAssignmentTimes(std::vector<pqxx::result::tuple>& gradeFilteredRows); 
 
         AnalysisFilter(){}
 };

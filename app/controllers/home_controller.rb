@@ -4,34 +4,43 @@ require 'json'
 
 class HomeController < ApplicationController
   include DataProcesserCoupling
+  helper_method :completedexcersises  
+  helper_method :gradeavgs  
   helper_method :kmeans
   helper_method :successrate  
 
   def index
-    gradeAvgsAsJson = DataProcesserCoupling::getDataProcesser.getGradeAvgPerClass
-    #make this a method and return
-    parsedGradeAvgs = JSON.parse(gradeAvgsAsJson)
-    @avgGradePerClass = parsedGradeAvgs
+  end
 
-    startedExcersisesAmount = DataProcesserCoupling::getDataProcesser.getAmountOfStartedExcersisesPerStudent
-    parsedExcersiseAmounts = JSON.parse(startedExcersisesAmount)
-    @excersisesAmounts = parsedExcersiseAmounts
+  def completedexcersises
+    completedExcersisesAndGradesJSON = DataProcesserCoupling::getDataProcesser.getAmountOfCompletedExcersisesPerStudent(getPercentage())
+
+    completedExcersisesAndGradesParsed = JSON.parse(completedExcersisesAndGradesJSON)
+    render json: completedExcersisesAndGradesParsed
+  end
+
+  def gradeavgs 
+    gradeAvgsPerClassJSON = DataProcesserCoupling::getDataProcesser.getGradeAvgPerClass
+
+    gradeAvgsPerClassParsed = JSON.parse(gradeAvgsPerClassJSON)
+    render json: gradeAvgsPerClassParsed
   end
 
   def kmeans
-    upperPercentageOfGradesToBeSelected = params.fetch(:percentage).to_i
-    gradesAndExcerisesClustersJSON = DataProcesserCoupling::getDataProcesser.getKMeans(upperPercentageOfGradesToBeSelected) 
+    gradesAndExcerisesClustersJSON = DataProcesserCoupling::getDataProcesser.getKMeans(getPercentage()) 
 
     gradesAndExcerisesClustersParsed = JSON.parse(gradesAndExcerisesClustersJSON)
     render json: gradesAndExcerisesClustersParsed
   end 
 
   def successrate
-    #extract!
-    upperPercentageOfGradesToBeSelected = params.fetch(:percentage).to_i
-    studentsGradesAndSuccesRateJSON = DataProcesserCoupling::getDataProcesser.getSuccesRate(upperPercentageOfGradesToBeSelected)
+    studentsGradesAndSuccesRateJSON = DataProcesserCoupling::getDataProcesser.getSuccesRate(getPercentage())
     
     studentsGradesAndSuccesRateParsed = JSON.parse(studentsGradesAndSuccesRateJSON)
     render json: studentsGradesAndSuccesRateParsed
+  end
+
+  def getPercentage
+    params.fetch(:percentage).to_i
   end
 end

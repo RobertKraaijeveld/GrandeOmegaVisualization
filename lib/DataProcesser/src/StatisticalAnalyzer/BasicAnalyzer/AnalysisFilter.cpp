@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include <cmath>
 #include <pqxx/pqxx>
 
@@ -24,7 +25,7 @@ bool AnalysisFilter::isValidAssignmentTime(std::string& previousTime, std::strin
            - ((previousUtcTime.minute * 60) + previousUtcTime.second) >= timeBetweenAssignmentsThreshold;
 }
 
-vector<int> AnalysisFilter::getGradeIds()
+std::vector<int> AnalysisFilter::getGradeIds()
 {
     DatabaseInteracter dbInteracter;
 
@@ -34,7 +35,7 @@ vector<int> AnalysisFilter::getGradeIds()
 
     pqxx::result allGradeStudentIds = dbInteracter.executeSelectQuery(queryStream.str());
 
-    vector<int> allGradeIdsInts;
+    std::vector<int> allGradeIdsInts;
     for(auto row: allGradeStudentIds)
     {
         allGradeIdsInts.push_back(stoi(row[0].c_str()));
@@ -52,10 +53,10 @@ int AnalysisFilter::getTotalAmountOfGrades()
     return stoi(amountOfGradesQueryResult[0][0].c_str());
 }
 
-vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx::result& unfilteredRows)
+std::vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx::result& unfilteredRows)
 {
-    vector<pqxx::result::tuple> gradeFilteredRows;
-    vector<int> gradeStudentIds = getGradeIds();
+    std::vector<pqxx::result::tuple> gradeFilteredRows;
+    std::vector<int> gradeStudentIds = getGradeIds();
 
     for(int i = 0; i < unfilteredRows.size(); i++)
     {
@@ -69,9 +70,9 @@ vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx
     return gradeFilteredRows;
 }
 
-vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidAssignmentTimes(vector<pqxx::result::tuple>& gradeFilteredRows)
+std::vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidAssignmentTimes(std::vector<pqxx::result::tuple>& gradeFilteredRows)
 {  
-    vector<pqxx::result::tuple> filteredRows;
+    std::vector<pqxx::result::tuple> filteredRows;
 
     map<string, string> studentsAndLatestTimestamps;
 

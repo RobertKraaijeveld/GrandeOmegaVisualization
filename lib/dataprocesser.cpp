@@ -1,6 +1,7 @@
 #include "rice/Class.hpp"
+//#include "rice/Array.hpp"
+
 #include <iostream> 
-#include <fstream>
 #include <fstream>
 #include <sstream>
 #include <pqxx/pqxx>
@@ -11,19 +12,22 @@
 #include "DataProcesser/src/CsvParser/CsvParser.h"
 #include "DataProcesser/src/YamlParser/YamlParser.h"
 #include "DataProcesser/src/Utilities/Utilities.h"
-#include "DataProcesser/src/Utilities/JSONEncoder.h"
 #include "DataProcesser/src/Utilities/UtcTime.h"
 #include "DataProcesser/src/Utilities/UtcReader.h"
 #include "DataProcesser/src/DatabaseInteracter/DatabaseInteracter.h"
 #include "DataProcesser/src/Mapper/Mapper.h"
-#include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.h" 
+
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/IVisualization.h" 
+#include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h" 
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h" 
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/CompletedExcersisesPerStudent.h" 
+
 #include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.h" 
 #include "DataProcesser/src/StatisticalAnalyzer/KMeans/KMeansController.h"
-
-//temp
 #include "DataProcesser/src/StatisticalAnalyzer/StatisticalTools/StatisticalTools.h"  
 #include "DataProcesser/src/StatisticalAnalyzer/GenericVector/GenericVector.h"    
  
+//CLEAN UP HERE
 
 using namespace Rice;
 using namespace std;
@@ -37,17 +41,6 @@ ifstream explicitStudentsStream = ifstream("DataProcesser/docs/explicitStudents.
 vector<vector<string>> knownEmailsForClasses;	
 vector<YamlObject> emailYamlObjects;
 vector<YamlObject> assignmentYamlObjects;
-
-/*
-	TESTING (TEMP)
-*/
-
-string regressionTest()
-{
-	GenericVector x = GenericVector({1,2,3});
-	GenericVector y = GenericVector({3,4,5});
-	return to_string(x.dotProduct(y));	
-}
 
                    
 /*
@@ -94,17 +87,20 @@ void insertToDB()
 
 string getExcersiseDateTimeMetrics(double upperPercentageOfGradesToBeSelected) 
 {
+	/*
 	AnalysisFilter filterer;
 	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
 	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 	BasicAnalyzer analyzer (filterer);
 
 	map<string, int> excersiseDateTimeMeasurements = analyzer.getExceriseDateTimeMeasurements();	
-	return JSONEncoder::mapToJson(excersiseDateTimeMeasurements);
+	return JSONEncoder::mapToJson(excersiseDateTimeMeasurements);*/
+	return "";
 }
 
 string getSuccesRate(double upperPercentageOfGradesToBeSelected) 
 {
+	/*
 	AnalysisFilter filterer;
 	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
 	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
@@ -112,12 +108,13 @@ string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 
 	map<string, pair<int, int>> gradeAndSuccessRatePerStudent = analyzer.getGradesAndSuccessRates();
 	
-	return JSONEncoder::mapToJson(gradeAndSuccessRatePerStudent);
+	return JSONEncoder::mapToJson(gradeAndSuccessRatePerStudent);*/
+	return "";	
 }
 
 string getKMeans(double upperPercentageOfGradesToBeSelected)
 {
-	//make optional non-filtered basicanalyzer or provide standard
+	/*
 	AnalysisFilter filterer;
 	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
 	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
@@ -133,35 +130,45 @@ string getKMeans(double upperPercentageOfGradesToBeSelected)
 	kmController.run();
 
 	string clusters = JSONEncoder::clustersToJSON(kmController.getFinalNonEmptyClusters()); 
-	return clusters;
-}
+	return clusters;*/
+	return "";
+} 
 
-string getAmountOfStartedExcersisesPerStudent(double upperPercentageOfGradesToBeSelected)
+string getAmountOfCompletedExcersisesPerStudent(double upperPercentageOfGradesToBeSelected)
 {
 	AnalysisFilter filterer;
 	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
 	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 
-	BasicAnalyzer analyzer (filterer);
-
-	map<string, int> amountOfStartedExcersisesPerStudent = analyzer.getAmountOfCompletedExcersisesPerStudent();
-	string asJSON = JSONEncoder::mapToJson(amountOfStartedExcersisesPerStudent);
-	return asJSON;
+	std::unique_ptr<IVisualization> visualization(new CompletedExcersisesPerStudent(filterer));  
+	return visualization->getVisualizationAsJSON();  
 } 
 
 string getGradeAvgPerClass()
 {
-	//make optional non-filtered basicanalyzer or provide standard
-	AnalysisFilter filterer;
-	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-
-	BasicAnalyzer analyzer (filterer);
-
-	vector<pair<string, int>> gradesAvgsPerClass = analyzer.getGradeAvgPerClass();
-	string pairs = JSONEncoder::pairsToJson(gradesAvgsPerClass);   
-	return pairs;  
+	std::unique_ptr<IVisualization> visualization(new GradeAvgsPerClass());  
+	return visualization->getVisualizationAsJSON();  
 }
 
+string getLinearRegression()
+{
+	//Array xvalues
+	//convert Array to vector of float
+	//check conversion to float is possible
+
+	/*
+	note that the endpoint in the controller does need access to the original points in order to send xValues.
+	do we want this linear regression to be generic or not?
+	
+	Making it generic would mean ENCODING javascript values of a series to JSON (theres methods for that),
+	posting it to an controller (can easily be done using params_fetch),
+	decoding the JSON to an array (json.parse),
+	calling this method with said array
+	returning the resulting JSON to the caller on the view
+	*/
+
+	return "x";
+}
 
   /*
 	Backward assignments have only 1 succes.
@@ -176,13 +183,13 @@ extern "C"
 void Init_dataprocesser()
 {
   Class rb_c = define_class("Dataprocesser")
-	.define_method("regressionTest", &regressionTest)    
+	.define_method("getLinearRegression", &getLinearRegression)    
 	.define_method("parseAndGetGrades", &parseAndGetGrades)  
 	.define_method("parseAndGetAssignments", &parseAndGetAssignments)
     .define_method("insertToDB", &insertToDB)  	
     .define_method("getKMeans", &getKMeans)   
     .define_method("getSuccesRate", &getSuccesRate)    		 		 		 		   
-    .define_method("getAmountOfStartedExcersisesPerStudent", &getAmountOfStartedExcersisesPerStudent)    		 	
+    .define_method("getAmountOfCompletedExcersisesPerStudent", &getAmountOfCompletedExcersisesPerStudent)    		 	
     .define_method("getGradeAvgPerClass", &getGradeAvgPerClass);
 }
 
