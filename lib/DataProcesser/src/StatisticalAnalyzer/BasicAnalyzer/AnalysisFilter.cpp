@@ -50,7 +50,7 @@ int AnalysisFilter::getTotalAmountOfGrades()
 
     pqxx::result amountOfGradesQueryResult = dbInteracter.executeSelectQuery(amountOfGradesQuery);
 
-    return stoi(amountOfGradesQueryResult[0][0].c_str());
+    return stoi(amountOfGradesQueryResult[0][0].c_str()); 
 }
 
 std::vector<pqxx::result::tuple> AnalysisFilter::getRowsWithValidGradePercentile(pqxx::result& unfilteredRows)

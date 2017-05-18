@@ -12,13 +12,6 @@ class HomeController < ApplicationController
   def index
   end
 
-  def completedexcersises
-    completedExcersisesAndGradesJSON = DataProcesserCoupling::getDataProcesser.getAmountOfCompletedExcersisesPerStudent(getPercentage())
-
-    completedExcersisesAndGradesParsed = JSON.parse(completedExcersisesAndGradesJSON)
-    render json: completedExcersisesAndGradesParsed
-  end
-
   def gradeavgs 
     gradeAvgsPerClassJSON = DataProcesserCoupling::getDataProcesser.getGradeAvgPerClass
 

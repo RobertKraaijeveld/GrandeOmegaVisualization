@@ -18,9 +18,10 @@
 #include "DataProcesser/src/Mapper/Mapper.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/IVisualization.h" 
-#include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h" 
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.h" 
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.h" 
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h" 
-#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/CompletedExcersisesPerStudent.h" 
+#include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h" 
 
 #include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.h" 
 #include "DataProcesser/src/StatisticalAnalyzer/KMeans/KMeansController.h"
@@ -98,50 +99,28 @@ string getExcersiseDateTimeMetrics(double upperPercentageOfGradesToBeSelected)
 	return "";
 }
 
+
+//VERY SIMILAR METHOD CALLSSSS
+//RENAME
 string getSuccesRate(double upperPercentageOfGradesToBeSelected) 
 {
-	/*
-	AnalysisFilter filterer;
-	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
-	BasicAnalyzer analyzer (filterer);
+	AnalysisFilter filter;
+	filter.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
+	filter.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 
-	map<string, pair<int, int>> gradeAndSuccessRatePerStudent = analyzer.getGradesAndSuccessRates();
-	
-	return JSONEncoder::mapToJson(gradeAndSuccessRatePerStudent);*/
-	return "";	
-}
-
-string getKMeans(double upperPercentageOfGradesToBeSelected)
-{
-	/*
-	AnalysisFilter filterer;
-	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
-	BasicAnalyzer analyzer (filterer);
-
-	auto gradesAndExcersisePerStudent = analyzer.getAmountOfExercisesCompletedAndGradesPerStudent();
-
-	int dataDimension = 2;  
-	int bestClusterAmount = 19; //tested manually with elbow method
-	int iterationAmount = 100;
-
-	KMeansController kmController (gradesAndExcersisePerStudent, iterationAmount, bestClusterAmount, dataDimension);
-	kmController.run();
-
-	string clusters = JSONEncoder::clustersToJSON(kmController.getFinalNonEmptyClusters()); 
-	return clusters;*/
-	return "";
+	std::unique_ptr<IVisualization> visualization(new GradeAndExcersiseSuccesses(filter));
+	return visualization->getVisualizationAsJSON();
 } 
 
-string getAmountOfCompletedExcersisesPerStudent(double upperPercentageOfGradesToBeSelected)
+//GIVE DIFFERENT NAME
+string getKMeans(double upperPercentageOfGradesToBeSelected)
 {
-	AnalysisFilter filterer;
-	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
+	AnalysisFilter filter;
+	filter.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
+	filter.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 
-	std::unique_ptr<IVisualization> visualization(new CompletedExcersisesPerStudent(filterer));  
-	return visualization->getVisualizationAsJSON();  
+	std::unique_ptr<IVisualization> visualization(new ExcersiseCompletionAndGradesClustering(filter));
+	return visualization->getVisualizationAsJSON();
 } 
 
 string getGradeAvgPerClass()
@@ -189,7 +168,6 @@ void Init_dataprocesser()
     .define_method("insertToDB", &insertToDB)  	
     .define_method("getKMeans", &getKMeans)   
     .define_method("getSuccesRate", &getSuccesRate)    		 		 		 		   
-    .define_method("getAmountOfCompletedExcersisesPerStudent", &getAmountOfCompletedExcersisesPerStudent)    		 	
     .define_method("getGradeAvgPerClass", &getGradeAvgPerClass);
 }
 

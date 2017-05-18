@@ -7,7 +7,7 @@ class IVisualization {
     protected:
         AnalysisFilter filterer;
     public:
-        virtual std::string getVisualizationAsJSON(){};
+        virtual std::string getVisualizationAsJSON(){ return "{ \"data\": \"No derived visualization JSON found.\" }"; };
         void setFilterer(AnalysisFilter f) { filterer = f; };
 };
 

@@ -191,7 +191,6 @@ LOCAL_LIBS =
 LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/lib -std=c++14 -lruby -lpthread -lgmp -ldl -lcrypt -lm   -lc -lpqxx -lpq -lcppunit
 
 
-
 ##### GRANDEOMEGAPRJ: MODIFY THIS WHEN ADDING NEW SOURCE FILES ########
 ##### TODO: MAKE THE READING OF FILES AUTOMATIC #####
 
@@ -211,8 +210,8 @@ define ORIG_SRCS
  $(PROCESSERDIR)/Utilities/UtcTime.cpp  
  $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.cpp  
 
- $(PROCESSERDIR)/Utilities/JSONEncoder.inl 
-  
+ $(PROCESSERDIR)/Utilities/JSONEncoder.cpp       
+ 
  $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.cpp
  $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.cpp
 
@@ -232,8 +231,8 @@ SRCS = $(ORIG_SRCS)
 
 #Why the fuck is this the only valid way to declare this?
  
-OBJS = $(KMEANSDIR)/KMeansIteration.o $(KMEANSDIR)/KMeansController.o $(KMEANSDIR)CustomTypes/KMeansPoint.o $(ANALYZERDIR)GenericVector/GenericVector.o  $(ANALYZERDIR)Regression/SimpleLinearRegression.o $(ANALYZERDIR)StatisticalTools/StatisticalTools.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/CompletedExcersisesPerStudent.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.o $(PROCESSERDIR)YamlParser/YamlParser.o $(PROCESSERDIR)YamlParser/YamlObject.o $(PROCESSERDIR)YamlParser/YamlConverter.o $(PROCESSERDIR)CsvParser/CsvParser.o $(PROCESSERDIR)Mapper/Mapper.o $(PROCESSERDIR)Utilities/UtcTime.o $(PROCESSERDIR)Utilities/UtcReader.o $(PROCESSERDIR)Utilities/Utilities.o $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
-HDRS = $(KMEANSDIR)/KMeansIteration.h $(KMEANSDIR)/KMeansController.h $(KMEANSDIR)CustomTypes/KMeansPoint.h $(ANALYZERDIR)GenericVector/GenericVector.h $(ANALYZERDIR)Regression/IRegression.h $(ANALYZERDIR)Regression/SimpleLinearRegression.h $(ANALYZERDIR)StatisticalTools/StatisticalTools.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/CompletedExcersisesPerStudent.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/IVisualization.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.h $(PROCESSERDIR)YamlParser/YamlParser.h $(PROCESSERDIR)YamlParser/YamlObject.h $(PROCESSERDIR)YamlParser/YamlConverter.h $(PROCESSERDIR)CsvParser/CsvParser.h $(PROCESSERDIR)Mapper/Mapper.h $(PROCESSERDIR)Utilities/UtcTime.h $(PROCESSERDIR)Utilities/UtcReader.h $(PROCESSERDIR)Utilities/JSONEncoder.h $(PROCESSERDIR)Utilities/Utilities.h $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.h   
+OBJS = $(KMEANSDIR)/KMeansIteration.o $(KMEANSDIR)/KMeansController.o $(KMEANSDIR)CustomTypes/KMeansPoint.o $(ANALYZERDIR)GenericVector/GenericVector.o  $(ANALYZERDIR)Regression/SimpleLinearRegression.o $(ANALYZERDIR)StatisticalTools/StatisticalTools.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/CompletedExcersisesPerStudent.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.o $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.o $(PROCESSERDIR)YamlParser/YamlParser.o $(PROCESSERDIR)YamlParser/YamlObject.o $(PROCESSERDIR)YamlParser/YamlConverter.o $(PROCESSERDIR)CsvParser/CsvParser.o $(PROCESSERDIR)Mapper/Mapper.o $(PROCESSERDIR)Utilities/UtcTime.o $(PROCESSERDIR)Utilities/UtcReader.o $(PROCESSERDIR)Utilities/JSONEncoder.o $(PROCESSERDIR)Utilities/Utilities.o $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
+HDRS = $(KMEANSDIR)/KMeansIteration.h $(KMEANSDIR)/KMeansController.h $(KMEANSDIR)CustomTypes/KMeansPoint.h $(ANALYZERDIR)GenericVector/GenericVector.h $(ANALYZERDIR)Regression/IRegression.h $(ANALYZERDIR)Regression/SimpleLinearRegression.h $(ANALYZERDIR)StatisticalTools/StatisticalTools.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/CompletedExcersisesPerStudent.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/IVisualization.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.h $(PROCESSERDIR)StatisticalAnalyzer/BasicAnalyzer/BasicAnalyzer.h $(PROCESSERDIR)YamlParser/YamlParser.h $(PROCESSERDIR)YamlParser/YamlObject.h $(PROCESSERDIR)YamlParser/YamlConverter.h $(PROCESSERDIR)CsvParser/CsvParser.h $(PROCESSERDIR)Mapper/Mapper.h $(PROCESSERDIR)Utilities/UtcTime.h $(PROCESSERDIR)Utilities/UtcReader.h $(PROCESSERDIR)Utilities/JSONEncoder.h $(PROCESSERDIR)Utilities/JSONEncoder.inl $(PROCESSERDIR)Utilities/Utilities.h $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.h   
 
 #### END GRANDEOMEGAPRJ ######
 

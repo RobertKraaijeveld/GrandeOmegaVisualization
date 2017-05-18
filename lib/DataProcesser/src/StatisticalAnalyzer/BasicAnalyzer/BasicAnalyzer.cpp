@@ -20,40 +20,6 @@ map<string, int> BasicAnalyzer::getExceriseDateTimeMeasurements()
 
 }
 
-//check if still correct; nein
-map<string, pair<int, int>> BasicAnalyzer::getAmountOfExercisesCompletedAndGradesPerStudent()
-{
-    //note that not all students have grades
-    map<string, pair<int, int>> amountOfExercisesAndGradePerStudent; 
-
-    map<string, int> excersiseAmountPerStudent = getAmountOfCompletedExcersisesPerStudent();
-    
-    DatabaseInteracter dbInteracter;
-    string query = "SELECT student_id, grade FROM grades;"; 
-
-    //No guarantee that both struct indexes are set... catch exceptions for this and for incorrect indexes!!!
-    FilterQueryColumnIndexes queryIndexes;
-    queryIndexes.studentIdColumnIndex = 0;
-    filter.queryIndexes = queryIndexes;
-
-    pqxx::result allStudentIdsAndGradesUnFiltered = dbInteracter.executeSelectQuery(query); 
-    vector<pqxx::result::tuple> filteredIdsAndGrades = filter.getRowsWithValidGradePercentile(allStudentIdsAndGradesUnFiltered);
-
-    for(auto idAndGrade: filteredIdsAndGrades) 
-    {
-        string id = string(idAndGrade[0].c_str());
-        string grade = string(idAndGrade[1].c_str());
-
-        if(excersiseAmountPerStudent.count(id) == 1)
-        {
-            pair<int, int> excersiseAmountAndGrade = make_pair(excersiseAmountPerStudent[id], atoi(grade.c_str()));
-            amountOfExercisesAndGradePerStudent.insert(make_pair(id, excersiseAmountAndGrade));
-        }
-    }       
-    return amountOfExercisesAndGradePerStudent;
-}
-
-
 map<string, pair<int, int>> BasicAnalyzer::getGradesAndSuccessRates()
 {
     map<string, pair<int, int>> returnMapOfPairs;

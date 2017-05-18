@@ -5,7 +5,6 @@
 
 #include <vector>
 
-//SPlit it up
 std::vector<std::pair<std::string, int>> GradeAvgsPerClass::getGradeAvgsPairs()
 {
     std::vector<std::pair<std::string, int>> returnValues;
