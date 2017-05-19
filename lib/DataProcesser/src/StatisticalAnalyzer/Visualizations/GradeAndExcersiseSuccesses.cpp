@@ -30,7 +30,6 @@ std::map<std::string, std::pair<int, int>> GradeAndExcersiseSuccesses::getGrades
 
         returnMapOfPairs[studentIdStr] = make_pair(newSuccesRate, gradeOfRow);
     }
-    std::cout << "returnMapOfPairs.size() = " << returnMapOfPairs.size() << endl;
     return returnMapOfPairs;
 }
 
