@@ -13,7 +13,7 @@ class GenericVector
     vector<float> values;   
 
     //standard data-structure for accompanied data
-    GenericVector(){ values = vector<float>(2, 0.0);  };
+    GenericVector(){};
     GenericVector(pair<float, float> p){ values = {p.first, p.second}; };    
     GenericVector(vector<float> v) { values = v; };
 

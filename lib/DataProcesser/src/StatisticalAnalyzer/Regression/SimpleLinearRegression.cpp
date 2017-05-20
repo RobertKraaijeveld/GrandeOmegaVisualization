@@ -1,70 +1,97 @@
 #include <vector>
 #include <map>
+#include <cmath>
+#include <numeric>
 #include <iostream>
 
 #include "IRegression.h"
 #include "SimpleLinearRegression.h"
-#include "../StatisticalTools/StatisticalTools.h"
+#include "../../Utilities/JSONEncoder.h"
 
 using namespace std;
 
-pair<GenericVector, GenericVector> SimpleLinearRegression::convertPairsToGVs(map<string, pair<float, float>> pairsMap)
+pair<GenericVector, GenericVector> SimpleLinearRegression::convertPairsToGVs(vector<pair<float, float>> pairs)
 {
     pair<GenericVector, GenericVector> returnGVs;
 
-    map<string, pair<float, float>>::iterator it;
-    for (it = pairsMap.begin(); it != pairsMap.end(); ++it)
+    for(int i = 0; i < pairs.size(); i++)
     {
-        returnGVs.first.values.push_back(it->second.first);
-        returnGVs.second.values.push_back(it->second.second);
+        returnGVs.first.values.push_back(pairs[i].first);
+        returnGVs.second.values.push_back(pairs[i].second);
     }
+    cout << "returnGVs.first.values.size() = " << returnGVs.first.values.size() << endl;
     return returnGVs;
 }
 
-pair<float, float> SimpleLinearRegression::getXYMeans()
+//done
+float SimpleLinearRegression::getIntercept()
 {
-    GenericVector& xVector = xAndYVectors.first;
-    GenericVector& yVector = xAndYVectors.second;
+    float slope = getSlope();
+    float amountOfValues = xAndYVectors.second.values.size(); 
 
-    float xMean = StatisticalTools::getMean(xVector.values);
-    float yMean = StatisticalTools::getMean(yVector.values);
+    float xValuesSum = accumulate(xAndYVectors.first.values.begin(), xAndYVectors.first.values.end(), 0);
+    float yValuesSum = accumulate(xAndYVectors.second.values.begin(), xAndYVectors.second.values.end(), 0);
+    
+    float yValueMinusSlopeTimesXValuesSum = yValuesSum - (slope * xValuesSum); 
 
-    return make_pair(xMean, yMean);
+    return yValueMinusSlopeTimesXValuesSum / amountOfValues;
 }
 
 float SimpleLinearRegression::getSlope()
 {
-    pair<float, float> xyMeans = getXYMeans();
+    float amountOfValues = xAndYVectors.first.values.size(); 
+    float finalSlope = 0.0;
 
-    float xValsSD = StatisticalTools::getStandardDeviation(xAndYVectors.first.values, xyMeans.first);
-    float yValsSD = StatisticalTools::getStandardDeviation(xAndYVectors.second.values, xyMeans.second);
+    float xValuesSum = accumulate(xAndYVectors.first.values.begin(), xAndYVectors.first.values.end(), 0);
+    float yValuesSum = accumulate(xAndYVectors.second.values.begin(), xAndYVectors.second.values.end(), 0);
 
-    float correlation = StatisticalTools::getPearsonCoefficient(xAndYVectors.first, xAndYVectors.second);
 
-    return (yValsSD / xValsSD) * correlation;
+    float divisorFirstHalf = 0.0;
+    float divisorSecondHalf = xValuesSum * yValuesSum;
+    
+    float dividendFirstHalf = 0.0;
+    float dividendSecondHalf = pow(xValuesSum, 2);
+    
+    for(int i = 0; i < amountOfValues; i++)
+    {
+        float& currX = xAndYVectors.first.values[i];
+        float& currY = xAndYVectors.second.values[i];
+
+        divisorFirstHalf += (currX * currY); 
+
+        dividendFirstHalf += pow(currX, 2);
+    }
+    float fullDivisor = (amountOfValues * divisorFirstHalf) - divisorSecondHalf;
+    float fullDividend = (amountOfValues * dividendFirstHalf) - dividendSecondHalf;  
+
+    return fullDivisor/fullDividend;
 }
 
-float SimpleLinearRegression::getIntercept()
+//input has to be more than 1 point!
+vector<pair<float, float>> SimpleLinearRegression::getRegression()
 {
-    pair<float, float> xyMeans = getXYMeans();
+    //testing pls
+    vector<pair<float, float>> returnXYvaluesForLine;
+    vector<float>& xValues = xAndYVectors.first.values;
+    float xValuesAmount = xAndYVectors.first.values.size();
 
     float slope = getSlope();
-    return xyMeans.first - (slope * xyMeans.second);
-}
-
-vector<pair<float, float>> SimpleLinearRegression::getRegression(vector<float> xValues)
-{
-    vector<pair<float, float>> returnXYvaluesForLine;
+    float intercept = getIntercept();    
+    cout << "slope = " << slope << endl;
+    cout << "intercept = " << intercept << endl;
 
     for (float &xValue : xValues)
     {
-        float currSlope = getSlope();
-        float currIntercept = getIntercept();
-
-        float yValue = (currSlope * xValue) + currIntercept;
-
-        cout << "Adding regression line pair " << xValue << "," << yValue << endl;
-        returnXYvaluesForLine.push_back(make_pair(xValue, yValue));
+        //m * x + b
+        float regressionLineYValue =  slope + xValue * intercept;
+        returnXYvaluesForLine.push_back(make_pair(xValue, regressionLineYValue));
     }
     return returnXYvaluesForLine;
 }
+
+std::string SimpleLinearRegression::getRegressionAsJSON()
+{
+    vector<pair<float, float>> regressionLinePoints = getRegression();
+    return JSONEncoder::pairsToJson(regressionLinePoints);
+}
+

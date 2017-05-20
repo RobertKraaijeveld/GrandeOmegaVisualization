@@ -1,14 +1,15 @@
 #include "rice/Class.hpp"
-//#include "rice/Array.hpp"
+#include "rice/Array.hpp"
 
-#include <iostream> 
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <pqxx/pqxx>
 #include <vector>
 #include <map>
 #include <ctime>
-#include <time.h>  
+#include <time.h>
+
 #include "DataProcesser/src/CsvParser/CsvParser.h"
 #include "DataProcesser/src/YamlParser/YamlParser.h"
 #include "DataProcesser/src/Utilities/Utilities.h"
@@ -17,18 +18,16 @@
 #include "DataProcesser/src/DatabaseInteracter/DatabaseInteracter.h"
 #include "DataProcesser/src/Mapper/Mapper.h"
 
-#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/IVisualization.h" 
-#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.h" 
-#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.h" 
-#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h" 
-#include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h" 
+#include "RubyToCppConverters.h"
 
-#include "DataProcesser/src/StatisticalAnalyzer/BasicAnalyzer/AnalysisFilter.h" 
-#include "DataProcesser/src/StatisticalAnalyzer/KMeans/KMeansController.h"
-#include "DataProcesser/src/StatisticalAnalyzer/StatisticalTools/StatisticalTools.h"  
-#include "DataProcesser/src/StatisticalAnalyzer/GenericVector/GenericVector.h"    
- 
-//CLEAN UP HERE
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/IVisualization.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Regression/SimpleLinearRegression.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h"
+
+#include "DataProcesser/src/StatisticalAnalyzer/GenericVector/GenericVector.h"
 
 using namespace Rice;
 using namespace std;
@@ -37,30 +36,29 @@ const double TIME_BETWEEN_ASSIGNMENTS_THRESHOLD = 1.5;
 
 string classFileBaseFileString = "/home/robert/Documents/Projects/GrandeOmegaVisualization/lib/DataProcesser/docs/classFiles/assignment_activities_with_class";
 
-ifstream explicitStudentsStream = ifstream("DataProcesser/docs/explicitStudents.yaml", ifstream::in); 
+ifstream explicitStudentsStream = ifstream("DataProcesser/docs/explicitStudents.yaml", ifstream::in);
 
-vector<vector<string>> knownEmailsForClasses;	
+vector<vector<string>> knownEmailsForClasses;
 vector<YamlObject> emailYamlObjects;
 vector<YamlObject> assignmentYamlObjects;
 
-                   
 /*
 	PARSING 
 */
 
- //IMPORTANT: Add checks if files actually exist
+//IMPORTANT: Add checks if files actually exist
 vector<YamlObject> parseAndGetGrades()
 {
-  	YamlParser yamlParser(explicitStudentsStream);
+	YamlParser yamlParser(explicitStudentsStream);
 	yamlParser.file = ifstream("DataProcesser/docs/Grades/grades.yaml");
 	vector<YamlObject> gradeYamlObjects = yamlParser.parseYaml();
-	
+
 	return assignmentYamlObjects;
 }
 
 vector<YamlObject> parseAndGetAssignments()
 {
-  	YamlParser yamlParser(explicitStudentsStream);
+	YamlParser yamlParser(explicitStudentsStream);
 
 	vector<YamlObject> assignmentYamlObjects = yamlParser.parseListOfFiles(classFileBaseFileString);
 	return assignmentYamlObjects;
@@ -68,12 +66,11 @@ vector<YamlObject> parseAndGetAssignments()
 
 void insertToDB()
 {
-	YamlParser yamlParser(explicitStudentsStream);	
+	YamlParser yamlParser(explicitStudentsStream);
 
 	vector<string> assignmentsWithClassesFileNames = Utilities::getListOfNumberedFilesForBaseFile(classFileBaseFileString);
 	vector<YamlObject> assignmentsWithClassYamlObjects = yamlParser.parseListOfFiles(classFileBaseFileString);
 
-	//extract to constant
 	yamlParser.file = ifstream("DataProcesser/docs/Grades/grades.yaml");
 	vector<YamlObject> gradeYamlObjects = yamlParser.parseYaml();
 
@@ -83,58 +80,57 @@ void insertToDB()
 }
 
 /*
-	DATA FOR VISUALIZATIONS
+
+DATA PROCESSER FUNCTIONS HELPERS
+
 */
 
-string getExcersiseDateTimeMetrics(double upperPercentageOfGradesToBeSelected) 
-{
-	/*
-	AnalysisFilter filterer;
-	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
-	BasicAnalyzer analyzer (filterer);
-
-	map<string, int> excersiseDateTimeMeasurements = analyzer.getExceriseDateTimeMeasurements();	
-	return JSONEncoder::mapToJson(excersiseDateTimeMeasurements);*/
-	return "";
-}
-
-
-//VERY SIMILAR METHOD CALLSSSS
-//RENAME
-string getSuccesRate(double upperPercentageOfGradesToBeSelected) 
+AnalysisFilter getFilter(double upperPercentageOfGradesToBeSelected)
 {
 	AnalysisFilter filter;
 	filter.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
 	filter.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
 
+	return filter;
+}
+
+/*
+	DATA FOR VISUALIZATIONS
+*/
+
+string getExcersiseDateTimeMetrics(double upperPercentageOfGradesToBeSelected)
+{
+	AnalysisFilter filterer;
+	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
+	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
+	return "";
+}
+
+//VERY SIMILAR METHOD CALLSSSS
+//RENAME
+string getSuccesRate(double upperPercentageOfGradesToBeSelected)
+{
+	AnalysisFilter filter = getFilter(upperPercentageOfGradesToBeSelected);
 	std::unique_ptr<IVisualization> visualization(new GradeAndExcersiseSuccesses(filter));
 	return visualization->getVisualizationAsJSON();
-} 
+}
 
 //GIVE DIFFERENT NAME
 string getKMeans(double upperPercentageOfGradesToBeSelected)
 {
-	AnalysisFilter filter;
-	filter.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filter.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
-
+	AnalysisFilter filter = getFilter(upperPercentageOfGradesToBeSelected);
 	std::unique_ptr<IVisualization> visualization(new ExcersiseCompletionAndGradesClustering(filter));
 	return visualization->getVisualizationAsJSON();
-} 
+}
 
 string getGradeAvgPerClass()
 {
-	std::unique_ptr<IVisualization> visualization(new GradeAvgsPerClass());  
-	return visualization->getVisualizationAsJSON();  
+	std::unique_ptr<IVisualization> visualization(new GradeAvgsPerClass());
+	return visualization->getVisualizationAsJSON();
 }
 
-string getLinearRegression()
+string getLinearRegression(vector<float> xValues)
 {
-	//Array xvalues
-	//convert Array to vector of float
-	//check conversion to float is possible
-
 	/*
 	note that the endpoint in the controller does need access to the original points in order to send xValues.
 	do we want this linear regression to be generic or not?
@@ -146,30 +142,29 @@ string getLinearRegression()
 	returning the resulting JSON to the caller on the view
 	*/
 
-	return "x";
+	vector<pair<float, float>> pairs = floatVectorToPairVector(xValues);
+	std::unique_ptr<IRegression> linearRegression(new SimpleLinearRegression(pairs));
+
+	return linearRegression->getRegressionAsJSON();
 }
 
-  /*
+/*
 	Backward assignments have only 1 succes.
 	Other ones either succeed or fail step-by-step.
 	CI and testing will award you extra points.
 	Only cluster on measurements, not on ids.
 	Get GrandeOmega to runn
-	*/
-    
-extern "C"
+*/
 
+extern "C"
 void Init_dataprocesser()
 {
-  Class rb_c = define_class("Dataprocesser")
-	.define_method("getLinearRegression", &getLinearRegression)    
-	.define_method("parseAndGetGrades", &parseAndGetGrades)  
-	.define_method("parseAndGetAssignments", &parseAndGetAssignments)
-    .define_method("insertToDB", &insertToDB)  	
-    .define_method("getKMeans", &getKMeans)   
-    .define_method("getSuccesRate", &getSuccesRate)    		 		 		 		   
-    .define_method("getGradeAvgPerClass", &getGradeAvgPerClass);
+	Class rb_c = define_class("Dataprocesser")
+					 .define_method("parseAndGetGrades", &parseAndGetGrades)
+					 .define_method("parseAndGetAssignments", &parseAndGetAssignments)
+					 .define_method("insertToDB", &insertToDB)
+					 .define_method("getKMeans", &getKMeans)
+					 .define_method("getSuccesRate", &getSuccesRate)
+					 .define_method("getGradeAvgPerClass", &getGradeAvgPerClass)
+					 .define_method("getLinearRegression", &getLinearRegression);
 }
-
-
-

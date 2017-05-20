@@ -43,9 +43,9 @@ std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClusterin
     filter.queryIndexes = queryIndexes;
 
     pqxx::result unfilteredIdsAndGrades = dbInteracter.executeSelectQuery(query); 
-    std::vector<pqxx::result::tuple> idsAndGradesWithinGradePercentile = filter.getRowsWithValidGradePercentile(unfilteredIdsAndGrades);
+    std::vector<pqxx::result::tuple> idsAndGradesWithinGradePercentage = filter.getRowsWithValidGradePercentage(unfilteredIdsAndGrades);
 
-    return createExcersiseCompletionAmountAndGradesPairs(idsAndGradesWithinGradePercentile, excersiseAmountPerStudent);
+    return createExcersiseCompletionAmountAndGradesPairs(idsAndGradesWithinGradePercentage, excersiseAmountPerStudent);
 }
 
 std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClustering::createExcersiseCompletionAmountAndGradesPairs
@@ -82,8 +82,8 @@ std::map<std::string, int> ExcersiseCompletionAndGradesClustering::getAmountOfCo
     filter.queryIndexes = queryIndexes;
 
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
-    std::vector<pqxx::result::tuple> filteredRowsOnGradePercentile = filter.getRowsWithValidGradePercentile(unfilteredRows);
-    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = filter.getRowsWithValidAssignmentTimes(filteredRowsOnGradePercentile);    
+    std::vector<pqxx::result::tuple> filteredRowsOnGradePercentage = filter.getRowsWithValidGradePercentage(unfilteredRows);
+    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = filter.getRowsWithValidAssignmentTimes(filteredRowsOnGradePercentage);    
 
     for (int i = 0; i < filteredRowsOnAssignmentTime.size(); i++)
     {

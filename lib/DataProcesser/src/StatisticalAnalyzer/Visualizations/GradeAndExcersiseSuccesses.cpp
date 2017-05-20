@@ -53,9 +53,9 @@ pqxx::result GradeAndExcersiseSuccesses::getUnfilteredStudentSuccessCountsAndGra
     return dbInteracter.executeSelectQuery(queryStream.str());
 }
 
-//needs the reference param or else we get segfaults on getRowsWithValidGradePercentile which also takes a ref
+//needs the reference param or else we get segfaults on getRowsWithValidGradePercentage which also takes a ref
 std::vector<pqxx::result::tuple> GradeAndExcersiseSuccesses::getFilteredStudentSuccessCountsAndGrades(pqxx::result &unfilteredRowsOutOfScope)
 {
-    std::vector<pqxx::result::tuple> rowsFilteredOnGradePercentile = filter.getRowsWithValidGradePercentile(unfilteredRowsOutOfScope);
-    return filter.getRowsWithValidAssignmentTimes(rowsFilteredOnGradePercentile);
+    std::vector<pqxx::result::tuple> rowsFilteredOnGradePercentage = filter.getRowsWithValidGradePercentage(unfilteredRowsOutOfScope);
+    return filter.getRowsWithValidAssignmentTimes(rowsFilteredOnGradePercentage);
 }

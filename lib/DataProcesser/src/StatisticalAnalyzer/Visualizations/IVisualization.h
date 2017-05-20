@@ -1,7 +1,7 @@
 #ifndef IVISUALIZATION_H
 #define IVISUALIZATION_H
 
-#include "../BasicAnalyzer/AnalysisFilter.h"
+#include "AnalysisFilter.h"
 
 class IVisualization {
     protected:

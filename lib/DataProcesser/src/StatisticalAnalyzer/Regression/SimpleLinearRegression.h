@@ -9,18 +9,18 @@
 class SimpleLinearRegression : public IRegression 
 {
     private:
-        pair<GenericVector, GenericVector> xAndYVectors;
-        pair<GenericVector, GenericVector> convertPairsToGVs(map<string, pair<float, float>> pairsMap);
-
-        pair<float, float> getXYMeans();
+        std::pair<GenericVector, GenericVector> xAndYVectors;
+        std::pair<GenericVector, GenericVector> convertPairsToGVs(std::vector<std::pair<float, float>> pairs);
         
     protected:
         float getSlope();
         float getIntercept();
-         
+        std::vector<std::pair<float, float>> getRegression();
+             
     public:
-        vector<std::pair<float, float>> getRegression(vector<float> xValues);  
-        SimpleLinearRegression(map<string, pair<float, float>> p) { xAndYVectors = convertPairsToGVs(p); }  
+        std::string getRegressionAsJSON();
+  
+        SimpleLinearRegression(std::vector<std::pair<float, float>> p) { xAndYVectors = convertPairsToGVs(p); }  
 };
 
 #endif

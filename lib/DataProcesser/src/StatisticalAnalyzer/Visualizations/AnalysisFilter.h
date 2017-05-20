@@ -30,7 +30,7 @@ class AnalysisFilter {
         double upperPercentageOfGradesToBeSelected = 100.0; 
 
         //TODO: Template this for both pqxx::result as well as std::vector of result tuples
-        std::vector<pqxx::result::tuple> getRowsWithValidGradePercentile(pqxx::result& unfilteredRows);
+        std::vector<pqxx::result::tuple> getRowsWithValidGradePercentage(pqxx::result& unfilteredRows);
         std::vector<pqxx::result::tuple> getRowsWithValidAssignmentTimes(std::vector<pqxx::result::tuple>& gradeFilteredRows); 
 
         AnalysisFilter(){}
