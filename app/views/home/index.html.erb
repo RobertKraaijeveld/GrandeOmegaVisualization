@@ -20,24 +20,5 @@
 <%= nav_bar brand: "The Grand GrandeOmega visualization project" %>
 
 <div id="gradeaverages" style="width:100%; height:400px;"></div>
-
-<div id="completedexcersisesandgradesclustering" style="width:100%; height:400px;"></div>
-
-<div id="gradesuccessrate" style="width:100%; height:400px;"></div>
-
-
-<h2>Clustering of completed excersise amount vs. grades</h2>
-
-<!-- make multiples. also, generify -->
-<div class="form-group">
-  <label for="percentage">Percentile of grades to be clustered:</label> 
-
-  <!-- generify style -->
-  <input type="number" class="form-control" id="percentage" min="1" max="100" style="width: 75px;">
-  <input type="button" class="form-control" value="Confirm" id="percentageConfirmation" style="width: 75px;">
-</div>
-<div id="excersisesCompletionAndGradesCluster" style="height: 300px"></div>
-
-<h2>Grades and total amount of correct answers per student</h2>
-<div id="gradesAndSuccesRate" style="height: 300px"></div>
-
+<div class="updatableChart" id="completedexcersisesandgradesclustering" style="width:100%; height:400px;"></div>
+<div class="updatableChart" id="gradesuccessrate" style="width:100%; height:400px;"></div>

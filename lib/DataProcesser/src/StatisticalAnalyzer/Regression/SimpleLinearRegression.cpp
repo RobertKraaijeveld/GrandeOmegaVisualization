@@ -77,12 +77,9 @@ vector<pair<float, float>> SimpleLinearRegression::getRegression()
 
     float slope = getSlope();
     float intercept = getIntercept();    
-    cout << "slope = " << slope << endl;
-    cout << "intercept = " << intercept << endl;
 
     for (float &xValue : xValues)
     {
-        //m * x + b
         float regressionLineYValue =  slope + xValue * intercept;
         returnXYvaluesForLine.push_back(make_pair(xValue, regressionLineYValue));
     }
