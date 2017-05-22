@@ -1,9 +1,10 @@
 
 $(document).ready(function () {
     createChartPercentageChoosers();
+    createLinearRegressionRadioBtns();
 
     handleChartPercentageChoosersClicks();
-    createRegressionLinesChoosers();
+    handleLinearRegressionLineChoosers();
 
     drawGradeAvgsChart();
     drawCompletedExcersisesAndGradesClustering(100);
@@ -11,45 +12,10 @@ $(document).ready(function () {
 });
 
 
-function handleChartPercentageChoosersClicks() {
-    //make ids and functionnames so this obj is not necessary anymore
-    var updateFunctionsPerChart =
-        {
-            "completedexcersisesandgradesclustering": drawCompletedExcersisesAndGradesClustering,
-            "gradesuccessrate": drawGradesSuccesrateChart
-        };
 
-    $('.percentageChooserBtn').click(function () {
-        var newPercentageValue = $(this).prev().val();
-        var associatedChartId = $(this).next().attr('id');
-
-        updateFunctionsPerChart[associatedChartId](newPercentageValue);
-    });
-}
-
-function createRegressionLinesChoosers() {
-    //if button pressed and no linear regression yet
-        //get xvalues series from button.next.chart etc
-        //pass to controller
-        //add new series with returndata
-        //profit
-    //else
-        //remove series with id 'regression'
-
-    $('.regressionButton').click(function () {
-        if ($(this).is(':checked')) 
-        {
-             alert("it's checked"); 
-        }
-        else
-        {
-             alert("it's unchecked");             
-        }
-    });
-
-}
-
-
+/*
+CHOOSER CREATIONS
+*/
 
 function createChartPercentageChoosers() {
     var percentageChooserHtml =
@@ -60,6 +26,104 @@ function createChartPercentageChoosers() {
     $('.updatableChart').before(percentageChooserHtml);
 }
 
+function createLinearRegressionRadioBtns() {
+    var LinearRegressionRadioBtnHtml =
+        '<p style="margin-top: 20px;">Add/Remove LinearRegression</p>' +
+        '<input type="checkbox" class="LinearRegressionButton"></input>';
+    $('.LinearRegressionChart').before(LinearRegressionRadioBtnHtml);
+}
+
+
+
+/*
+REGRESSION AND PERCENTAGE RUNTIME
+*/
+
+function handleChartPercentageChoosersClicks() {
+    var updateFunctionsPerChart =
+        {
+            "completedexcersisesandgradesclustering": drawCompletedExcersisesAndGradesClustering,
+            "gradesuccessrate": drawGradesSuccesrateChart
+        };
+
+    $('.percentageChooserBtn').click(function () {
+        var newPercentageValue = $(this).prev().val();
+        var associatedChartId = $(this).nextAll('.updatableChart').attr('id');
+
+        updateFunctionsPerChart[associatedChartId](newPercentageValue);
+    });
+}
+
+function handleLinearRegressionLineChoosers() {
+    $('.LinearRegressionButton').click(function () {
+        var associatedChartId = $(this).nextAll('.LinearRegressionChart').attr('id');
+        var myChart = $('#' + associatedChartId).highcharts();
+
+        if ($(this).is(':checked')) {
+            var allValuesArray = getAllSeriesData(myChart);
+
+            $.get("http://localhost:3000/home/linearregression/[" + allValuesArray + "]", function (data) {
+                drawLinearRegression(myChart, data);
+            });
+        }
+        else {
+            removeLinearRegression(myChart);
+        }
+    });
+}
+
+function drawLinearRegression(chart, data) {
+    var seriesObj =
+        {
+            type: 'line',
+            id: 'LinearRegression',
+            name: 'Linear Regression',
+            color: 'rgba(255, 0, 0, 0.70)',
+            lineWidth: 1.75,
+            allowPointSelect: false,
+            dataLabels: {
+                enabled: false
+            },
+            markers: {
+                enabled: false
+            },
+            data: []
+        };
+
+    //generify since this is duplicated in the charts methods
+    for (i = 0; i < data.length; i++) {
+        var x = parseFloat(data[i].x);
+        var y = parseFloat(data[i].y);
+        seriesObj.data.push([x, y]);
+    }
+    chart.addSeries(seriesObj);
+}
+
+function removeLinearRegression(chart) {
+    chart.get('LinearRegression').remove();
+}
+
+function getAllSeriesData(chart) {
+    allSeriesPoints = Array();
+    for (i = 0; i < chart.series.length; i++) 
+    {
+        var currentChartData = chart.series[i]['data']; 
+        for (j = 0; j < currentChartData.length; j++) 
+        {
+            var x = parseFloat(currentChartData[j].x);
+            var y = parseFloat(currentChartData[j].y);
+            allSeriesPoints.push([x,y]);
+        }
+    }
+    [].concat.apply([], allSeriesPoints);
+    return allSeriesPoints;
+}
+
+
+
+/*
+CHART DRAWING
+*/
 
 function getChartOptions(optionsObject) {
     var options = {

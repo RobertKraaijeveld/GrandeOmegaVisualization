@@ -19,7 +19,6 @@ pair<GenericVector, GenericVector> SimpleLinearRegression::convertPairsToGVs(vec
         returnGVs.first.values.push_back(pairs[i].first);
         returnGVs.second.values.push_back(pairs[i].second);
     }
-    cout << "returnGVs.first.values.size() = " << returnGVs.first.values.size() << endl;
     return returnGVs;
 }
 
@@ -80,7 +79,7 @@ vector<pair<float, float>> SimpleLinearRegression::getRegression()
 
     for (float &xValue : xValues)
     {
-        float regressionLineYValue =  slope + xValue * intercept;
+        float regressionLineYValue =  slope * xValue + intercept;
         returnXYvaluesForLine.push_back(make_pair(xValue, regressionLineYValue));
     }
     return returnXYvaluesForLine;

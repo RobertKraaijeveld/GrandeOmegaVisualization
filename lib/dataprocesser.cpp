@@ -131,20 +131,9 @@ string getGradeAvgPerClass()
 
 string getLinearRegression(vector<float> xValues)
 {
-	/*
-	note that the endpoint in the controller does need access to the original points in order to send xValues.
-	do we want this linear regression to be generic or not?
-	
-	Making it generic would mean ENCODING javascript values of a series to JSON (theres methods for that),
-	posting it to an controller (can easily be done using params_fetch),
-	decoding the JSON to an array (json.parse),
-	calling this method with said array
-	returning the resulting JSON to the caller on the view
-	*/
-
 	vector<pair<float, float>> pairs = floatVectorToPairVector(xValues);
-	std::unique_ptr<IRegression> linearRegression(new SimpleLinearRegression(pairs));
 
+	std::unique_ptr<IRegression> linearRegression(new SimpleLinearRegression(pairs));
 	return linearRegression->getRegressionAsJSON();
 }
 

@@ -36,4 +36,18 @@ class HomeController < ApplicationController
   def getPercentage
     params.fetch(:percentage).to_i
   end
+
+
+  def linearregression
+    xValuesArray = JSON.parse(params.fetch(:xvalues))
+
+    #parsing each value to float
+    xValuesArray.collect do |value|
+      value.to_f 
+    end
+
+    regressionLineJSON = DataProcesserCoupling::getDataProcesser.getLinearRegression(xValuesArray)
+    regressionLineParsed = JSON.parse(regressionLineJSON)
+    render json: regressionLineParsed
+  end
 end

@@ -7,6 +7,6 @@ module DataProcesserCoupling
         @dataprocesser
     end
 end
-
-x = [1.0, 2.0, 3.0, 5.0]
-puts DataProcesserCoupling.getDataProcesser.getLinearRegression(x)
+#
+cjishomo = [196.0, 100.0, 323.0, 75.0, 738.0, 75.0, 807.0, 100.0]
+puts DataProcesserCoupling.getDataProcesser.getLinearRegression(cjishomo)
