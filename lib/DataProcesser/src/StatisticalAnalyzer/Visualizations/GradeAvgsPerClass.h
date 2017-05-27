@@ -3,6 +3,7 @@
 
 #include "IVisualization.h"
 #include <vector>
+#include <pqxx/pqxx>
 
 class GradeAvgsPerClass : public IVisualization 
 {

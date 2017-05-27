@@ -3,6 +3,8 @@
 #include "../../DatabaseInteracter/DatabaseInteracter.h"
 #include "../../Utilities/JSONEncoder.h"
 #include "ExcersiseCompletionAndGradesClustering.h"
+#include "../Filter/IFilter.h"
+#include "../Filter/AssignmentIntervalFilter.h"
 
 #include <map>
 #include <vector>
@@ -40,10 +42,11 @@ std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClusterin
     //this shit sucks
     FilterQueryColumnIndexes queryIndexes;
     queryIndexes.studentIdColumnIndex = 0;
-    filter.queryIndexes = queryIndexes;
+    gradeFilter->queryColumnIndexes = queryIndexes;
 
     pqxx::result unfilteredIdsAndGrades = dbInteracter.executeSelectQuery(query); 
-    std::vector<pqxx::result::tuple> idsAndGradesWithinGradePercentage = filter.getRowsWithValidGradePercentage(unfilteredIdsAndGrades);
+
+    std::vector<pqxx::result::tuple> idsAndGradesWithinGradePercentage = gradeFilter->filter(Utilities::toListOfPqxxTuples(unfilteredIdsAndGrades));
 
     return createExcersiseCompletionAmountAndGradesPairs(idsAndGradesWithinGradePercentage, excersiseAmountPerStudent);
 }
@@ -79,11 +82,12 @@ std::map<std::string, int> ExcersiseCompletionAndGradesClustering::getAmountOfCo
     FilterQueryColumnIndexes queryIndexes;
     queryIndexes.studentIdColumnIndex = 0;
     queryIndexes.timestampIndex = 1;
-    filter.queryIndexes = queryIndexes;
+    gradeFilter->queryColumnIndexes = queryIndexes;
 
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
-    std::vector<pqxx::result::tuple> filteredRowsOnGradePercentage = filter.getRowsWithValidGradePercentage(unfilteredRows);
-    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = filter.getRowsWithValidAssignmentTimes(filteredRowsOnGradePercentage);    
+
+    std::vector<pqxx::result::tuple> filteredRowsOnGradePercentage = gradeFilter->filter(Utilities::toListOfPqxxTuples(unfilteredRows));
+    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = assignmentIntervalFilter->filter(filteredRowsOnGradePercentage);    
 
     for (int i = 0; i < filteredRowsOnAssignmentTime.size(); i++)
     {

@@ -1,5 +1,7 @@
 #include "../../DatabaseInteracter/DatabaseInteracter.h"
 #include "../../Utilities/JSONEncoder.h"
+#include "../Filter/IFilter.h"
+#include "../Filter/AssignmentIntervalFilter.h"
 #include "GradeAndExcersiseSuccesses.h"
 
 #include <map>
@@ -48,14 +50,20 @@ pqxx::result GradeAndExcersiseSuccesses::getUnfilteredStudentSuccessCountsAndGra
     queryIndexes.studentIdColumnIndex = 0;
     queryIndexes.timestampIndex = 2;
 
-    filter.queryIndexes = queryIndexes;
+    filter->queryColumnIndexes = queryIndexes;
 
     return dbInteracter.executeSelectQuery(queryStream.str());
 }
 
 //needs the reference param or else we get segfaults on getRowsWithValidGradePercentage which also takes a ref
-std::vector<pqxx::result::tuple> GradeAndExcersiseSuccesses::getFilteredStudentSuccessCountsAndGrades(pqxx::result &unfilteredRowsOutOfScope)
+std::vector<pqxx::result::tuple> GradeAndExcersiseSuccesses::getFilteredStudentSuccessCountsAndGrades(pqxx::result& unfilteredRowsOutOfScope)
 {
-    std::vector<pqxx::result::tuple> rowsFilteredOnGradePercentage = filter.getRowsWithValidGradePercentage(unfilteredRowsOutOfScope);
-    return filter.getRowsWithValidAssignmentTimes(rowsFilteredOnGradePercentage);
+    std::vector<pqxx::result::tuple> rowsFilteredOnGradePercentage = filter->filter(Utilities::toListOfPqxxTuples(unfilteredRowsOutOfScope));
+    
+    std::shared_ptr<IFilter> newFilter(new AssignmentIntervalFilter(filter->queryColumnIndexes, filter->filterContext));
+    filter = newFilter;
+    
+    std::vector<pqxx::result::tuple> rowsFilteredOnAssignmentInterval = filter->filter(rowsFilteredOnGradePercentage);  
+
+    return rowsFilteredOnAssignmentInterval;
 }

@@ -2,26 +2,26 @@
 #define GRADEANDEXCERSISESUCCESSES_H
 
 #include "IVisualization.h"
-#include "AnalysisFilter.h"
+#include "../Filter/IFilter.h"
 
 #include <pqxx/pqxx>
+#include <memory>
 #include <map>
 #include <vector>
 
-
-class GradeAndExcersiseSuccesses : public IVisualization 
+class GradeAndExcersiseSuccesses : public IVisualization
 {
-    private:
-        AnalysisFilter filter;
+  private:
+    std::shared_ptr<IFilter> gradeFilter;
+    std::shared_ptr<IFilter> assignmentIntervalFilter;
 
-        std::map<std::string, std::pair<int, int>> getGradesAndSuccesses();
-        pqxx::result getUnfilteredStudentSuccessCountsAndGrades();
-        std::vector<pqxx::result::tuple> getFilteredStudentSuccessCountsAndGrades(pqxx::result& unfilteredRows);
+    std::map<std::string, std::pair<int, int>> getGradesAndSuccesses();
+    pqxx::result getUnfilteredStudentSuccessCountsAndGrades();
+    std::vector<pqxx::result::tuple> getFilteredStudentSuccessCountsAndGrades(pqxx::result &unfilteredRows);
 
-    public:
-        std::string getVisualizationAsJSON();
-        GradeAndExcersiseSuccesses(AnalysisFilter f) { filter = f; };
+  public:
+    std::string getVisualizationAsJSON();
+    GradeAndExcersiseSuccesses(std::shared_ptr<IFilter> f) { filter = f; };
 };
 
 #endif
-

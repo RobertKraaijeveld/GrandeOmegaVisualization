@@ -32,6 +32,8 @@
 using namespace Rice;
 using namespace std;
 
+
+
 const double TIME_BETWEEN_ASSIGNMENTS_THRESHOLD = 1.5;
 
 string classFileBaseFileString = "/home/robert/Documents/Projects/GrandeOmegaVisualization/lib/DataProcesser/docs/classFiles/assignment_activities_with_class";
@@ -41,6 +43,8 @@ ifstream explicitStudentsStream = ifstream("DataProcesser/docs/explicitStudents.
 vector<vector<string>> knownEmailsForClasses;
 vector<YamlObject> emailYamlObjects;
 vector<YamlObject> assignmentYamlObjects;
+
+
 
 /*
 	PARSING 
@@ -80,22 +84,12 @@ void insertToDB()
 }
 
 /*
-
-DATA PROCESSER FUNCTIONS HELPERS
-
-*/
-
-AnalysisFilter getFilter(double upperPercentageOfGradesToBeSelected)
-{
-	AnalysisFilter filter;
-	filter.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filter.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
-
-	return filter;
-}
-
-/*
 	DATA FOR VISUALIZATIONS
+
+	Problem:
+		- The visualizations have to change their filter of their own accord if they need multiple filters.
+		- We can fix it by giving each derivative their own filters, instead of giving each a generic one.
+		- Makes sense considering each visualization is unique in that aspect.
 */
 
 string getExcersiseDateTimeMetrics(double upperPercentageOfGradesToBeSelected)

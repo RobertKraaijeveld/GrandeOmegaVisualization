@@ -1,14 +1,12 @@
 #ifndef IVISUALIZATION_H
 #define IVISUALIZATION_H
 
-#include "AnalysisFilter.h"
+#include <string>
 
+//Gotta take REAL good care about shared ptrs
 class IVisualization {
-    protected:
-        AnalysisFilter filterer;
     public:
-        virtual std::string getVisualizationAsJSON(){ return "{ \"data\": \"No derived visualization JSON found.\" }"; };
-        void setFilterer(AnalysisFilter f) { filterer = f; };
+        virtual std::string getVisualizationAsJSON() = 0;
 };
 
 #endif

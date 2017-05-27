@@ -6,11 +6,11 @@
 
 class IRegression {
     protected:
-        virtual float getSlope(){};
-        virtual float getIntercept(){}; 
-        virtual std::vector<std::pair<float, float>> getRegression(){};
+        virtual float getSlope() = 0;
+        virtual float getIntercept() = 0; 
+        virtual std::vector<std::pair<float, float>> getRegression() = 0;
     public:
-        virtual std::string getRegressionAsJSON(){};
+        virtual std::string getRegressionAsJSON() = 0;
 };
 
 #endif   
