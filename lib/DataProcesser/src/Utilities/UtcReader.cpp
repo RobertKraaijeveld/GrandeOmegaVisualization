@@ -43,4 +43,3 @@ UtcTime UtcReader::toUtcTime(std::string& s)
     }
 }   
 
-

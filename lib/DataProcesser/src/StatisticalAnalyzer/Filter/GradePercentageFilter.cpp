@@ -59,13 +59,13 @@ std::vector<pqxx::result::tuple> GradePercentageFilter::filter(vector<pqxx::resu
     std::vector<pqxx::result::tuple> gradeFilteredRows;
     std::vector<int> gradeStudentIds = getGradeIds();
 
-    for(int i = 0; i < unfilteredRows.size(); i++)
+    for(pqxx::result::tuple row: unfilteredRows)
     {
-        int unfilteredRowStudentId = stoi(unfilteredRows[i][queryColumnIndexes.studentIdColumnIndex].c_str());   
+        int unfilteredRowStudentId = stoi(row[queryColumnIndexes.studentIdColumnIndex].c_str());   
         
         if(std::find(gradeStudentIds.begin(), gradeStudentIds.end(), unfilteredRowStudentId) != gradeStudentIds.end())
         {
-            gradeFilteredRows.push_back(unfilteredRows[i]);
+            gradeFilteredRows.push_back(row);
         }   
     }
     return gradeFilteredRows;

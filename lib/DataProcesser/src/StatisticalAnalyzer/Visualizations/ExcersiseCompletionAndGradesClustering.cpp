@@ -8,6 +8,7 @@
 
 #include <map>
 #include <vector>
+#include <iostream>
 #include <pqxx/pqxx>
 
 std::string ExcersiseCompletionAndGradesClustering::getVisualizationAsJSON()
@@ -33,20 +34,20 @@ std::vector<std::vector<KMeansPoint>> ExcersiseCompletionAndGradesClustering::ge
 
 std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClustering::getAmountOfExercisesCompletedAndGradesPerStudent()
 {
-    //note that not all students have grades
+    //unclean
+    FilterQueryColumnIndexes queryIndexes;
+    queryIndexes.studentIdColumnIndex = 0;
+    gradeFilter->queryColumnIndexes = queryIndexes;
+
     std::map<std::string, int> excersiseAmountPerStudent = getAmountOfCompletedExcersisesPerStudent();
 
     DatabaseInteracter dbInteracter;
     std::string query = "SELECT student_id, grade FROM grades;"; 
 
-    //this shit sucks
-    FilterQueryColumnIndexes queryIndexes;
-    queryIndexes.studentIdColumnIndex = 0;
-    gradeFilter->queryColumnIndexes = queryIndexes;
-
     pqxx::result unfilteredIdsAndGrades = dbInteracter.executeSelectQuery(query); 
 
-    std::vector<pqxx::result::tuple> idsAndGradesWithinGradePercentage = gradeFilter->filter(Utilities::toListOfPqxxTuples(unfilteredIdsAndGrades));
+    std::vector<pqxx::result::tuple> unfilteredIdsAndGradesAsPqxxVector = Utilities::toListOfPqxxTuples(unfilteredIdsAndGrades);
+    std::vector<pqxx::result::tuple> idsAndGradesWithinGradePercentage = gradeFilter->filter(unfilteredIdsAndGradesAsPqxxVector);
 
     return createExcersiseCompletionAmountAndGradesPairs(idsAndGradesWithinGradePercentage, excersiseAmountPerStudent);
 }
@@ -78,16 +79,19 @@ std::map<std::string, int> ExcersiseCompletionAndGradesClustering::getAmountOfCo
     DatabaseInteracter dbInteracter;
     std::string query = "SELECT student_id, creation_timestamp FROM assignments WHERE sort = 'completion';";
 
-    //this shit sucks
+    //unclean
     FilterQueryColumnIndexes queryIndexes;
     queryIndexes.studentIdColumnIndex = 0;
     queryIndexes.timestampIndex = 1;
-    gradeFilter->queryColumnIndexes = queryIndexes;
+    assignmentIntervalFilter->queryColumnIndexes = queryIndexes;
+
 
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
 
-    std::vector<pqxx::result::tuple> filteredRowsOnGradePercentage = gradeFilter->filter(Utilities::toListOfPqxxTuples(unfilteredRows));
-    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = assignmentIntervalFilter->filter(filteredRowsOnGradePercentage);    
+    std::vector<pqxx::result::tuple> unfilteredRowsAsPqxxVector = Utilities::toListOfPqxxTuples(unfilteredRows);
+    std::vector<pqxx::result::tuple> filteredRowsOnGradePercentage = gradeFilter->filter(unfilteredRowsAsPqxxVector);
+    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = assignmentIntervalFilter->filter(unfilteredRowsAsPqxxVector);    
+
 
     for (int i = 0; i < filteredRowsOnAssignmentTime.size(); i++)
     {

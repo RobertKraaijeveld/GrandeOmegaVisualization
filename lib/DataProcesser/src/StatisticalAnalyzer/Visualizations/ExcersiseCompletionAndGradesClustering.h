@@ -3,7 +3,8 @@
 
 #include "IVisualization.h"
 #include "../KMeans/CustomTypes/KMeansPoint.h"
-#include "../Filter/IFilter.h"
+#include "../Filter/GradePercentageFilter.h"
+#include "../Filter/AssignmentIntervalFilter.h"
 
 #include <pqxx/pqxx>
 #include <map>
@@ -11,27 +12,27 @@
 
 class ExcersiseCompletionAndGradesClustering : public IVisualization
 {
-  private:
-    std::shared_ptr<IFilter> gradeFilter;
-    std::shared_ptr<IFilter> assignmentIntervalFilter;
+private:
+  std::shared_ptr<GradePercentageFilter> gradeFilter;
+  std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter;
 
-    std::vector<std::vector<KMeansPoint>> getExcersiseCompletionAndGradesClusters();
-    std::map<std::string, std::pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
+  std::vector<std::vector<KMeansPoint>> getExcersiseCompletionAndGradesClusters();
+  std::map<std::string, std::pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
 
-    std::map<std::string, int> getAmountOfCompletedExcersisesPerStudent();
+  std::map<std::string, int> getAmountOfCompletedExcersisesPerStudent();
 
-    std::map<std::string, std::pair<int, int>>
-    createExcersiseCompletionAmountAndGradesPairs(std::vector<pqxx::result::tuple> filteredIdsAndGrades,
-                                                  std::map<std::string, int> excersiseAmountPerStudent);
+  std::map<std::string, std::pair<int, int>>
+  createExcersiseCompletionAmountAndGradesPairs(std::vector<pqxx::result::tuple> filteredIdsAndGrades,
+                                                std::map<std::string, int> excersiseAmountPerStudent);
 
-  public:
-    std::string getVisualizationAsJSON();
-    ExcersiseCompletionAndGradesClustering(std::shared_ptr<IFilter> gf,
-                                           std::shared_ptr<IFilter> af)
-    {
-        gradeFilter = gf;
-        assignmentIntervalFilter = af;
-    };
+public:
+  std::string getVisualizationAsJSON();
+  ExcersiseCompletionAndGradesClustering(std::shared_ptr<GradePercentageFilter> gf,
+                                         std::shared_ptr<AssignmentIntervalFilter> af)
+  {
+    gradeFilter = gf;
+    assignmentIntervalFilter = af;
+  };
 };
 
 #endif

@@ -21,12 +21,7 @@ struct FilterContext
 
 class IFilter
 {
-  protected:
   public:
-    //These are probably just hidden ><
-    FilterQueryColumnIndexes queryColumnIndexes;
-    FilterContext filterContext;
-
     virtual std::vector<pqxx::result::tuple> filter(std::vector<pqxx::result::tuple> unfilteredRows) = 0;
 };
 

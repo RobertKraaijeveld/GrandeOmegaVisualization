@@ -28,7 +28,7 @@ function createChartPercentageChoosers() {
 
 function createLinearRegressionRadioBtns() {
     var LinearRegressionRadioBtnHtml =
-        '<p style="margin-top: 20px;">Add/Remove LinearRegression</p>' +
+        '<p style="margin-top: 20px;">Add/Remove Linear Regression</p>' +
         '<input type="checkbox" class="LinearRegressionButton"></input>';
     $('.LinearRegressionChart').before(LinearRegressionRadioBtnHtml);
 }
@@ -40,6 +40,7 @@ REGRESSION AND PERCENTAGE RUNTIME
 */
 
 function handleChartPercentageChoosersClicks() {
+    //note that these are refs to existing functions
     var updateFunctionsPerChart =
         {
             "completedexcersisesandgradesclustering": drawCompletedExcersisesAndGradesClustering,
@@ -51,26 +52,34 @@ function handleChartPercentageChoosersClicks() {
         var associatedChartId = $(this).nextAll('.updatableChart').attr('id');
 
         updateFunctionsPerChart[associatedChartId](newPercentageValue);
+
+        //assures that regression is updated if it was enabled before the percentage update
+        createLinearRegressionIfButtonChecked($(this).nextAll('.LinearRegressionButton'));
     });
 }
 
 function handleLinearRegressionLineChoosers() {
     $('.LinearRegressionButton').click(function () {
-        var associatedChartId = $(this).nextAll('.LinearRegressionChart').attr('id');
-        var myChart = $('#' + associatedChartId).highcharts();
-
-        if ($(this).is(':checked')) {
-            var allValuesArray = getAllSeriesData(myChart);
-
-            $.get("http://localhost:3000/home/linearregression/[" + allValuesArray + "]", function (data) {
-                drawLinearRegression(myChart, data);
-            });
-        }
-        else {
-            removeLinearRegression(myChart);
-        }
+        createLinearRegressionIfButtonChecked(this);
     });
 }
+
+function createLinearRegressionIfButtonChecked(button) {
+    var associatedChartId = $(button).nextAll('.LinearRegressionChart').attr('id');
+    var myChart = $('#' + associatedChartId).highcharts();
+
+    if ($(button).is(':checked')) {
+        var allValuesArray = getAllSeriesData(myChart);
+
+        $.get("http://localhost:3000/home/linearregression/[" + allValuesArray + "]", function (data) {
+            drawLinearRegression(myChart, data);
+        });
+    }
+    else {
+        removeLinearRegression(myChart);
+    }
+}
+
 
 function drawLinearRegression(chart, data) {
     var seriesObj =
@@ -105,14 +114,12 @@ function removeLinearRegression(chart) {
 
 function getAllSeriesData(chart) {
     allSeriesPoints = Array();
-    for (i = 0; i < chart.series.length; i++) 
-    {
-        var currentChartData = chart.series[i]['data']; 
-        for (j = 0; j < currentChartData.length; j++) 
-        {
+    for (i = 0; i < chart.series.length; i++) {
+        var currentChartData = chart.series[i]['data'];
+        for (j = 0; j < currentChartData.length; j++) {
             var x = parseFloat(currentChartData[j].x);
             var y = parseFloat(currentChartData[j].y);
-            allSeriesPoints.push([x,y]);
+            allSeriesPoints.push([x, y]);
         }
     }
     [].concat.apply([], allSeriesPoints);

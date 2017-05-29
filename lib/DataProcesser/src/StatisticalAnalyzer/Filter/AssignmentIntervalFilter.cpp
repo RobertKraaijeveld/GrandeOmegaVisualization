@@ -8,10 +8,11 @@
 #include "../../Utilities/UtcTime.h"
 #include "../../Utilities/UtcReader.h"
 #include "../../DatabaseInteracter/DatabaseInteracter.h"
-#include "GradePercentageFilter.h"
+#include "AssignmentIntervalFilter.h"
 
+//Todo: Catch missing filterQueryColumnIndexes segfaults
 
-bool AnalysisFilter::isValidAssignmentTime(std::string& previousTime, std::string& currTime)
+bool AssignmentIntervalFilter::isValidAssignmentTime(std::string& previousTime, std::string& currTime)
 {
     UtcTime previousUtcTime = UtcReader::toUtcTime(previousTime);
     UtcTime currUtcTime = UtcReader::toUtcTime(currTime);
@@ -21,13 +22,12 @@ bool AnalysisFilter::isValidAssignmentTime(std::string& previousTime, std::strin
 }
 
 
-std::vector<pqxx::result::tuple> AnalysisFilter::filter(std::vector<pqxx::result::tuple>& unfilteredRows)
+std::vector<pqxx::result::tuple> AssignmentIntervalFilter::filter(std::vector<pqxx::result::tuple> unfilteredRows)
 {  
     std::vector<pqxx::result::tuple> filteredRows;
-
     map<string, string> studentsAndLatestTimestamps;
 
-    for(pqxx::result::tuple row: gradeFilteredRows)
+    for(pqxx::result::tuple row: unfilteredRows)
     {
         string currStudentId = string(row[queryColumnIndexes.studentIdColumnIndex].c_str());
         string currTime = string(row[queryColumnIndexes.timestampIndex].c_str()); 

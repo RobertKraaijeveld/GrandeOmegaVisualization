@@ -10,6 +10,7 @@
 #include <ctime>
 #include <time.h>
 
+
 #include "DataProcesser/src/CsvParser/CsvParser.h"
 #include "DataProcesser/src/YamlParser/YamlParser.h"
 #include "DataProcesser/src/Utilities/Utilities.h"
@@ -17,16 +18,19 @@
 #include "DataProcesser/src/Utilities/UtcReader.h"
 #include "DataProcesser/src/DatabaseInteracter/DatabaseInteracter.h"
 #include "DataProcesser/src/Mapper/Mapper.h"
-
 #include "RubyToCppConverters.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/IVisualization.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h"
+
+#include "DataProcesser/src/StatisticalAnalyzer/Filter/IFilter.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Filter/GradePercentageFilter.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Filter/AssignmentIntervalFilter.h"
+
 #include "DataProcesser/src/StatisticalAnalyzer/Regression/SimpleLinearRegression.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h"
-
 #include "DataProcesser/src/StatisticalAnalyzer/GenericVector/GenericVector.h"
 
 using namespace Rice;
@@ -50,7 +54,6 @@ vector<YamlObject> assignmentYamlObjects;
 	PARSING 
 */
 
-//IMPORTANT: Add checks if files actually exist
 vector<YamlObject> parseAndGetGrades()
 {
 	YamlParser yamlParser(explicitStudentsStream);
@@ -83,37 +86,42 @@ void insertToDB()
 	dbInteracter.InsertGradesYaml(gradeYamlObjects);
 }
 
+
+
 /*
 	DATA FOR VISUALIZATIONS
-
-	Problem:
-		- The visualizations have to change their filter of their own accord if they need multiple filters.
-		- We can fix it by giving each derivative their own filters, instead of giving each a generic one.
-		- Makes sense considering each visualization is unique in that aspect.
 */
 
-string getExcersiseDateTimeMetrics(double upperPercentageOfGradesToBeSelected)
+FilterContext getFilterContext(double upperPercentage)
 {
-	AnalysisFilter filterer;
-	filterer.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
-	filterer.upperPercentageOfGradesToBeSelected = upperPercentageOfGradesToBeSelected;
-	return "";
+	FilterContext filterContext;
+	filterContext.upperPercentageOfGradesToBeSelected = upperPercentage;
+	filterContext.timeBetweenAssignmentsThreshold = TIME_BETWEEN_ASSIGNMENTS_THRESHOLD;
+
+	return filterContext;
 }
 
-//VERY SIMILAR METHOD CALLSSSS
-//RENAME
 string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 {
-	AnalysisFilter filter = getFilter(upperPercentageOfGradesToBeSelected);
-	std::unique_ptr<IVisualization> visualization(new GradeAndExcersiseSuccesses(filter));
+	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
+
+	//These shared ptrs need to be more polymorphic.
+	std::shared_ptr<GradePercentageFilter> gradeFilter (new GradePercentageFilter(filterContext));
+	std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter (new AssignmentIntervalFilter(filterContext));
+	
+	std::unique_ptr<IVisualization> visualization(new GradeAndExcersiseSuccesses(gradeFilter, assignmentIntervalFilter));
 	return visualization->getVisualizationAsJSON();
 }
 
-//GIVE DIFFERENT NAME
 string getKMeans(double upperPercentageOfGradesToBeSelected)
 {
-	AnalysisFilter filter = getFilter(upperPercentageOfGradesToBeSelected);
-	std::unique_ptr<IVisualization> visualization(new ExcersiseCompletionAndGradesClustering(filter));
+	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
+
+	//These shared ptrs need to be more polymorphic.
+	std::shared_ptr<GradePercentageFilter> gradeFilter (new GradePercentageFilter(filterContext));
+	std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter (new AssignmentIntervalFilter(filterContext));
+	
+	std::unique_ptr<IVisualization> visualization(new ExcersiseCompletionAndGradesClustering(gradeFilter, assignmentIntervalFilter));
 	return visualization->getVisualizationAsJSON();
 }
 
@@ -131,14 +139,8 @@ string getLinearRegression(vector<float> xValues)
 	return linearRegression->getRegressionAsJSON();
 }
 
-/*
-	Backward assignments have only 1 succes.
-	Other ones either succeed or fail step-by-step.
-	CI and testing will award you extra points.
-	Only cluster on measurements, not on ids.
-	Get GrandeOmega to runn
-*/
 
+//Using C compiler and removing name-mangling for Ruby
 extern "C"
 void Init_dataprocesser()
 {

@@ -24,9 +24,8 @@ class GradePercentageFilter : public IFilter
 
     std::vector<pqxx::result::tuple> filter(vector<pqxx::result::tuple> unfilteredRows);
 
-    GradePercentageFilter (FilterQueryColumnIndexes& q, FilterContext& f) 
+    GradePercentageFilter (FilterContext f) 
     {
-        queryColumnIndexes = q;
         filterContext = f;
     };
 };

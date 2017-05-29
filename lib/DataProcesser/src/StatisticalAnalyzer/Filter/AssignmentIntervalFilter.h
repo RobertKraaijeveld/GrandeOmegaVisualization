@@ -4,11 +4,12 @@
 #include <vector>
 #include <pqxx/pqxx>
 
+#include "IFilter.h"
+
 class AssignmentIntervalFilter : public IFilter
 {
   private:
-    bool isValidAssignmentTime(std::string &previousTime, std::string &currTime);
-    std::vector<pqxx::result::tuple> getRowsWithValidAssignmentTimes(std::vector<pqxx::result::tuple>& gradeFilteredRows);
+    bool isValidAssignmentTime(std::string& previousTime, std::string& currTime);
 
   public:
     //No such thing as virtual/abstract variables which sucks;
@@ -16,12 +17,10 @@ class AssignmentIntervalFilter : public IFilter
     FilterQueryColumnIndexes queryColumnIndexes;
     FilterContext filterContext;
 
-    //maybe make this take a vector<pqxx::result::tuple> instead?
-    vector<pqxx::result::tuple> filter(vector<pqxx::result::tuple> unfilteredRows);
+    std::vector<pqxx::result::tuple> filter(std::vector<pqxx::result::tuple> unfilteredRows);
 
-    AssignmentIntervalFilter(FilterQueryColumnIndexes &q, FilterContext &f)
+    AssignmentIntervalFilter(FilterContext f)
     {
-        queryColumnIndexes = q;
         filterContext = f;
     };
 };

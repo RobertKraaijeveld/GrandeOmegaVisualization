@@ -7,3 +7,5 @@ module DataProcesserCoupling
         @dataprocesser
     end
 end
+
+DataProcesserCoupling.getDataProcesser.insertToDB()

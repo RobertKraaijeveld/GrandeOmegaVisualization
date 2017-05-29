@@ -2,7 +2,8 @@
 #define GRADEANDEXCERSISESUCCESSES_H
 
 #include "IVisualization.h"
-#include "../Filter/IFilter.h"
+#include "../Filter/GradePercentageFilter.h"
+#include "../Filter/AssignmentIntervalFilter.h"
 
 #include <pqxx/pqxx>
 #include <memory>
@@ -12,8 +13,8 @@
 class GradeAndExcersiseSuccesses : public IVisualization
 {
   private:
-    std::shared_ptr<IFilter> gradeFilter;
-    std::shared_ptr<IFilter> assignmentIntervalFilter;
+    std::shared_ptr<GradePercentageFilter> gradeFilter;
+    std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter;
 
     std::map<std::string, std::pair<int, int>> getGradesAndSuccesses();
     pqxx::result getUnfilteredStudentSuccessCountsAndGrades();
@@ -21,7 +22,12 @@ class GradeAndExcersiseSuccesses : public IVisualization
 
   public:
     std::string getVisualizationAsJSON();
-    GradeAndExcersiseSuccesses(std::shared_ptr<IFilter> f) { filter = f; };
+    GradeAndExcersiseSuccesses(std::shared_ptr<GradePercentageFilter> gf,
+                               std::shared_ptr<AssignmentIntervalFilter> af)
+    {
+        gradeFilter = gf;
+        assignmentIntervalFilter = af;
+    };
 };
 
 #endif

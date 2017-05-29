@@ -89,6 +89,7 @@ bool Utilities::isInVector(string &value, vector<string> &vector)
     return find(vector.begin(), vector.end(), value) != vector.end();
 }
 
+//Always bind the return of this to a new var first before using it!
 vector<pqxx::result::tuple> Utilities::toListOfPqxxTuples(pqxx::result& r)
 {
     vector<pqxx::result::tuple> resultVector;
