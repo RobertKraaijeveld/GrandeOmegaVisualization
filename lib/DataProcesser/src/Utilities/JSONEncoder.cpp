@@ -8,7 +8,7 @@
 
 
 /*
-This .cpp file separate from the .inl file exists because
+This .cpp file is separate from the .inl file exists because
 clustersToJSON does not use any template parameters; 
 
 Putting its implementation in JSONEncoder.inl and then

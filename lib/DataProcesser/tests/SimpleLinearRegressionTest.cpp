@@ -10,7 +10,7 @@
 #include "SimpleLinearRegressionTest.h"
 
 #include "../src/StatisticalAnalyzer/Regression/SimpleLinearRegression.h"
-#include "../src/StatisticalAnalyzer/StatisticalTools/StatisticalTools.h"
+#include "../src/StatisticalAnalyzer/Visualizations/StatisticalTools.h"
 #include "../src/Utilities/Utilities.h"
 
 using namespace CppUnit;

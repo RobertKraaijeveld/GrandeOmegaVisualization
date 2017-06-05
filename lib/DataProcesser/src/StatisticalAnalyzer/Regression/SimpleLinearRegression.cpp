@@ -22,7 +22,6 @@ pair<GenericVector, GenericVector> SimpleLinearRegression::convertPairsToGVs(vec
     return returnGVs;
 }
 
-//done
 float SimpleLinearRegression::getIntercept()
 {
     float slope = getSlope();

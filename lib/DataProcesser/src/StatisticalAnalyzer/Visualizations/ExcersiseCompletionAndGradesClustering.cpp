@@ -11,6 +11,7 @@
 #include <iostream>
 #include <pqxx/pqxx>
 
+
 std::string ExcersiseCompletionAndGradesClustering::getVisualizationAsJSON()
 {
     std::vector<std::vector<KMeansPoint>> clusters = getExcersiseCompletionAndGradesClusters();

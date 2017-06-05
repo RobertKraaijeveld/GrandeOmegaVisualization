@@ -66,7 +66,7 @@ bool Utilities::isNCharsWhiteSpace(int N, string &str)
 bool Utilities::AreFloatsEqual(float f1, float f2)
 {
     //ulp is 4, might be wrong
-    return fabs(f1 - f2) < 4;
+    return fabs(f1 - f2) < 1;
 }
 
 //DUPLICATION WITH STATISTICALTOOLS

@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 
+#include "DataProcesser/src/StatisticalAnalyzer/GenericVector/GenericVector.h"
+
 using namespace Rice;
 
 //Custom from_ruby() to convert ruby float arrays to cpp float vectors
@@ -19,7 +21,7 @@ std::vector<float> from_ruby<std::vector<float>>(Object o)
     return v;
 }
 
-std::vector<std::pair<float, float>> floatVectorToPairVector(vector<float> v)
+std::vector<std::pair<float, float>> floatVectorToPairVector(std::vector<float> v)
 {
     std::vector<std::pair<float, float>> returnPairs;
 
@@ -40,6 +42,18 @@ std::vector<std::pair<float, float>> floatVectorToPairVector(vector<float> v)
         }
     }
     return returnPairs;
+}
+
+std::pair<GenericVector, GenericVector> convertPairsToGVs(std::vector<std::pair<float, float>> pairs)
+{
+    std::pair<GenericVector, GenericVector> returnGVs;
+
+    for(int i = 0; i < pairs.size(); i++)
+    {
+        returnGVs.first.values.push_back(pairs[i].first);
+        returnGVs.second.values.push_back(pairs[i].second);
+    }
+    return returnGVs;
 }
 
 #endif

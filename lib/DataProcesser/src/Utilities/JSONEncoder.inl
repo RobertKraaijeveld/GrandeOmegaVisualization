@@ -9,7 +9,7 @@
 #include <vector>
 #include <string>
 
-
+ 
 /*
 This .inl file is included directly into the JSONEncoder header;
 This makes sure we do not get any linker errors on these templates.
@@ -23,9 +23,9 @@ std::string JSONEncoder::kvToJson(T& k, J& v)
     returnStr << "\"x\"" << ':' << ' ' << '"' << Utilities::genericToStr(k) << '"' << ", ";
     returnStr << "\"y\"" << ':' << ' ' << '"' << Utilities::genericToStr(v) << '"';
     return returnStr.str();
-}  
+}
 
-//duplication with std::map, only loop is different
+
 template <class T, class J> 
 std::string JSONEncoder::pairsToJson(std::vector<pair<T, J>>& pairs)
 {
@@ -50,7 +50,7 @@ std::string JSONEncoder::pairsToJson(std::vector<pair<T, J>>& pairs)
 
 //TODO: eerily familiar with above method
 template <class T, class J> 
-std::string JSONEncoder::mapToJson(std::map<T, J>& m)
+std::string JSONEncoder::mapToJson(std::map<T, J>& m, bool separateIntoXY)
 {
     stringstream returnJSONStr;
 
@@ -61,8 +61,14 @@ std::string JSONEncoder::mapToJson(std::map<T, J>& m)
     for(it = m.begin(); it != m.end(); it++)
     {
         returnJSONStr << "{";
-        returnJSONStr << kvToJson(it->first, it->second);
-        
+
+        //inserting x: and y: or not
+        if(separateIntoXY)
+            returnJSONStr << kvToJson(it->first, it->second);
+        else
+            returnJSONStr << "\"" << it->first << "\"" << ": " << "\"" << it->second << "\"";
+            
+
         if(counter < (m.size() - 1))
             returnJSONStr << "}," << endl;  
         else

@@ -192,7 +192,6 @@ LIBS = -Wl,-R$(HOME)/.rbenv/versions/2.2.2/lib -L$(HOME)/.rbenv/versions/2.2.2/l
 
 
 ##### GRANDEOMEGAPRJ: MODIFY THIS WHEN ADDING NEW SOURCE FILES ########
-##### TODO: MAKE THE READING OF FILES AUTOMATIC #####
 
 TESTSDIR = DataProcesser/tests/
 PROCESSERDIR = DataProcesser/src/
@@ -208,17 +207,17 @@ define ORIG_SRCS
  $(PROCESSERDIR)Utilities/Utilities.cpp
  $(PROCESSERDIR)/Utilities/UtcReader.cpp 
  $(PROCESSERDIR)/Utilities/UtcTime.cpp  
- $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.cpp  
-
  $(PROCESSERDIR)/Utilities/JSONEncoder.cpp       
+ 
+ $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.cpp  
  
  $(PROCESSERDIR)StatisticalAnalyzer/Filter/GradePercentageFilter.cpp 
  $(PROCESSERDIR)StatisticalAnalyzer/Filter/AssignmentIntervalFilter.cpp  
  $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.cpp 
  $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.cpp 
  $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.cpp 
+ $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/CorrelationMeasures.cpp 
  
-
  $(ANALYZERDIR)Regression/SimpleLinearRegression.cpp
  $(ANALYZERDIR)GenericVector/GenericVector.cpp
  $(ANALYZERDIR)GenericVector/GenericVector.cpp
@@ -230,9 +229,8 @@ define ORIG_SRCS
 endef 
 SRCS = $(ORIG_SRCS) 
 
-#Why the fuck is this the only valid way to declare this?   
-OBJS = $(KMEANSDIR)/KMeansIteration.o $(KMEANSDIR)/KMeansController.o $(KMEANSDIR)CustomTypes/KMeansPoint.o $(ANALYZERDIR)GenericVector/GenericVector.o $(ANALYZERDIR)Regression/SimpleLinearRegression.o $(PROCESSERDIR)StatisticalAnalyzer/Filter/AssignmentIntervalFilter.o $(PROCESSERDIR)StatisticalAnalyzer/Filter/GradePercentageFilter.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.o $(PROCESSERDIR)YamlParser/YamlParser.o $(PROCESSERDIR)YamlParser/YamlObject.o $(PROCESSERDIR)YamlParser/YamlConverter.o $(PROCESSERDIR)CsvParser/CsvParser.o $(PROCESSERDIR)Mapper/Mapper.o $(PROCESSERDIR)Utilities/UtcTime.o $(PROCESSERDIR)Utilities/UtcReader.o $(PROCESSERDIR)Utilities/JSONEncoder.o $(PROCESSERDIR)Utilities/Utilities.o $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
-HDRS = RubyToCppConverters.h $(KMEANSDIR)/KMeansIteration.h $(KMEANSDIR)/KMeansController.h $(KMEANSDIR)CustomTypes/KMeansPoint.h $(ANALYZERDIR)GenericVector/GenericVector.h $(ANALYZERDIR)Regression/IRegression.h $(ANALYZERDIR)Regression/SimpleLinearRegression.h $(PROCESSERDIR)StatisticalAnalyzer/Filter/AssignmentIntervalFilter.h $(PROCESSERDIR)StatisticalAnalyzer/Filter/GradePercentageFilter.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/IVisualization.h $(PROCESSERDIR)YamlParser/YamlParser.h $(PROCESSERDIR)YamlParser/YamlObject.h $(PROCESSERDIR)YamlParser/YamlConverter.h $(PROCESSERDIR)CsvParser/CsvParser.h $(PROCESSERDIR)Mapper/Mapper.h $(PROCESSERDIR)Utilities/UtcTime.h $(PROCESSERDIR)Utilities/UtcReader.h $(PROCESSERDIR)Utilities/JSONEncoder.h $(PROCESSERDIR)Utilities/JSONEncoder.inl $(PROCESSERDIR)Utilities/Utilities.h $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.h   
+OBJS = $(KMEANSDIR)/KMeansIteration.o $(KMEANSDIR)/KMeansController.o $(KMEANSDIR)CustomTypes/KMeansPoint.o $(ANALYZERDIR)GenericVector/GenericVector.o $(ANALYZERDIR)Regression/SimpleLinearRegression.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/CorrelationMeasures.o $(PROCESSERDIR)StatisticalAnalyzer/Filter/AssignmentIntervalFilter.o $(PROCESSERDIR)StatisticalAnalyzer/Filter/GradePercentageFilter.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.o $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.o $(PROCESSERDIR)YamlParser/YamlParser.o $(PROCESSERDIR)YamlParser/YamlObject.o $(PROCESSERDIR)YamlParser/YamlConverter.o $(PROCESSERDIR)CsvParser/CsvParser.o $(PROCESSERDIR)Mapper/Mapper.o $(PROCESSERDIR)Utilities/UtcTime.o $(PROCESSERDIR)Utilities/UtcReader.o $(PROCESSERDIR)Utilities/JSONEncoder.o $(PROCESSERDIR)Utilities/Utilities.o $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o dataprocesser.o
+HDRS = RubyToCppConverters.h $(KMEANSDIR)/KMeansIteration.h $(KMEANSDIR)/KMeansController.h $(KMEANSDIR)CustomTypes/KMeansPoint.h $(ANALYZERDIR)GenericVector/GenericVector.h $(ANALYZERDIR)Regression/IRegression.h $(ANALYZERDIR)Regression/SimpleLinearRegression.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/CorrelationMeasures.h $(PROCESSERDIR)StatisticalAnalyzer/Filter/AssignmentIntervalFilter.h $(PROCESSERDIR)StatisticalAnalyzer/Filter/GradePercentageFilter.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h $(PROCESSERDIR)StatisticalAnalyzer/Visualizations/IVisualization.h $(PROCESSERDIR)YamlParser/YamlParser.h $(PROCESSERDIR)YamlParser/YamlObject.h $(PROCESSERDIR)YamlParser/YamlConverter.h $(PROCESSERDIR)CsvParser/CsvParser.h $(PROCESSERDIR)Mapper/Mapper.h $(PROCESSERDIR)Utilities/UtcTime.h $(PROCESSERDIR)Utilities/UtcReader.h $(PROCESSERDIR)Utilities/JSONEncoder.h $(PROCESSERDIR)Utilities/JSONEncoder.inl $(PROCESSERDIR)Utilities/Utilities.h $(PROCESSERDIR)DatabaseInteracter/DatabaseInteracter.h   
 
 #### END GRANDEOMEGAPRJ ######
 

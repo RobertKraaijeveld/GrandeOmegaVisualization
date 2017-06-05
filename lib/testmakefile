@@ -4,18 +4,18 @@ CXX = g++
 DATAPROCESSERDIR = DataProcesser/src/
 TESTDIR = DataProcesser/tests/
 
-OBJS = $(TESTDIR)runAllTests.o $(TESTDIR)UtilitiesTest.o $(TESTDIR)StatisticalToolsTest.o $(TESTDIR)SimpleLinearRegressionTest.o $(DATAPROCESSERDIR)StatisticalAnalyzer/StatisticalTools/StatisticalTools.cpp $(DATAPROCESSERDIR)StatisticalAnalyzer/GenericVector/GenericVector.o $(DATAPROCESSERDIR)YamlParser/YamlParser.o $(DATAPROCESSERDIR)YamlParser/YamlObject.o $(DATAPROCESSERDIR)YamlParser/YamlConverter.o $(DATAPROCESSERDIR)CsvParser/CsvParser.o $(DATAPROCESSERDIR)Mapper/Mapper.o $(DATAPROCESSERDIR)Utilities/Utilities.o $(DATAPROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o 
+OBJS = $(TESTDIR)runAllTests.o $(TESTDIR)UtilitiesTest.o $(TESTDIR)StatisticalToolsTest.o $(TESTDIR)SimpleLinearRegressionTest.o $(DATAPROCESSERDIR)StatisticalAnalyzer/Visualizations/StatisticalTools.cpp $(DATAPROCESSERDIR)StatisticalAnalyzer/GenericVector/GenericVector.o $(DATAPROCESSERDIR)YamlParser/YamlParser.o $(DATAPROCESSERDIR)YamlParser/YamlObject.o $(DATAPROCESSERDIR)YamlParser/YamlConverter.o $(DATAPROCESSERDIR)CsvParser/CsvParser.o $(DATAPROCESSERDIR)Mapper/Mapper.o $(DATAPROCESSERDIR)Utilities/Utilities.o $(DATAPROCESSERDIR)DatabaseInteracter/DatabaseInteracter.o 
 
 #MOVE TO SEPARATE FOLDER
 all : Tests 
 
 Tests: $(OBJS)
-	$(CXX) $^ -o $@ $(LDFLAGS) -lcppunit -lpq -lpqxx -std=c++11
+	$(CXX) $^ -o $@ $(LDFLAGS) -lcppunit -lpq -lpqxx -std=c++14
 
 %.o : %.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ -c $< -std=c++11
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ -c $< -std=c++14
         
-$(TESTDIR)runAllTests.o : $(TESTDIR)UtilitiesTest.h $(DATAPROCESSERDIR)Utilities/Utilities.h $(DATAPROCESSERDIR)StatisticalAnalyzer/StatisticalTools/StatisticalTools.h  
+$(TESTDIR)runAllTests.o : $(TESTDIR)UtilitiesTest.h $(DATAPROCESSERDIR)Utilities/Utilities.h #$(DATAPROCESSERDIR)StatisticalAnalyzer/Visualizations/Visualizations.h  
 $(TESTDIR)UtilitiesTest.o: $(TESTDIR)UtilitiesTest.h 
 $(TESTDIR)StatisticalToolsTest.o: $(TESTDIR)StatisticalToolsTest.h
 $(TESTDIR)SimpleLinearRegressionTest.o: $(TESTDIR)SimpleLinearRegressionTest.h
