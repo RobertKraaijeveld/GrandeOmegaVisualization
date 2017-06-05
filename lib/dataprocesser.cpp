@@ -10,7 +10,6 @@
 #include <ctime>
 #include <time.h>
 
-
 #include "DataProcesser/src/CsvParser/CsvParser.h"
 #include "DataProcesser/src/YamlParser/YamlParser.h"
 #include "DataProcesser/src/Utilities/Utilities.h"
@@ -26,20 +25,19 @@
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/AmountOfStudentsPerClass.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/CorrelationMeasures.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/IFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/GradePercentageFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/AssignmentIntervalFilter.h"
 
-#include "DataProcesser/src/StatisticalAnalyzer/Regression/SimpleLinearRegression.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h"
-
+#include "DataProcesser/src/StatisticalAnalyzer/Regression/SimpleLinearRegression.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Regression/LogarithmicLinearRegression.h"
 
 using namespace Rice;
 using namespace std;
-
-
 
 const double TIME_BETWEEN_ASSIGNMENTS_THRESHOLD = 1.5;
 
@@ -50,8 +48,6 @@ ifstream explicitStudentsStream = ifstream("DataProcesser/docs/explicitStudents.
 vector<vector<string>> knownEmailsForClasses;
 vector<YamlObject> emailYamlObjects;
 vector<YamlObject> assignmentYamlObjects;
-
-
 
 /*
 	PARSING 
@@ -89,8 +85,6 @@ void insertToDB()
 	dbInteracter.InsertGradesYaml(gradeYamlObjects);
 }
 
-
-
 /*
 	DATA FOR VISUALIZATIONS
 */
@@ -110,9 +104,9 @@ string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
 
 	//These shared ptrs need to be more polymorphic.
-	std::shared_ptr<GradePercentageFilter> gradeFilter (new GradePercentageFilter(filterContext));
-	std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter (new AssignmentIntervalFilter(filterContext));
-	
+	std::shared_ptr<GradePercentageFilter> gradeFilter(new GradePercentageFilter(filterContext));
+	std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter(new AssignmentIntervalFilter(filterContext));
+
 	std::unique_ptr<IVisualization> gradeAndExcersiseSuccessesVisualization(new GradeAndExcersiseSuccesses(gradeFilter, assignmentIntervalFilter));
 	return gradeAndExcersiseSuccessesVisualization->getVisualizationAsJSON();
 }
@@ -123,9 +117,9 @@ string getKMeans(double upperPercentageOfGradesToBeSelected)
 	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
 
 	//These shared ptrs need to be more polymorphic.
-	std::shared_ptr<GradePercentageFilter> gradeFilter (new GradePercentageFilter(filterContext));
-	std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter (new AssignmentIntervalFilter(filterContext));
-	
+	std::shared_ptr<GradePercentageFilter> gradeFilter(new GradePercentageFilter(filterContext));
+	std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter(new AssignmentIntervalFilter(filterContext));
+
 	std::unique_ptr<IVisualization> excersiseCompletionAndGradesClusteringVisualization(new ExcersiseCompletionAndGradesClustering(gradeFilter, assignmentIntervalFilter));
 	return excersiseCompletionAndGradesClusteringVisualization->getVisualizationAsJSON();
 }
@@ -136,6 +130,13 @@ string getGradeAvgPerClass()
 	return gradeAvgsPerClassVisualization->getVisualizationAsJSON();
 }
 
+string getAmountOfStudentsPerClass()
+{
+	std::unique_ptr<IVisualization> amountOfStudentsPerClassVisualization(new AmountOfStudentsPerClass());
+	return amountOfStudentsPerClassVisualization->getVisualizationAsJSON();
+}
+
+
 
 /*
 Measures instead of graphs
@@ -144,13 +145,12 @@ Measures instead of graphs
 string getCorrelationMeasures(vector<float> xyValues)
 {
 	vector<pair<float, float>> pairs = floatVectorToPairVector(xyValues);
-	pair<GenericVector, GenericVector> xyVectors = convertPairsToGVs(pairs);	
+	pair<GenericVector, GenericVector> xyVectors = convertPairsToGVs(pairs);
 
 	std::unique_ptr<IVisualization> correlationMeasures(new CorrelationMeasures(xyVectors));
 	return correlationMeasures->getVisualizationAsJSON();
 }
 
-//Do spearman, dbscan, 2 classification and tests and diagrams
 string getLinearRegression(vector<float> xyValues)
 {
 	vector<pair<float, float>> pairs = floatVectorToPairVector(xyValues);
@@ -159,12 +159,18 @@ string getLinearRegression(vector<float> xyValues)
 	return linearRegression->getRegressionAsJSON();
 }
 
+string getLogarithmicLinearRegression(vector<float> xyValues)
+{
+	//LogarithmicLinearRegression
+	vector<pair<float, float>> pairs = floatVectorToPairVector(xyValues);
 
+	std::unique_ptr<IRegression> logarithmicLinearRegression(new LogarithmicLinearRegression(pairs));
+	return logarithmicLinearRegression->getRegressionAsJSON();
+}
 
 
 //Using C compiler and removing name-mangling for Ruby
-extern "C"
-void Init_dataprocesser()
+extern "C" void Init_dataprocesser()
 {
 	Class rb_c = define_class("Dataprocesser")
 					 .define_method("parseAndGetGrades", &parseAndGetGrades)
@@ -173,6 +179,8 @@ void Init_dataprocesser()
 					 .define_method("getKMeans", &getKMeans)
 					 .define_method("getSuccesRate", &getSuccesRate)
 					 .define_method("getGradeAvgPerClass", &getGradeAvgPerClass)
+					 .define_method("getAmountOfStudentsPerClass", &getAmountOfStudentsPerClass)					 
 					 .define_method("getLinearRegression", &getLinearRegression)
-					 .define_method("getCorrelationMeasures", &getCorrelationMeasures);					 
+					 .define_method("getLogarithmicLinearRegression", &getLogarithmicLinearRegression)
+					 .define_method("getCorrelationMeasures", &getCorrelationMeasures);
 }

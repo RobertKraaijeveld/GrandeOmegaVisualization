@@ -10,17 +10,6 @@
 
 using namespace std;
 
-pair<GenericVector, GenericVector> SimpleLinearRegression::convertPairsToGVs(vector<pair<float, float>> pairs)
-{
-    pair<GenericVector, GenericVector> returnGVs;
-
-    for(int i = 0; i < pairs.size(); i++)
-    {
-        returnGVs.first.values.push_back(pairs[i].first);
-        returnGVs.second.values.push_back(pairs[i].second);
-    }
-    return returnGVs;
-}
 
 float SimpleLinearRegression::getIntercept()
 {
@@ -65,10 +54,9 @@ float SimpleLinearRegression::getSlope()
     return fullDivisor/fullDividend;
 }
 
-//input has to be more than 1 point!
+
 vector<pair<float, float>> SimpleLinearRegression::getRegression()
 {
-    //testing pls
     vector<pair<float, float>> returnXYvaluesForLine;
     vector<float>& xValues = xAndYVectors.first.values;
     float xValuesAmount = xAndYVectors.first.values.size();

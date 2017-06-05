@@ -27,7 +27,7 @@ pqxx::result GradeAvgsPerClass::getClassAveragesRows()
     std::ostringstream queryStream;
     queryStream << "SELECT avg(grades.grade), assignments.class"
                 << " FROM assignments, grades WHERE assignments.student_id = grades.student_id"
-                << " AND assignments.class != 'tester' GROUP BY assignments.class;";
+                << " AND assignments.class != 'tester' GROUP BY assignments.class ORDER BY avg(grades.grade);";
     std::string query = queryStream.str();
 
     //NOTE: no filtering necessary or helpfull here

@@ -28,7 +28,6 @@ private:
   float getJointRankedSpearmanCoefficient(pair<map<float, float>, map<float, float>> xyRanksForUniqueValues,
                                           vector<float> allXRanks, vector<float> allYRanks);
 
-
   float getSpearmanCoefficient();
   float getPearsonCoefficient();
 
