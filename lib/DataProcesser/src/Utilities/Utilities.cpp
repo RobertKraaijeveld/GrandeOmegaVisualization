@@ -1,4 +1,6 @@
 #include "Utilities.h"
+#include "../StatisticalAnalyzer/KMeans/CustomTypes/ClusteringPoint.h"
+
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -98,4 +100,27 @@ vector<pqxx::result::tuple> Utilities::toListOfPqxxTuples(pqxx::result& r)
         resultVector.push_back(row);
     }
     return resultVector;
+}
+
+vector<ClusteringPoint> Utilities::convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues)
+{    
+    vector<ClusteringPoint> points;
+
+    map<string, pair<int, int>>::iterator it;
+    size_t counter = 0;
+
+    for(it=inputValues.begin(); it!=inputValues.end(); ++it)
+    {
+        vector<float> valuesForGV;
+        valuesForGV.push_back((float) it->second.first);
+        valuesForGV.push_back((float) it->second.second);
+
+        GenericVector newGv (valuesForGV);
+        
+        ClusteringPoint newPoint (counter, newGv);
+        points.push_back(newPoint);
+
+        counter++;
+    }
+    return points;
 }

@@ -22,6 +22,14 @@ class GradePercentageFilter : public IFilter
     FilterQueryColumnIndexes queryColumnIndexes;
     FilterContext filterContext;
 
+    //used to simulate inherited vars from IFilter
+    void setFilterQueryColumnIndexes(FilterQueryColumnIndexes fq) { queryColumnIndexes = fq; };
+    FilterQueryColumnIndexes getFilterQueryColumnIndexes() { return queryColumnIndexes; };
+    
+    void setFilterContext(FilterContext fc) { filterContext = fc; };  
+    FilterContext getFilterContext() { return filterContext; };
+
+    
     std::vector<pqxx::result::tuple> filter(vector<pqxx::result::tuple> unfilteredRows);
 
     GradePercentageFilter (FilterContext f) 

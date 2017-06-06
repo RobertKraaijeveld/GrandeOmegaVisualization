@@ -13,8 +13,9 @@
 class GradeAndExcersiseSuccesses : public IVisualization
 {
   private:
-    std::shared_ptr<GradePercentageFilter> gradeFilter;
-    std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter;
+    std::shared_ptr<IFilter> gradeFilter;
+    std::shared_ptr<IFilter> assignmentIntervalFilter;
+    std::shared_ptr<IFilter> weekDayOnlyFilter;    
 
     std::map<std::string, std::pair<int, int>> getGradesAndSuccesses();
     pqxx::result getUnfilteredStudentSuccessCountsAndGrades();
@@ -22,11 +23,13 @@ class GradeAndExcersiseSuccesses : public IVisualization
 
   public:
     std::string getVisualizationAsJSON();
-    GradeAndExcersiseSuccesses(std::shared_ptr<GradePercentageFilter> gf,
-                               std::shared_ptr<AssignmentIntervalFilter> af)
+    GradeAndExcersiseSuccesses(std::shared_ptr<IFilter> gf,
+                               std::shared_ptr<IFilter> af,
+                               std::shared_ptr<IFilter> wd)
     {
         gradeFilter = gf;
         assignmentIntervalFilter = af;
+        weekDayOnlyFilter = wd;
     };
 };
 

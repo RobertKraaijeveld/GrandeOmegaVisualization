@@ -1,5 +1,5 @@
 #include "../KMeans/KMeansController.h"
-#include "../KMeans/CustomTypes/KMeansPoint.h"
+#include "../KMeans/CustomTypes/ClusteringPoint.h"
 #include "../../DatabaseInteracter/DatabaseInteracter.h"
 #include "../../Utilities/JSONEncoder.h"
 #include "ExcersiseCompletionAndGradesClustering.h"
@@ -14,12 +14,12 @@
 
 std::string ExcersiseCompletionAndGradesClustering::getVisualizationAsJSON()
 {
-    std::vector<std::vector<KMeansPoint>> clusters = getExcersiseCompletionAndGradesClusters();
+    std::vector<std::vector<ClusteringPoint>> clusters = getExcersiseCompletionAndGradesClusters();
 
     return JSONEncoder::clustersToJSON(clusters);
 }
 
-std::vector<std::vector<KMeansPoint>> ExcersiseCompletionAndGradesClustering::getExcersiseCompletionAndGradesClusters()
+std::vector<std::vector<ClusteringPoint>> ExcersiseCompletionAndGradesClustering::getExcersiseCompletionAndGradesClusters()
 {
 	int dataDimension = 2;  
 	int bestClusterAmount = 19; //tested manually with elbow method
@@ -38,7 +38,7 @@ std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClusterin
     //unclean
     FilterQueryColumnIndexes queryIndexes;
     queryIndexes.studentIdColumnIndex = 0;
-    gradeFilter->queryColumnIndexes = queryIndexes;
+    gradeFilter->setFilterQueryColumnIndexes(queryIndexes);
 
     std::map<std::string, int> excersiseAmountPerStudent = getAmountOfCompletedExcersisesPerStudent();
 
@@ -84,7 +84,7 @@ std::map<std::string, int> ExcersiseCompletionAndGradesClustering::getAmountOfCo
     FilterQueryColumnIndexes queryIndexes;
     queryIndexes.studentIdColumnIndex = 0;
     queryIndexes.timestampIndex = 1;
-    assignmentIntervalFilter->queryColumnIndexes = queryIndexes;
+    assignmentIntervalFilter->setFilterQueryColumnIndexes(queryIndexes);
 
 
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);

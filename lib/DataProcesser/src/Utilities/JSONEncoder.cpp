@@ -1,6 +1,6 @@
 #include "Utilities.h"
 #include "../StatisticalAnalyzer/GenericVector/GenericVector.h"
-#include "../StatisticalAnalyzer/KMeans/CustomTypes/KMeansPoint.h"
+#include "../StatisticalAnalyzer/KMeans/CustomTypes/ClusteringPoint.h"
 #include "JSONEncoder.h"
 
 #include <vector>
@@ -18,7 +18,7 @@ SO, we define it in a normal cpp file instead.
 */ 
 
 
-std::string JSONEncoder::clustersToJSON(std::vector<std::vector<KMeansPoint>> clusters) 
+std::string JSONEncoder::clustersToJSON(std::vector<std::vector<ClusteringPoint>> clusters) 
 {
     stringstream returnJSONStr;
 

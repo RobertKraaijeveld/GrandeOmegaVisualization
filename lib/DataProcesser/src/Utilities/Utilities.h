@@ -1,13 +1,15 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+#include "../StatisticalAnalyzer/KMeans/CustomTypes/ClusteringPoint.h"
+
 #include <vector>
 #include <string>
 #include <sstream>
 #include <pqxx/pqxx>
 
 using namespace std;
-
+ 
 class Utilities
 {
   public:
@@ -25,7 +27,14 @@ class Utilities
 
     //Vector tools
     template <class T, class J>
-    static vector<J> getValuesOfMap(std::map<T, J> m); 
+    static vector<T> getKeysOfMap(map<T, J> m);
+    template <class T, class J>
+    static vector<J> getValuesOfMap(map<T, J> m);     
+    template <class T, class J>
+    static pair<T,J> getHighestOrLowestValueKV(map<T, J> m, bool getHighest);
+
+    static vector<ClusteringPoint> convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues);
+
 
     //Filter related
     static vector<pqxx::result::tuple> toListOfPqxxTuples(pqxx::result &r);
@@ -39,9 +48,21 @@ class Utilities
 //these have to be declared here because of the templates they use
 
 template <class T, class J>
+vector<T> Utilities::getKeysOfMap(map<T, J> m)
+{
+    typename std::vector<T> returnVector;
+    //typename necessary because c++ cannot distinguish between var and type here without non-local information
+    for (typename std::map<T,J>::iterator it = m.begin(); it != m.end(); ++it) {
+        returnVector.push_back(it->first);
+    }
+    return returnVector;
+}
+
+
+template <class T, class J>
 vector<J> Utilities::getValuesOfMap(map<T, J> m)
 {
-    vector<J> returnVector;
+    typename std::vector<J> returnVector;
     //typename necessary because c++ cannot distinguish between var and type here without non-local information
     for (typename std::map<T,J>::iterator it = m.begin(); it != m.end(); ++it) {
         returnVector.push_back(it->second);
@@ -49,6 +70,25 @@ vector<J> Utilities::getValuesOfMap(map<T, J> m)
     return returnVector;
 }
 
+
+template <class T, class J>
+pair<T,J> Utilities::getHighestOrLowestValueKV(map<T, J> m, bool getHighest)
+{
+    typename std::pair<T,J> resultKV;
+    J mostFitValueYet = 0;
+
+    for(typename std::map<T,J>::iterator it = m.begin(); it != m.end(); ++it)
+    {
+        //make comparator
+        if((getHighest == true && it->second > mostFitValueYet) 
+            || (getHighest == false && it->second < mostFitValueYet))
+        {
+            mostFitValueYet = it->second;
+            resultKV = make_pair(it->first, it->second);
+        }            
+    }
+    return resultKV;
+}
 
 
 template <class T>

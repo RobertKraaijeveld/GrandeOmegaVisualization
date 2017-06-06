@@ -53,14 +53,16 @@ std::vector<pqxx::result::tuple> GradeAndExcersiseSuccesses::getFilteredStudentS
     queryIndexes.studentIdColumnIndex = 0;
     queryIndexes.timestampIndex = 2;
 
-    gradeFilter->queryColumnIndexes = queryIndexes;
-    assignmentIntervalFilter->queryColumnIndexes= queryIndexes;
+    gradeFilter->setFilterQueryColumnIndexes(queryIndexes);
+    assignmentIntervalFilter->setFilterQueryColumnIndexes(queryIndexes);
+    weekDayOnlyFilter->setFilterQueryColumnIndexes(queryIndexes);    
     
 
     std::vector<pqxx::result::tuple> unfilteredRowsAsPqxxVector = Utilities::toListOfPqxxTuples(unfilteredRowsOutOfScope);
 
     std::vector<pqxx::result::tuple> rowsFilteredOnGradePercentage = gradeFilter->filter(unfilteredRowsAsPqxxVector);
     std::vector<pqxx::result::tuple> rowsFilteredOnAssignmentInterval = assignmentIntervalFilter->filter(rowsFilteredOnGradePercentage);
+    std::vector<pqxx::result::tuple> rowsFilteredOnWeekDayOnly = weekDayOnlyFilter->filter(rowsFilteredOnAssignmentInterval);
 
-    return rowsFilteredOnAssignmentInterval;
+    return rowsFilteredOnWeekDayOnly;
 }

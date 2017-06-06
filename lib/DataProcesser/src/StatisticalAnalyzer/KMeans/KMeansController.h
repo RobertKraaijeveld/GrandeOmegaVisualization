@@ -1,10 +1,12 @@
 #ifndef KMEANSCONTROLLER_H
 #define KMEANSCONTROLLER_H
 
-#include "CustomTypes/KMeansPoint.h"
+#include "CustomTypes/ClusteringPoint.h"
 #include "../GenericVector/GenericVector.h"
 #include "KMeansIteration.h"
 #include "../../YamlParser/YamlObject.h"
+#include "../../Utilities/Utilities.h"
+
 
 class KMeansController {
     private:
@@ -12,21 +14,19 @@ class KMeansController {
         int algorithmIterationAmount;
         int clusterAmount;
 
-        //MAKE GENERIC
         map<string, pair<int, int>> inputValues;
-        vector<KMeansPoint> points;
+        vector<ClusteringPoint> points;
         vector<KMeansIteration> iterations;
-        vector<vector<KMeansPoint>> finalClusters;
+        vector<vector<ClusteringPoint>> finalClusters;
 
         void convertGradesAndExcersiseMapToPoints();
         vector<float> convertYamlObjectWantedValues(YamlObject& currentYamlObject);
 
         KMeansIteration getIterationWithBestSSE();
-        vector<vector<KMeansPoint>> getClustersOfBestIteration();
+        vector<vector<ClusteringPoint>> getClustersOfBestIteration();
 
 
     public:
-        //IMPORTANT TODO: make input value more generic
         KMeansController(map<string, pair<int, int>> v, int k, int c, int d) 
         { 
             inputValues = v; 
@@ -34,11 +34,11 @@ class KMeansController {
             clusterAmount = c; 
             dimension = d;
 
-            convertGradesAndExcersiseMapToPoints();
+            points = Utilities::convertMapOfPairsToPoints(inputValues);
         };
         
         void run();
-        vector<vector<KMeansPoint>> getFinalNonEmptyClusters();
+        vector<vector<ClusteringPoint>> getFinalNonEmptyClusters();
 
 };
 

@@ -31,6 +31,7 @@
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/IFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/GradePercentageFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/AssignmentIntervalFilter.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Filter/WeekDayFilter.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Regression/SimpleLinearRegression.h"
@@ -104,10 +105,11 @@ string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
 
 	//These shared ptrs need to be more polymorphic.
-	std::shared_ptr<GradePercentageFilter> gradeFilter(new GradePercentageFilter(filterContext));
-	std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter(new AssignmentIntervalFilter(filterContext));
+	std::shared_ptr<IFilter> gradeFilter(new GradePercentageFilter(filterContext));
+	std::shared_ptr<IFilter> assignmentIntervalFilter(new AssignmentIntervalFilter(filterContext));
+	std::shared_ptr<IFilter> weekDayFilter(new WeekDayFilter());
 
-	std::unique_ptr<IVisualization> gradeAndExcersiseSuccessesVisualization(new GradeAndExcersiseSuccesses(gradeFilter, assignmentIntervalFilter));
+	std::unique_ptr<IVisualization> gradeAndExcersiseSuccessesVisualization(new GradeAndExcersiseSuccesses(gradeFilter, assignmentIntervalFilter, weekDayFilter));
 	return gradeAndExcersiseSuccessesVisualization->getVisualizationAsJSON();
 }
 

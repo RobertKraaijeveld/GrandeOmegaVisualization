@@ -2,7 +2,7 @@
 #define EXCERSISECOMPLETIONANDGRADECLUSTERING_H
 
 #include "IVisualization.h"
-#include "../KMeans/CustomTypes/KMeansPoint.h"
+#include "../KMeans/CustomTypes/ClusteringPoint.h"
 #include "../Filter/GradePercentageFilter.h"
 #include "../Filter/AssignmentIntervalFilter.h"
 
@@ -16,7 +16,7 @@ private:
   std::shared_ptr<GradePercentageFilter> gradeFilter;
   std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter;
 
-  std::vector<std::vector<KMeansPoint>> getExcersiseCompletionAndGradesClusters();
+  std::vector<std::vector<ClusteringPoint>> getExcersiseCompletionAndGradesClusters();
   std::map<std::string, std::pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
 
   std::map<std::string, int> getAmountOfCompletedExcersisesPerStudent();

@@ -3,7 +3,7 @@
 
 #include "Utilities.h"
 #include "../StatisticalAnalyzer/GenericVector/GenericVector.h"
-#include "../StatisticalAnalyzer/KMeans/CustomTypes/KMeansPoint.h"
+#include "../StatisticalAnalyzer/KMeans/CustomTypes/ClusteringPoint.h"
 #include <vector>
 #include <string>
 
@@ -25,7 +25,7 @@ class JSONEncoder
     template <typename T, typename J, typename L>
     static std::string mapToJson(map<T, pair<J, L>> &mapOfPairs);
 
-    static std::string clustersToJSON(vector<vector<KMeansPoint>> clusters);
+    static std::string clustersToJSON(vector<vector<ClusteringPoint>> clusters);
 };
 
 //Contains implementation, since template implementations have to be in the header of the template declarations.

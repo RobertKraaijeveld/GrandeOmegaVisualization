@@ -7,28 +7,6 @@
 using namespace std;
 
 
-//MUST BE ABLE TO BE CONVERTED TO FLOATS. RAISE EXCEPTION IF NOT?
-void KMeansController::convertGradesAndExcersiseMapToPoints()
-{    
-    //maybe also add something so we can see studentnumbers without using them in the clustering
-    map<string, pair<int, int>>::iterator it;
-    size_t counter = 0;
-
-    for(it=inputValues.begin(); it!=inputValues.end(); ++it)
-    {
-        vector<float> valuesForGV;
-        valuesForGV.push_back((float) it->second.first);
-        valuesForGV.push_back((float) it->second.second);
-
-        GenericVector newGv (valuesForGV);
-        
-        KMeansPoint newPoint (counter, newGv);
-        points.push_back(newPoint);
-
-        counter++;
-    }
-}
-
 KMeansIteration KMeansController::getIterationWithBestSSE()
 {
     pair<int&, float> bestIterationIdAndSSE (iterations[0].iterationId, iterations[0].sumOfSquaredErrors);
@@ -65,13 +43,13 @@ void KMeansController::run()
     finalClusters = getClustersOfBestIteration();
 }
 
-vector<vector<KMeansPoint>> KMeansController::getClustersOfBestIteration()
+vector<vector<ClusteringPoint>> KMeansController::getClustersOfBestIteration()
 {
-    vector<vector<KMeansPoint>> returnClusters;
+    vector<vector<ClusteringPoint>> returnClusters;
 
     for(int i = 0; i <= clusterAmount; i++)
     {
-        vector<KMeansPoint> fillerVector;
+        vector<ClusteringPoint> fillerVector;
         returnClusters.push_back(fillerVector);
     }
 
@@ -85,11 +63,11 @@ vector<vector<KMeansPoint>> KMeansController::getClustersOfBestIteration()
     return returnClusters;
 }
 
-vector<vector<KMeansPoint>> KMeansController::getFinalNonEmptyClusters()
+vector<vector<ClusteringPoint>> KMeansController::getFinalNonEmptyClusters()
 {
-    vector<vector<KMeansPoint>> nonEmptyClusters;
+    vector<vector<ClusteringPoint>> nonEmptyClusters;
 
-    for(vector<KMeansPoint> cluster : finalClusters)
+    for(vector<ClusteringPoint> cluster : finalClusters)
     {
         if(cluster.size() > 0)
             nonEmptyClusters.push_back(cluster);

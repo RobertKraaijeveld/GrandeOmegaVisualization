@@ -22,6 +22,12 @@ struct FilterContext
 class IFilter
 {
   public:
+    //dirty way of emulating virtual vars
+    virtual void setFilterQueryColumnIndexes(FilterQueryColumnIndexes fq){};
+    virtual FilterQueryColumnIndexes getFilterQueryColumnIndexes(){};
+    virtual void setFilterContext(FilterContext fc){};  
+    virtual FilterContext getFilterContext(){};
+  
     virtual std::vector<pqxx::result::tuple> filter(std::vector<pqxx::result::tuple> unfilteredRows) = 0;
 };
 
