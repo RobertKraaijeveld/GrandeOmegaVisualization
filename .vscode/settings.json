@@ -35,6 +35,7 @@
         "utility": "cpp",
         "vector": "cpp",
         "string": "cpp",
-        "pqxx": "cpp"
+        "pqxx": "cpp",
+        "*.tpp": "cpp"
     }
 }

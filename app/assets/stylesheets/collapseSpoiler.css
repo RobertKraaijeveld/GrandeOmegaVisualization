@@ -1,0 +1,10 @@
+.container {
+  margin-top: 10px;
+}
+.panel {
+  box-shadow: none !important;
+}
+
+.panel2 {
+  margin-bottom: 100px;
+}

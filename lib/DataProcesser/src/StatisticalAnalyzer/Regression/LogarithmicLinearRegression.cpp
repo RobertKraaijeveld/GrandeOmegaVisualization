@@ -69,18 +69,29 @@ float LogarithmicLinearRegression::getSlope()
 vector<pair<float, float>> LogarithmicLinearRegression::getRegression()
 {
     vector<pair<float, float>> returnXYvaluesForLine;
+
+    std::cout << "INPUT" << endl;
+    for(int i = 0; i < xAndYVectors.first.values.size(); i++)
+    {
+        std::cout << xAndYVectors.first.values[i] << "," << xAndYVectors.second.values[i];
+    }
+
+
+
     vector<float>& xValues = xAndYVectors.first.values;
     float xValuesAmount = xAndYVectors.first.values.size();
 
     float slope = getSlope();
-    std::cout << "LOG SLOPE = " << slope << endl; 
-
     float intercept = getIntercept();    
-    std::cout << "LOG INTERCEPT = " << intercept << endl;     
+    std::cout << "SLOPE: " << slope << endl;
+    std::cout << "INTERCEPT: " << intercept << endl;    
 
     for (float &xValue : xValues)
     {
-        float regressionLineYValue =  slope *log(xValue) + intercept;
+        float regressionLineYValue = slope * log(xValue) + intercept;
+
+        std::cout << regressionLineYValue << ",";
+
         returnXYvaluesForLine.push_back(make_pair(xValue, regressionLineYValue));
     }
     return returnXYvaluesForLine;
