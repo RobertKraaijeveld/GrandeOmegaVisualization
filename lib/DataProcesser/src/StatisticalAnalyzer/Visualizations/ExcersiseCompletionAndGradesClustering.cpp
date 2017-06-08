@@ -1,5 +1,6 @@
 #include "../KMeans/KMeansController.h"
-#include "../KMeans/CustomTypes/KMeansPoint.h"
+#include "../Point/KMeansPoint.h"
+#include "../Point/IClusteringPoint.h"
 #include "../../DatabaseInteracter/DatabaseInteracter.h"
 #include "../../Utilities/JSONEncoder.h"
 #include "../../Utilities/Utilities.h"
@@ -15,13 +16,12 @@
 
 std::string ExcersiseCompletionAndGradesClustering::getVisualizationAsJSON()
 {
-    std::vector<std::vector<KMeansPoint*>> clusters = getExcersiseCompletionAndGradesClusters();
+    std::vector<std::vector<IClusteringPoint*>> clusters = getExcersiseCompletionAndGradesClusters();
 
-    return "";
-    //return JSONEncoder::clustersToJSON(clusters);
+    return JSONEncoder::clustersToJSON(clusters);
 }
 
-std::vector<std::vector<KMeansPoint*>> ExcersiseCompletionAndGradesClustering::getExcersiseCompletionAndGradesClusters()
+std::vector<std::vector<IClusteringPoint*>> ExcersiseCompletionAndGradesClustering::getExcersiseCompletionAndGradesClusters()
 {
 	int dataDimension = 2;  
 	int bestClusterAmount = 10; //tested manually 
@@ -29,8 +29,7 @@ std::vector<std::vector<KMeansPoint*>> ExcersiseCompletionAndGradesClustering::g
 
     std::map<std::string, std::pair<int, int>> excersisesCompletedAndGradePerStudent = getAmountOfExercisesCompletedAndGradesPerStudent(); 
 
-    //needs to be casted to KMeansPoint, will unfortunately need another method
-    //std::vector<KMeansPoint*> excersisesCompletedAndGradePerStudentAsPoints = Utilities::convertMapOfPairsToPoints(excersisesCompletedAndGradePerStudent);
+    //needs to be casted to KMeansPoint, unfortunately needs another method.. make this better
     std::vector<KMeansPoint*> excersisesCompletedAndGradePerStudentAsPoints = Utilities::convertMapOfPairsToKMeansPoints(excersisesCompletedAndGradePerStudent);
 
 	KMeansController kmController (excersisesCompletedAndGradePerStudentAsPoints, iterationAmount, bestClusterAmount, dataDimension);
@@ -40,23 +39,14 @@ std::vector<std::vector<KMeansPoint*>> ExcersiseCompletionAndGradesClustering::g
     
 
     //converting KMeansPoints back to generalized IClusteringPoint so KNN etc. can use it.     
-    //std::vector<std::vector<KMeansPoint*>> abstractClusterPointsPtrs; //(finalKMeansClusters.begin(), finalKMeansClusters.end());
-    //for(auto cluster: finalKMeansClusters)
-    //{
-    //    std::vector<KMeansPoint*> currClusterAsPtrs (cluster.begin(), cluster.end());
-    //    abstractClusterPointsPtrs.push_back(currClusterAsPtrs);
-    //}
-
-    //return abstractClusterPointsPtrs;
-
-    for(size_t i = 0; i < finalKMeansClusters.size(); i++)
+    std::vector<std::vector<IClusteringPoint*>> abstractClusterPointsPtrs; 
+    for(auto cluster: finalKMeansClusters)
     {
-        for(size_t j = 0; j < finalKMeansClusters[i].size(); j++)
-        {
-            std::cout << "3rd level: " << finalKMeansClusters[i][j]->getClusterId() << endl;
-        }
+        std::vector<IClusteringPoint*> currClusterAsPtrs (cluster.begin(), cluster.end());
+        abstractClusterPointsPtrs.push_back(currClusterAsPtrs);
     }
-    return finalKMeansClusters;
+
+    return abstractClusterPointsPtrs;
 }
 
 std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClustering::getAmountOfExercisesCompletedAndGradesPerStudent()

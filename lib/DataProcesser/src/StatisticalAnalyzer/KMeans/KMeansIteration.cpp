@@ -1,5 +1,5 @@
 #include "KMeansIteration.h"
-#include "CustomTypes/KMeansPoint.h"
+#include "../Point/KMeansPoint.h"
 #include "../GenericVector/GenericVector.h"
 #include <iostream>
 #include <limits>

@@ -2,7 +2,7 @@
 #define UTILITIES_H
 
 #include "../StatisticalAnalyzer/Point/IClusteringPoint.h"
-#include "../StatisticalAnalyzer/KMeans/CustomTypes/KMeansPoint.h"
+#include "../StatisticalAnalyzer/Point/KMeansPoint.h"
 
 #include <vector>
 #include <string>
@@ -44,8 +44,8 @@ class Utilities
     static vector<string> toArrayByDelim(string &s, char delim);
 
     //needs to get some kind of type covariance
-    static vector<IClusteringPoint *> convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues);
-    static vector<KMeansPoint *> convertMapOfPairsToKMeansPoints(map<string, pair<int, int>> inputValues);
+    static vector<IClusteringPoint*> convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues);
+    static vector<KMeansPoint*> convertMapOfPairsToKMeansPoints(map<string, pair<int, int>> inputValues);
 };
 
 //these have to be declared here because of the templates they use

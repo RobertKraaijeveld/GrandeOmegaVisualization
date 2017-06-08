@@ -1,7 +1,7 @@
 #ifndef KMEANSITERATION_H
 #define KMEANSITERATION_H
 
-#include "CustomTypes/KMeansPoint.h"
+#include "../Point/KMeansPoint.h"
 #include "../GenericVector/GenericVector.h"
 
 class KMeansIteration {

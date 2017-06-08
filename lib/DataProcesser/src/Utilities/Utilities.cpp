@@ -1,6 +1,6 @@
 #include "Utilities.h"
 #include "../StatisticalAnalyzer/Point/IClusteringPoint.h"
-#include "../StatisticalAnalyzer/KMeans/CustomTypes/KMeansPoint.h"
+#include "../StatisticalAnalyzer/Point/KMeansPoint.h"
 
 #include <string>
 #include <sstream>

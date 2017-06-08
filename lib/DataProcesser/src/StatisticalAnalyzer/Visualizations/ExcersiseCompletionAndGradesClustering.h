@@ -4,7 +4,7 @@
 #include "IVisualization.h"
 #include "../Filter/IFilter.h"
 #include "../Filter/ITimeFilter.h"
-#include "../KMeans/CustomTypes/KMeansPoint.h"
+#include "../Point/KMeansPoint.h"
 #include "../Filter/GradePercentageFilter.h"
 #include "../Filter/AssignmentIntervalFilter.h"
 
@@ -28,10 +28,7 @@ private:
 public:
   virtual std::string getVisualizationAsJSON();
 
-  //Handy for other clusterers, should really have its own' class
-  //std::vector<std::vector<IClusteringPoint*>> getExcersiseCompletionAndGradesClusters();
-  std::vector<std::vector<KMeansPoint*>> getExcersiseCompletionAndGradesClusters();
-  
+  std::vector<std::vector<IClusteringPoint*>> getExcersiseCompletionAndGradesClusters();
   std::map<std::string, std::pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
 
   ExcersiseCompletionAndGradesClustering(std::shared_ptr<IFilter> gf,

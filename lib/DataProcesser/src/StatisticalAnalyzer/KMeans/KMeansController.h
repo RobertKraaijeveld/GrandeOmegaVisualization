@@ -1,7 +1,7 @@
 #ifndef KMEANSCONTROLLER_H
 #define KMEANSCONTROLLER_H
 
-#include "CustomTypes/KMeansPoint.h"
+#include "../Point/KMeansPoint.h"
 #include "../Point/IClusteringPoint.h"
 #include "../GenericVector/GenericVector.h"
 #include "KMeansIteration.h"
