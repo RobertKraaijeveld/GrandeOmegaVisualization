@@ -23,15 +23,19 @@ class KMeansPoint : public IClusteringPoint
         int centroidId;
         double distanceToCentroid;
 
+        //NOT BEING SET OH FUCK
         GenericVector getVector() const { return vector; };
         int getClusterId() const { return centroidId; };
 
         void setVector(GenericVector newVector) { vector = newVector; };
         void setClusterId(int newCentroidId) { centroidId = newCentroidId; };
 
+        KMeansPoint(int cId, GenericVector gv)
+        {
+            centroidId = cId;
+            vector = gv;
+        }
 
-        KMeansPoint(){};
-        KMeansPoint(int cId, GenericVector vector);
 };
 
 #endif

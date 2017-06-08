@@ -8,6 +8,7 @@
 #include <string>
 #include <sstream>
 #include <pqxx/pqxx>
+#include <iostream>
 
 using namespace std;
 
@@ -27,8 +28,6 @@ class Utilities
     static bool isInVector(string &value, vector<string> &vector);
 
     //Vector tools
-    template <typename T>
-    static vector<T *> vectorToVectorOfPtrs(vector<T> vals);
     template <class T, class J>
     static vector<T> getKeysOfMap(map<T, J> m);
     template <class T, class J>
@@ -50,18 +49,6 @@ class Utilities
 };
 
 //these have to be declared here because of the templates they use
-template <typename T>
-vector<T *> Utilities::vectorToVectorOfPtrs(vector<T> source)
-{
-    std::vector<T *> target;
-    target.reserve(source.size());
-
-    for (auto it = source.begin(); it != source.end(); it++)
-    {
-        target.push_back(&(*it));
-    }
-    return target;
-}
 
 template <class T, class J>
 vector<T> Utilities::getKeysOfMap(map<T, J> m)

@@ -21,7 +21,7 @@ private:
   std::shared_ptr<ITimeFilter> timeFilter;
   bool filterOnWeekendOnly;
 
-  std::vector<std::vector<IClusteringPoint*>> getTrainingData();
+  std::vector<std::vector<KMeansPoint*>> getTrainingData();
   std::vector<std::vector<IClusteringPoint*>> getClassifiedData();
 
 public:

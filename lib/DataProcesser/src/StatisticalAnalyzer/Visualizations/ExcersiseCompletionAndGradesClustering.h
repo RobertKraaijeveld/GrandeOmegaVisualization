@@ -29,7 +29,9 @@ public:
   virtual std::string getVisualizationAsJSON();
 
   //Handy for other clusterers, should really have its own' class
-  std::vector<std::vector<IClusteringPoint*>> getExcersiseCompletionAndGradesClusters();
+  //std::vector<std::vector<IClusteringPoint*>> getExcersiseCompletionAndGradesClusters();
+  std::vector<std::vector<KMeansPoint*>> getExcersiseCompletionAndGradesClusters();
+  
   std::map<std::string, std::pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
 
   ExcersiseCompletionAndGradesClustering(std::shared_ptr<IFilter> gf,

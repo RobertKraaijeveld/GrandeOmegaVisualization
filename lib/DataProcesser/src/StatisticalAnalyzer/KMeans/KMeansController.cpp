@@ -80,14 +80,43 @@ vector<vector<KMeansPoint*>> KMeansController::getFinalNonEmptyClusters()
             //ensures we dont get nullpointers when using clusterIds as indexes
             setPointCentroidIdsToClusterIndexes(nonEmptyClusterCount, currCluster);
 
-            vector<KMeansPoint*> currClusterPtrs;
-            currClusterPtrs.resize(currCluster.size()); 
-            currClusterPtrs = Utilities::vectorToVectorOfPtrs(currCluster); 
+            std::vector<KMeansPoint*> currClusterPtrs;
+            for (size_t i = 0; i < currCluster.size(); i++)
+            {
+                auto currKMeansPointPtr = new KMeansPoint(currCluster[i].getClusterId(), currCluster[i].getVector());
+                currClusterPtrs.push_back(currKMeansPointPtr);
+            }
+
+            for (size_t i = 0; i < currClusterPtrs.size(); i++)
+            {
+                std::cout << "0th level " << (*currClusterPtrs[i]).getClusterId() << endl;
+            }            
 
             nonEmptyClustersOfPtrs.push_back(currClusterPtrs);
             nonEmptyClusterCount++;
         }
     }
+
+    //moar test
+    vector<vector<KMeansPoint*>> xPtrs;
+
+    KMeansPoint* randomPoint  = new KMeansPoint(1, GenericVector::getRandomVector(2));
+    vector<KMeansPoint*> xptr;
+
+    xptr.push_back(randomPoint);
+
+    xPtrs.push_back(xptr);
+
+    for (size_t i = 0; i < xPtrs[0].size(); i++)
+        std::cout << "xptrs test: " << (*xPtrs[0][i]).getClusterId() << endl;
+
+
+    //WHYYYYYYYYYYYYY
+    for (size_t i = 0; i < nonEmptyClustersOfPtrs[0].size(); i++)
+        {
+                std::cout << "1st level " << (*nonEmptyClustersOfPtrs[0][i]).getClusterId() << endl;
+            } 
+    
     return nonEmptyClustersOfPtrs;
 }
 

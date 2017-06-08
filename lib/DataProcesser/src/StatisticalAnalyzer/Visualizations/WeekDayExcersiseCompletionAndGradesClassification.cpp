@@ -16,7 +16,7 @@
 #include <vector>
 
 
-std::vector<std::vector<IClusteringPoint*>> WeekDayExcersiseCompletionAndGradesClassification::getTrainingData()
+std::vector<std::vector<KMeansPoint*>> WeekDayExcersiseCompletionAndGradesClassification::getTrainingData()
 {
     //The filter for the training clusters is the opposite of the training data for the actual input vals,
     //so that the training set is actually differently categorized than the result.
@@ -32,10 +32,13 @@ std::vector<std::vector<IClusteringPoint*>> WeekDayExcersiseCompletionAndGradesC
 
     ExcersiseCompletionAndGradesClustering trainingExcersiseCompletionAndGradesClusteringVisualization(gradeFilter, assignmentIntervalFilter, oppositeKindOfFilter);
 
-    std::vector<std::vector<IClusteringPoint*>> trainingClustersOfFilteredData =
-        trainingExcersiseCompletionAndGradesClusteringVisualization.getExcersiseCompletionAndGradesClusters();
+    //std::vector<std::vector<IClusteringPoint*>> trainingClustersOfFilteredData =
+    //    trainingExcersiseCompletionAndGradesClusteringVisualization.getExcersiseCompletionAndGradesClusters();
 
-    return trainingClustersOfFilteredData;
+   
+    //return trainingClustersOfFilteredData;
+    auto trainingClusters = trainingExcersiseCompletionAndGradesClusteringVisualization.getExcersiseCompletionAndGradesClusters();
+    return trainingClusters;
 }
 
 
@@ -50,11 +53,11 @@ std::vector<std::vector<IClusteringPoint*>> WeekDayExcersiseCompletionAndGradesC
 
     //using abstract IClusteringPoint* instead of concrete KMeansPoint because KNN does not need to know KMeansPoint specifics :)
     std::vector<IClusteringPoint*> unclassifiedInputDataAsPoints = Utilities::convertMapOfPairsToPoints(unclassifiedInputData);
-    std::cout << "Got unclassifiedInputDataAsPoints" << endl;
 
     //Creating new clusterer with different filter in order to get training clusters/categories
-    std::vector<std::vector<IClusteringPoint*>> trainingClusters = getTrainingData();
-    std::cout << "Got training clusters" << endl;
+    //std::vector<std::vector<IClusteringPoint*>> trainingClusters = getTrainingData();
+    std::vector<std::vector<KMeansPoint*>> trainingClusters = getTrainingData();
+
 
     //Finally, running KNN
     KNearestNeighbours kNearestAlgo(unclassifiedInputDataAsPoints, trainingClusters, 7);

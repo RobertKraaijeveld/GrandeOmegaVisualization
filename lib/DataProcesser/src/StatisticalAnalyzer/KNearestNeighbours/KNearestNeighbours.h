@@ -14,15 +14,15 @@ class KNearestNeighbours
   private:
     int maxAmountOfNeighbours;
     std::vector<IClusteringPoint*> inputPoints;
-    std::vector<std::vector<IClusteringPoint*>> trainingClusters;
+    std::vector<std::vector<KMeansPoint*>> trainingClusters;
 
-    std::vector<IClusteringPoint*> getNearestNeighbours(IClusteringPoint* point);
-    int getNewClusterIdByVote(IClusteringPoint* point, std::vector<IClusteringPoint*> nearestNeighbours);
+    std::vector<KMeansPoint*> getNearestNeighbours(IClusteringPoint* point);
+    int getNewClusterIdByVote(IClusteringPoint* point, std::vector<KMeansPoint*> nearestNeighbours);
 
   public:
     std::vector<std::vector<IClusteringPoint*>> getClassifiedPoints();
 
-    KNearestNeighbours(std::vector<IClusteringPoint*> input, vector<vector<IClusteringPoint*>> tc, int K)
+    KNearestNeighbours(std::vector<IClusteringPoint*> input, vector<vector<KMeansPoint*>> tc, int K)
     {
         inputPoints = input;
         trainingClusters = tc;
