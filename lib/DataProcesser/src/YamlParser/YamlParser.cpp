@@ -40,7 +40,6 @@ vector<YamlObject> YamlParser::parseYaml()
 { 
     vector<YamlObject> allYamlObjects; 
 
-    int objectCount = 0;      
     string line;
     YamlObject currentYamlObject; 
 

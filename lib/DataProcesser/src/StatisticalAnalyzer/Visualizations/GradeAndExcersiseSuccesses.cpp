@@ -6,6 +6,7 @@
 
 #include <map>
 #include <vector>
+#include <iostream>
 #include <pqxx/pqxx>
 
 std::string GradeAndExcersiseSuccesses::getVisualizationAsJSON()
@@ -55,14 +56,13 @@ std::vector<pqxx::result::tuple> GradeAndExcersiseSuccesses::getFilteredStudentS
 
     gradeFilter->setFilterQueryColumnIndexes(queryIndexes);
     assignmentIntervalFilter->setFilterQueryColumnIndexes(queryIndexes);
-    weekDayOnlyFilter->setFilterQueryColumnIndexes(queryIndexes);    
-    
+    timeFilter->setFilterQueryColumnIndexes(queryIndexes);    
 
     std::vector<pqxx::result::tuple> unfilteredRowsAsPqxxVector = Utilities::toListOfPqxxTuples(unfilteredRowsOutOfScope);
 
     std::vector<pqxx::result::tuple> rowsFilteredOnGradePercentage = gradeFilter->filter(unfilteredRowsAsPqxxVector);
     std::vector<pqxx::result::tuple> rowsFilteredOnAssignmentInterval = assignmentIntervalFilter->filter(rowsFilteredOnGradePercentage);
-    std::vector<pqxx::result::tuple> rowsFilteredOnWeekDayOnly = weekDayOnlyFilter->filter(rowsFilteredOnAssignmentInterval);
+    std::vector<pqxx::result::tuple> rowsFilteredOnDays = timeFilter->filter(rowsFilteredOnAssignmentInterval);
 
-    return rowsFilteredOnWeekDayOnly;
+    return rowsFilteredOnDays;
 }

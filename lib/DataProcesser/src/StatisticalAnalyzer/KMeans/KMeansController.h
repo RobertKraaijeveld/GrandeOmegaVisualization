@@ -1,7 +1,8 @@
 #ifndef KMEANSCONTROLLER_H
 #define KMEANSCONTROLLER_H
 
-#include "CustomTypes/ClusteringPoint.h"
+#include "CustomTypes/KMeansPoint.h"
+#include "../Point/IClusteringPoint.h"
 #include "../GenericVector/GenericVector.h"
 #include "KMeansIteration.h"
 #include "../../YamlParser/YamlObject.h"
@@ -14,31 +15,33 @@ class KMeansController {
         int algorithmIterationAmount;
         int clusterAmount;
 
-        map<string, pair<int, int>> inputValues;
-        vector<ClusteringPoint> points;
+        vector<KMeansPoint> points;
         vector<KMeansIteration> iterations;
-        vector<vector<ClusteringPoint>> finalClusters;
+        vector<vector<KMeansPoint>> finalClusters;
 
         void convertGradesAndExcersiseMapToPoints();
         vector<float> convertYamlObjectWantedValues(YamlObject& currentYamlObject);
 
         KMeansIteration getIterationWithBestSSE();
-        vector<vector<ClusteringPoint>> getClustersOfBestIteration();
+        vector<vector<KMeansPoint>> getClustersOfBestIteration();
+
+        void setPointCentroidIdsToClusterIndexes(int clusterIndex, vector<KMeansPoint>& pointsOfCluster);
 
 
     public:
-        KMeansController(map<string, pair<int, int>> v, int k, int c, int d) 
+        KMeansController(vector<KMeansPoint*> p, int k, int c, int d) 
         { 
-            inputValues = v; 
+            //dereferencing KMeansPoints* 
+            for(auto point : p)
+                 points.push_back(*point);
+
             algorithmIterationAmount = k; 
             clusterAmount = c; 
             dimension = d;
-
-            points = Utilities::convertMapOfPairsToPoints(inputValues);
         };
         
         void run();
-        vector<vector<ClusteringPoint>> getFinalNonEmptyClusters();
+        vector<vector<KMeansPoint*>> getFinalNonEmptyClusters();
 
 };
 

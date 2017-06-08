@@ -1,7 +1,8 @@
 #include "../KMeans/KMeansController.h"
-#include "../KMeans/CustomTypes/ClusteringPoint.h"
+#include "../KMeans/CustomTypes/KMeansPoint.h"
 #include "../../DatabaseInteracter/DatabaseInteracter.h"
 #include "../../Utilities/JSONEncoder.h"
+#include "../../Utilities/Utilities.h"
 #include "ExcersiseCompletionAndGradesClustering.h"
 #include "../Filter/IFilter.h"
 #include "../Filter/AssignmentIntervalFilter.h"
@@ -14,23 +15,38 @@
 
 std::string ExcersiseCompletionAndGradesClustering::getVisualizationAsJSON()
 {
-    std::vector<std::vector<ClusteringPoint>> clusters = getExcersiseCompletionAndGradesClusters();
+    std::vector<std::vector<IClusteringPoint*>> clusters = getExcersiseCompletionAndGradesClusters();
 
     return JSONEncoder::clustersToJSON(clusters);
 }
 
-std::vector<std::vector<ClusteringPoint>> ExcersiseCompletionAndGradesClustering::getExcersiseCompletionAndGradesClusters()
+std::vector<std::vector<IClusteringPoint*>> ExcersiseCompletionAndGradesClustering::getExcersiseCompletionAndGradesClusters()
 {
 	int dataDimension = 2;  
-	int bestClusterAmount = 19; //tested manually with elbow method
+	int bestClusterAmount = 10; //tested manually 
 	int iterationAmount = 100;
 
     std::map<std::string, std::pair<int, int>> excersisesCompletedAndGradePerStudent = getAmountOfExercisesCompletedAndGradesPerStudent(); 
 
-	KMeansController kmController (excersisesCompletedAndGradePerStudent, iterationAmount, bestClusterAmount, dataDimension);
+    //needs to be casted to KMeansPoint, will unfortunately need another method
+    //std::vector<IClusteringPoint*> excersisesCompletedAndGradePerStudentAsPoints = Utilities::convertMapOfPairsToPoints(excersisesCompletedAndGradePerStudent);
+    std::vector<KMeansPoint*> excersisesCompletedAndGradePerStudentAsPoints = Utilities::convertMapOfPairsToKMeansPoints(excersisesCompletedAndGradePerStudent);
+
+	KMeansController kmController (excersisesCompletedAndGradePerStudentAsPoints, iterationAmount, bestClusterAmount, dataDimension);
 	kmController.run();
 
-	return kmController.getFinalNonEmptyClusters(); 
+	std::vector<std::vector<KMeansPoint*>> finalKMeansClusters = kmController.getFinalNonEmptyClusters(); 
+    
+
+    //converting KMeansPoints back to generalized IClusteringPoint so KNN etc. can use it.     
+    std::vector<std::vector<IClusteringPoint*>> abstractClusterPointsPtrs; //(finalKMeansClusters.begin(), finalKMeansClusters.end());
+    for(auto cluster: finalKMeansClusters)
+    {
+        std::vector<IClusteringPoint*> currClusterAsPtrs (cluster.begin(), cluster.end());
+        abstractClusterPointsPtrs.push_back(currClusterAsPtrs);
+    }
+
+    return abstractClusterPointsPtrs;
 }
 
 std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClustering::getAmountOfExercisesCompletedAndGradesPerStudent()
@@ -85,14 +101,16 @@ std::map<std::string, int> ExcersiseCompletionAndGradesClustering::getAmountOfCo
     queryIndexes.studentIdColumnIndex = 0;
     queryIndexes.timestampIndex = 1;
     assignmentIntervalFilter->setFilterQueryColumnIndexes(queryIndexes);
+    timeFilter->setFilterQueryColumnIndexes(queryIndexes);
 
 
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
 
     std::vector<pqxx::result::tuple> unfilteredRowsAsPqxxVector = Utilities::toListOfPqxxTuples(unfilteredRows);
     std::vector<pqxx::result::tuple> filteredRowsOnGradePercentage = gradeFilter->filter(unfilteredRowsAsPqxxVector);
-    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = assignmentIntervalFilter->filter(unfilteredRowsAsPqxxVector);    
-
+    std::vector<pqxx::result::tuple> filteredRowsOnDay = timeFilter->filter(filteredRowsOnGradePercentage);    
+    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = assignmentIntervalFilter->filter(filteredRowsOnDay);    
+    
 
     for (int i = 0; i < filteredRowsOnAssignmentTime.size(); i++)
     {

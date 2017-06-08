@@ -1,5 +1,6 @@
 #include "Utilities.h"
-#include "../StatisticalAnalyzer/KMeans/CustomTypes/ClusteringPoint.h"
+#include "../StatisticalAnalyzer/Point/IClusteringPoint.h"
+#include "../StatisticalAnalyzer/KMeans/CustomTypes/KMeansPoint.h"
 
 #include <string>
 #include <sstream>
@@ -14,7 +15,7 @@
 
 using namespace std;
 
-vector<string> Utilities::toArrayByDelim(string &s, char delim)
+vector<string> Utilities::toArrayByDelim(string &s, char delim) 
 {
     vector<string> result;
     stringstream sstr(s);
@@ -102,9 +103,12 @@ vector<pqxx::result::tuple> Utilities::toListOfPqxxTuples(pqxx::result& r)
     return resultVector;
 }
 
-vector<ClusteringPoint> Utilities::convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues)
+//Kinda sucks the dupeness between these two. 
+//Need some kind of type covariance
+
+vector<IClusteringPoint*> Utilities::convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues)
 {    
-    vector<ClusteringPoint> points;
+    vector<IClusteringPoint*> points;
 
     map<string, pair<int, int>>::iterator it;
     size_t counter = 0;
@@ -114,11 +118,34 @@ vector<ClusteringPoint> Utilities::convertMapOfPairsToPoints(map<string, pair<in
         vector<float> valuesForGV;
         valuesForGV.push_back((float) it->second.first);
         valuesForGV.push_back((float) it->second.second);
-
         GenericVector newGv (valuesForGV);
         
-        ClusteringPoint newPoint (counter, newGv);
-        points.push_back(newPoint);
+        //dirty. How can we get to this derived obj using the IClusteringPoint* vector???
+        //yup. a visitor...
+        points.push_back(new KMeansPoint(counter, newGv));
+
+        counter++;
+    }
+    return points;
+}
+
+
+vector<KMeansPoint*> Utilities::convertMapOfPairsToKMeansPoints(map<string, pair<int, int>> inputValues)
+{
+    vector<KMeansPoint*> points;
+
+    map<string, pair<int, int>>::iterator it;
+    size_t counter = 0;
+
+    for(it=inputValues.begin(); it!=inputValues.end(); ++it)
+    {
+        vector<float> valuesForGV;
+        valuesForGV.push_back((float) it->second.first);
+        valuesForGV.push_back((float) it->second.second);
+        GenericVector newGv (valuesForGV);
+        
+        //dirty af
+        points.push_back(new KMeansPoint(counter, newGv));
 
         counter++;
     }

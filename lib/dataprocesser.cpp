@@ -24,14 +24,17 @@
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/IVisualization.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/WeekDayExcersiseCompletionAndGradesClassification.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/AmountOfStudentsPerClass.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/CorrelationMeasures.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/IFilter.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Filter/ITimeFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/GradePercentageFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/AssignmentIntervalFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/WeekDayFilter.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Filter/WeekendDayFilter.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Regression/SimpleLinearRegression.h"
@@ -99,17 +102,29 @@ FilterContext getFilterContext(double upperPercentage)
 	return filterContext;
 }
 
+pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> getGradeFilterAndAssignmentIntervalFilter(FilterContext filterContext)
+{
+	std::shared_ptr<IFilter> gradeFilter(new GradePercentageFilter(filterContext));
+	std::shared_ptr<IFilter> assignmentIntervalFilter(new AssignmentIntervalFilter(filterContext));
+
+	return make_pair(gradeFilter, assignmentIntervalFilter);
+}
+
+
 //RENAME
 string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 {
 	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
 
 	//These shared ptrs need to be more polymorphic.
-	std::shared_ptr<IFilter> gradeFilter(new GradePercentageFilter(filterContext));
-	std::shared_ptr<IFilter> assignmentIntervalFilter(new AssignmentIntervalFilter(filterContext));
-	std::shared_ptr<IFilter> weekDayFilter(new WeekDayFilter());
+	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);
+	std::shared_ptr<ITimeFilter> emptyDayFilter(new ITimeFilter());
 
-	std::unique_ptr<IVisualization> gradeAndExcersiseSuccessesVisualization(new GradeAndExcersiseSuccesses(gradeFilter, assignmentIntervalFilter, weekDayFilter));
+	std::unique_ptr<IVisualization> gradeAndExcersiseSuccessesVisualization
+									(new GradeAndExcersiseSuccesses(gradeFilterAndAssignmentIntervalFilters.first, 
+																	gradeFilterAndAssignmentIntervalFilters.second, 
+																	emptyDayFilter));
+
 	return gradeAndExcersiseSuccessesVisualization->getVisualizationAsJSON();
 }
 
@@ -118,11 +133,14 @@ string getKMeans(double upperPercentageOfGradesToBeSelected)
 {
 	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
 
-	//These shared ptrs need to be more polymorphic.
-	std::shared_ptr<GradePercentageFilter> gradeFilter(new GradePercentageFilter(filterContext));
-	std::shared_ptr<AssignmentIntervalFilter> assignmentIntervalFilter(new AssignmentIntervalFilter(filterContext));
+	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);	
+	std::shared_ptr<ITimeFilter> emptyDayFilter(new ITimeFilter());
 
-	std::unique_ptr<IVisualization> excersiseCompletionAndGradesClusteringVisualization(new ExcersiseCompletionAndGradesClustering(gradeFilter, assignmentIntervalFilter));
+	std::unique_ptr<IVisualization> excersiseCompletionAndGradesClusteringVisualization
+									(new ExcersiseCompletionAndGradesClustering(gradeFilterAndAssignmentIntervalFilters.first, 
+																				gradeFilterAndAssignmentIntervalFilters.second, 
+																				emptyDayFilter));
+
 	return excersiseCompletionAndGradesClusteringVisualization->getVisualizationAsJSON();
 }
 
@@ -138,6 +156,40 @@ string getAmountOfStudentsPerClass()
 	return amountOfStudentsPerClassVisualization->getVisualizationAsJSON();
 }
 
+string getWeekdayCompletionsVsGradesClassification(double upperPercentageOfGradesToBeSelected)
+{
+	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
+
+	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
+	std::shared_ptr<ITimeFilter> weekDayFilter(new WeekDayFilter());
+
+	bool filterOnWeekend = false;
+	std::unique_ptr<IVisualization> excersiseCompletionAndGradesClassificationVisualization
+									(new WeekDayExcersiseCompletionAndGradesClassification
+											(gradeFilterAndAssignmentIntervalFilters.first, 
+											gradeFilterAndAssignmentIntervalFilters.second, 
+											weekDayFilter, filterOnWeekend));
+
+	return excersiseCompletionAndGradesClassificationVisualization->getVisualizationAsJSON();
+}
+
+//duplication with above
+string getWeekendCompletionsVsGradesClassification(double upperPercentageOfGradesToBeSelected)
+{
+	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
+
+	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
+	std::shared_ptr<ITimeFilter> weekendFilter(new WeekendDayFilter());
+
+	bool filterOnWeekend = false;
+	std::unique_ptr<IVisualization> excersiseCompletionAndGradesClassificationVisualization
+									(new WeekDayExcersiseCompletionAndGradesClassification
+											(gradeFilterAndAssignmentIntervalFilters.first, 
+											gradeFilterAndAssignmentIntervalFilters.second, 
+											weekendFilter, filterOnWeekend));
+
+	return excersiseCompletionAndGradesClassificationVisualization->getVisualizationAsJSON();
+}
 
 
 /*
@@ -170,7 +222,6 @@ string getLogarithmicLinearRegression(vector<float> xyValues)
 	return logarithmicLinearRegression->getRegressionAsJSON();
 }
 
-
 //Using C compiler and removing name-mangling for Ruby
 extern "C" void Init_dataprocesser()
 {
@@ -180,8 +231,10 @@ extern "C" void Init_dataprocesser()
 					 .define_method("insertToDB", &insertToDB)
 					 .define_method("getKMeans", &getKMeans)
 					 .define_method("getSuccesRate", &getSuccesRate)
+					 .define_method("getWeekdayCompletionsVsGradesClassification", &getWeekdayCompletionsVsGradesClassification)
+					 .define_method("getWeekendCompletionsVsGradesClassification", &getWeekendCompletionsVsGradesClassification)
 					 .define_method("getGradeAvgPerClass", &getGradeAvgPerClass)
-					 .define_method("getAmountOfStudentsPerClass", &getAmountOfStudentsPerClass)					 
+					 .define_method("getAmountOfStudentsPerClass", &getAmountOfStudentsPerClass)
 					 .define_method("getLinearRegression", &getLinearRegression)
 					 .define_method("getLogarithmicLinearRegression", &getLogarithmicLinearRegression)
 					 .define_method("getCorrelationMeasures", &getCorrelationMeasures);

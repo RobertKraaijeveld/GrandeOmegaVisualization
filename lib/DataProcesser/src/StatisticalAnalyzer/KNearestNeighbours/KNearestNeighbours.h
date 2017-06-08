@@ -2,7 +2,7 @@
 #define KNEARESTNEIGHBOURS_H
 
 #include "../../Utilities/Utilities.h"
-#include "../KMeans/CustomTypes/ClusteringPoint.h"
+#include "../Point/IClusteringPoint.h"
 #include "../GenericVector/GenericVector.h"
 
 #include <vector>
@@ -13,18 +13,18 @@ class KNearestNeighbours
 {
   private:
     int maxAmountOfNeighbours;
-    std::vector<ClusteringPoint> inputPoints;
-    std::vector<std::vector<ClusteringPoint>> trainingClusters;
+    std::vector<IClusteringPoint*> inputPoints;
+    std::vector<std::vector<IClusteringPoint*>> trainingClusters;
 
-    std::vector<ClusteringPoint> getNearestNeighbours(ClusteringPoint point);
-    int getNewClusterIdByVote(ClusteringPoint& point, std::vector<ClusteringPoint>& nearestNeighbours);
+    std::vector<IClusteringPoint*> getNearestNeighbours(IClusteringPoint* point);
+    int getNewClusterIdByVote(IClusteringPoint* point, std::vector<IClusteringPoint*> nearestNeighbours);
 
   public:
-    std::vector<std::vector<ClusteringPoint>> getClassifiedPoints();
+    std::vector<std::vector<IClusteringPoint*>> getClassifiedPoints();
 
-    KNearestNeighbours(std::map<string, std::pair<int, int>> inputValues, vector<vector<ClusteringPoint>> tc, int K)
+    KNearestNeighbours(std::vector<IClusteringPoint*> input, vector<vector<IClusteringPoint*>> tc, int K)
     {
-        inputPoints = Utilities::convertMapOfPairsToPoints(inputValues);
+        inputPoints = input;
         trainingClusters = tc;
         maxAmountOfNeighbours = K;
     }

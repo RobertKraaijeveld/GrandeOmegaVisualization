@@ -3,7 +3,7 @@
 
 #include "Utilities.h"
 #include "../StatisticalAnalyzer/GenericVector/GenericVector.h"
-#include "../StatisticalAnalyzer/KMeans/CustomTypes/ClusteringPoint.h"
+#include "../StatisticalAnalyzer/Point/IClusteringPoint.h"
 #include "JSONEncoder.h"
 
 #include <vector>

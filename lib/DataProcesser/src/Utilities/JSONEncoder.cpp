@@ -1,6 +1,6 @@
 #include "Utilities.h"
 #include "../StatisticalAnalyzer/GenericVector/GenericVector.h"
-#include "../StatisticalAnalyzer/KMeans/CustomTypes/ClusteringPoint.h"
+#include "../StatisticalAnalyzer/Point/IClusteringPoint.h"
 #include "JSONEncoder.h"
 
 #include <vector>
@@ -18,7 +18,7 @@ SO, we define it in a normal cpp file instead.
 */ 
 
 
-std::string JSONEncoder::clustersToJSON(std::vector<std::vector<ClusteringPoint>> clusters) 
+std::string JSONEncoder::clustersToJSON(std::vector<std::vector<IClusteringPoint*>> clusters) 
 {
     stringstream returnJSONStr;
 
@@ -41,15 +41,15 @@ std::string JSONEncoder::clustersToJSON(std::vector<std::vector<ClusteringPoint>
             returnJSONStr << "{";
             
             //values in a single vector
-            for(int z = 0; z < clusters[i][j].vector.values.size(); z++)
+            for(int z = 0; z < clusters[i][j]->getVector().values.size(); z++)
             {
-                size_t currVectorSize = clusters[i][j].vector.values.size();
+                size_t currVectorSize = clusters[i][j]->getVector().values.size();
 
                 //todo: generify for > 2 dimensional KMeans 
                 if(z == 0)
-                    returnJSONStr << "\"x\": " << '"' << clusters[i][j].vector.values[z] << '"' << ',';
+                    returnJSONStr << "\"x\": " << '"' << clusters[i][j]->getVector().values[z] << '"' << ',';
                 else
-                    returnJSONStr << "\"y\": " << '"' << clusters[i][j].vector.values[z] << '"';
+                    returnJSONStr << "\"y\": " << '"' << clusters[i][j]->getVector().values[z] << '"';
             }
             size_t lastClusterVectorIndex = clusters[i].size() - 1; 
 
