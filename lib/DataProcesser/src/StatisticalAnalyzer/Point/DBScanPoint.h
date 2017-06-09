@@ -1,19 +1,20 @@
-#ifndef ClusteringPoint_H
-#define ClusteringPoint_H
+#ifndef DBScanPoint_H
+#define DBScanPoint_H
 
 #include "IClusteringPoint.h"
 #include "../GenericVector/GenericVector.h"
 #include <map>
 #include <numeric>
+#include <iostream>
 
 class DBScanPoint : public IClusteringPoint
 {
     public:
-        bool visited;
-        bool isNoise;
+        bool visited = false;
+        bool isNoise = false;
 
         GenericVector vector;
-        int clusterId;
+        int clusterId; 
 
 
         GenericVector getVector() const { return vector; };

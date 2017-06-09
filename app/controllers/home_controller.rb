@@ -17,7 +17,7 @@ class HomeController < ApplicationController
   def amountofstudentsperclass
     amountOfStudentsPerClassJSON = DataProcesserCoupling::getDataProcesser.getAmountOfStudentsPerClass
     render json: amountOfStudentsPerClassJSON
-  end
+  end 
 
   def kmeans
     gradesAndExcerisesClustersJSON = DataProcesserCoupling::getDataProcesser.getKMeans(getPercentage()) 
@@ -27,6 +27,16 @@ class HomeController < ApplicationController
   def successrate
     studentsGradesAndSuccesRateJSON = DataProcesserCoupling::getDataProcesser.getSuccesRate(getPercentage())
     render json: studentsGradesAndSuccesRateJSON
+  end
+
+  def weekdaycompletionsvsgradesclassification
+    weekdayCompletionsVsGradesClassificationJSON = DataProcesserCoupling::getDataProcesser.getWeekdayCompletionsVsGradesClassification(getPercentage())
+    render json: weekdayCompletionsVsGradesClassificationJSON
+  end
+
+  def weekendcompletionsvsgradesclassification
+    weekendCompletionsVsGradesClassificationJSON = DataProcesserCoupling::getDataProcesser.getWeekendCompletionsVsGradesClassification(getPercentage())
+    render json: weekendCompletionsVsGradesClassificationJSON
   end
 
 
@@ -50,6 +60,13 @@ class HomeController < ApplicationController
 
     correlationJSON = DataProcesserCoupling::getDataProcesser.getCorrelationMeasures(xyValuesArray)
     render json: correlationJSON 
+  end
+
+  def filteroutliers
+    xyValuesArray = getXYValues
+
+    filteredData = DataProcesserCoupling::getDataProcesser.filterOutliers(xyValuesArray)
+    render json: filteredData 
   end
 
 

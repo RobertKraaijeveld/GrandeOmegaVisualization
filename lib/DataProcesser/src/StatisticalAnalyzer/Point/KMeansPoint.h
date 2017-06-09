@@ -20,7 +20,7 @@ struct Centroid {
 };
 
 
-class KMeansPoint : public IClusteringPoint
+class KMeansPoint : public IClusteringPoint 
 {  
     public:
         GenericVector vector; 
@@ -39,7 +39,6 @@ class KMeansPoint : public IClusteringPoint
             centroidId = cId;
             vector = gv;
         }
-
 };
 
 #endif

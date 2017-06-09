@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cctype>
 #include <locale>
+#include <memory>
 #include <pqxx/pqxx>
 
 using namespace std;
@@ -106,9 +107,9 @@ vector<pqxx::result::tuple> Utilities::toListOfPqxxTuples(pqxx::result& r)
 //Kinda sucks the dupeness between these two. 
 //Need some kind of type covariance
 
-vector<IClusteringPoint*> Utilities::convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues)
+vector<std::shared_ptr<IClusteringPoint>> Utilities::convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues)
 {    
-    vector<IClusteringPoint*> points;
+    vector<std::shared_ptr<IClusteringPoint>> points;
 
     map<string, pair<int, int>>::iterator it;
     size_t counter = 0;
@@ -120,9 +121,10 @@ vector<IClusteringPoint*> Utilities::convertMapOfPairsToPoints(map<string, pair<
         valuesForGV.push_back((float) it->second.second);
         GenericVector newGv (valuesForGV);
         
-        //dirty. How can we get to this derived obj using the IClusteringPoint* vector???
+        //dirty. How can we get to this derived obj using the std::shared_ptr<IClusteringPoint> vector???
         //yup. a visitor...
-        points.push_back(new KMeansPoint(counter, newGv));
+        std::shared_ptr<IClusteringPoint> pointPtr (new KMeansPoint(counter, newGv));
+        points.push_back(pointPtr);
 
         counter++;
     }
@@ -130,9 +132,31 @@ vector<IClusteringPoint*> Utilities::convertMapOfPairsToPoints(map<string, pair<
 }
 
 
-vector<KMeansPoint*> Utilities::convertMapOfPairsToKMeansPoints(map<string, pair<int, int>> inputValues)
+vector<std::shared_ptr<KMeansPoint>> Utilities::convertMapOfPairsToKMeansPoints(map<string, pair<int, int>> inputValues)
 {
-    vector<KMeansPoint*> points;
+    vector<std::shared_ptr<KMeansPoint>> points;
+
+    map<string, pair<int, int>>::iterator it;
+    size_t counter = 0;
+
+    for(it=inputValues.begin(); it!=inputValues.end(); ++it)
+    {
+        vector<float> valuesForGV;
+        valuesForGV.push_back((float) it->second.first);
+        valuesForGV.push_back((float) it->second.second);
+        GenericVector newGv (valuesForGV);
+
+        std::shared_ptr<KMeansPoint> kmeansPointPtr (new KMeansPoint(counter, newGv));
+        points.push_back(kmeansPointPtr);
+
+        counter++;
+    }
+    return points;
+}
+
+vector<std::shared_ptr<DBScanPoint>> Utilities::convertMapOfPairsToDBScanPoints(map<string, pair<int, int>> inputValues)
+{
+    vector<std::shared_ptr<DBScanPoint>> points;
 
     map<string, pair<int, int>>::iterator it;
     size_t counter = 0;
@@ -144,8 +168,8 @@ vector<KMeansPoint*> Utilities::convertMapOfPairsToKMeansPoints(map<string, pair
         valuesForGV.push_back((float) it->second.second);
         GenericVector newGv (valuesForGV);
         
-        //dirty af
-        points.push_back(new KMeansPoint(counter, newGv));
+        std::shared_ptr<DBScanPoint> dbScanPointPtr (new DBScanPoint(counter, newGv));
+        points.push_back(dbScanPointPtr);
 
         counter++;
     }

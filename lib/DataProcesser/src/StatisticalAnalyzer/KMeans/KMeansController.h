@@ -8,6 +8,8 @@
 #include "../../YamlParser/YamlObject.h"
 #include "../../Utilities/Utilities.h"
 
+#include <memory>
+
 
 class KMeansController {
     private:
@@ -29,7 +31,7 @@ class KMeansController {
 
 
     public:
-        KMeansController(vector<KMeansPoint*> p, int k, int c, int d) 
+        KMeansController(vector<shared_ptr<KMeansPoint>> p, int k, int c, int d) 
         { 
             //dereferencing KMeansPoints* 
             for(auto point : p)
@@ -41,7 +43,8 @@ class KMeansController {
         };
         
         void run();
-        vector<vector<KMeansPoint*>> getFinalNonEmptyClusters();
+        //convert to Ipoints
+        vector<vector<shared_ptr<IClusteringPoint>>> getFinalNonEmptyClusters();
 
 };
 

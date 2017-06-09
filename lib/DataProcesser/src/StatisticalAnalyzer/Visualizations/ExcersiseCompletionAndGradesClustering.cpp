@@ -1,4 +1,5 @@
 #include "../KMeans/KMeansController.h"
+#include "../DBSCAN/DBSCAN.h"
 #include "../Point/KMeansPoint.h"
 #include "../Point/IClusteringPoint.h"
 #include "../../DatabaseInteracter/DatabaseInteracter.h"
@@ -13,39 +14,30 @@
 #include <iostream>
 #include <pqxx/pqxx>
 
-
 std::string ExcersiseCompletionAndGradesClustering::getVisualizationAsJSON()
 {
-    std::vector<std::vector<IClusteringPoint*>> clusters = getExcersiseCompletionAndGradesClusters();
+    std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> clusters = getExcersiseCompletionAndGradesClusters();
 
     return JSONEncoder::clustersToJSON(clusters);
 }
 
-std::vector<std::vector<IClusteringPoint*>> ExcersiseCompletionAndGradesClustering::getExcersiseCompletionAndGradesClusters()
+std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> ExcersiseCompletionAndGradesClustering::getExcersiseCompletionAndGradesClusters()
 {
-	int dataDimension = 2;  
-	int bestClusterAmount = 10; //tested manually 
-	int iterationAmount = 100;
+    std::map<std::string, std::pair<int, int>> excersisesCompletedAndGradePerStudent = getAmountOfExercisesCompletedAndGradesPerStudent();
 
-    std::map<std::string, std::pair<int, int>> excersisesCompletedAndGradePerStudent = getAmountOfExercisesCompletedAndGradesPerStudent(); 
+    std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> abstractClusterPointsPtrs;
 
-    //needs to be casted to KMeansPoint, unfortunately needs another method.. make this better
-    std::vector<KMeansPoint*> excersisesCompletedAndGradePerStudentAsPoints = Utilities::convertMapOfPairsToKMeansPoints(excersisesCompletedAndGradePerStudent);
+    int dataDimension = 2;
+    int bestClusterAmount = 10; //tested manually
+    int iterationAmount = 100;
 
-	KMeansController kmController (excersisesCompletedAndGradePerStudentAsPoints, iterationAmount, bestClusterAmount, dataDimension);
-	kmController.run();
+    //unfortunately needs conversion
+    std::vector<std::shared_ptr<KMeansPoint>> excersisesCompletedAndGradePerStudentAsPoints =
+        Utilities::convertMapOfPairsToKMeansPoints(excersisesCompletedAndGradePerStudent);
+    KMeansController kmController(excersisesCompletedAndGradePerStudentAsPoints, iterationAmount, bestClusterAmount, dataDimension);
+    kmController.run();
 
-	std::vector<std::vector<KMeansPoint*>> finalKMeansClusters = kmController.getFinalNonEmptyClusters(); 
-    
-
-    //converting KMeansPoints back to generalized IClusteringPoint so KNN etc. can use it.     
-    std::vector<std::vector<IClusteringPoint*>> abstractClusterPointsPtrs; 
-    for(auto cluster: finalKMeansClusters)
-    {
-        std::vector<IClusteringPoint*> currClusterAsPtrs (cluster.begin(), cluster.end());
-        abstractClusterPointsPtrs.push_back(currClusterAsPtrs);
-    }
-
+    abstractClusterPointsPtrs = kmController.getFinalNonEmptyClusters();
     return abstractClusterPointsPtrs;
 }
 
@@ -59,9 +51,9 @@ std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClusterin
     std::map<std::string, int> excersiseAmountPerStudent = getAmountOfCompletedExcersisesPerStudent();
 
     DatabaseInteracter dbInteracter;
-    std::string query = "SELECT student_id, grade FROM grades;"; 
+    std::string query = "SELECT student_id, grade FROM grades;";
 
-    pqxx::result unfilteredIdsAndGrades = dbInteracter.executeSelectQuery(query); 
+    pqxx::result unfilteredIdsAndGrades = dbInteracter.executeSelectQuery(query);
 
     std::vector<pqxx::result::tuple> unfilteredIdsAndGradesAsPqxxVector = Utilities::toListOfPqxxTuples(unfilteredIdsAndGrades);
     std::vector<pqxx::result::tuple> idsAndGradesWithinGradePercentage = gradeFilter->filter(unfilteredIdsAndGradesAsPqxxVector);
@@ -69,18 +61,17 @@ std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClusterin
     return createExcersiseCompletionAmountAndGradesPairs(idsAndGradesWithinGradePercentage, excersiseAmountPerStudent);
 }
 
-std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClustering::createExcersiseCompletionAmountAndGradesPairs
-                                                                         (std::vector<pqxx::result::tuple> filteredIdsAndGrades,
-                                                                          std::map<std::string, int> excersiseAmountPerStudent)
+std::map<std::string, std::pair<int, int>> ExcersiseCompletionAndGradesClustering::createExcersiseCompletionAmountAndGradesPairs(std::vector<pqxx::result::tuple> filteredIdsAndGrades,
+                                                                                                                                 std::map<std::string, int> excersiseAmountPerStudent)
 {
     std::map<std::string, std::pair<int, int>> amountOfExercisesCompletedAndGradePerStudent;
 
-    for(auto idAndGrade: filteredIdsAndGrades) 
+    for (auto idAndGrade : filteredIdsAndGrades)
     {
         std::string id = string(idAndGrade[0].c_str());
         std::string grade = string(idAndGrade[1].c_str());
 
-        if(excersiseAmountPerStudent.count(id) == 1)
+        if (excersiseAmountPerStudent.count(id) == 1)
         {
             std::pair<int, int> excersiseAmountAndGradePair = make_pair(excersiseAmountPerStudent[id], atoi(grade.c_str()));
             amountOfExercisesCompletedAndGradePerStudent.insert(make_pair(id, excersiseAmountAndGradePair));
@@ -103,14 +94,12 @@ std::map<std::string, int> ExcersiseCompletionAndGradesClustering::getAmountOfCo
     assignmentIntervalFilter->setFilterQueryColumnIndexes(queryIndexes);
     timeFilter->setFilterQueryColumnIndexes(queryIndexes);
 
-
     pqxx::result unfilteredRows = dbInteracter.executeSelectQuery(query);
 
     std::vector<pqxx::result::tuple> unfilteredRowsAsPqxxVector = Utilities::toListOfPqxxTuples(unfilteredRows);
     std::vector<pqxx::result::tuple> filteredRowsOnGradePercentage = gradeFilter->filter(unfilteredRowsAsPqxxVector);
-    std::vector<pqxx::result::tuple> filteredRowsOnDay = timeFilter->filter(filteredRowsOnGradePercentage);    
-    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = assignmentIntervalFilter->filter(filteredRowsOnDay);    
-    
+    std::vector<pqxx::result::tuple> filteredRowsOnDay = timeFilter->filter(filteredRowsOnGradePercentage);
+    std::vector<pqxx::result::tuple> filteredRowsOnAssignmentTime = assignmentIntervalFilter->filter(filteredRowsOnDay);
 
     for (int i = 0; i < filteredRowsOnAssignmentTime.size(); i++)
     {

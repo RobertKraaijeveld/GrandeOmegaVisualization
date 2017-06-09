@@ -1,5 +1,5 @@
-#ifndef KMEANSCONTROLLER_H
-#define KMEANSCONTROLLER_H
+#ifndef DBSCAN_H
+#define DBSCAN_H
 
 #include "../Point/DBScanPoint.h"
 #include "../Point/IClusteringPoint.h"
@@ -7,31 +7,37 @@
 #include "../../YamlParser/YamlObject.h"
 #include "../../Utilities/Utilities.h"
 
+#include <memory>
+
 class DBSCAN
 {
-  private:
-    std::vector<DBScanPoint*> inputPoints;
-    std::vector<std::vector<DBScanPoint>> returnClusters;
-    int minNeighboursAmount;
-    float maxNeighbourRadius;
+private:
+  std::vector<DBScanPoint> inputPoints;
+  std::vector<std::vector<DBScanPoint>> returnClusters;
+  int minNeighboursAmount;
+  float maxNeighbourRadius;
+
+  void clusterData();
+
+  void expandCluster(DBScanPoint &point, std::vector<DBScanPoint> &neighbours, int currentClusterIndex);
+  std::vector<DBScanPoint> getPointsWithinMaxRadius(DBScanPoint &point);
+
+  bool isInAnyCluster(DBScanPoint point);
+  void setPointClusterIdsToClusterIndexes(int clusterIndex, std::vector<DBScanPoint> &pointsOfCluster);
 
 
-    void clusterData();
+public:
+  std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> getClusteredData();
 
-    void expandCluster(DBScanPoint& point, std::vector<DBScanPoint*>& neighbours, int currentClusterIndex);
-    std::vector<DBScanPoint*>& getPointsWithinMaxRadius(DBScanPoint& point);
+  //conversion sucks
+  DBSCAN(std::vector<std::shared_ptr<DBScanPoint>> p, int minpts, float maxradius)
+  {
+    //dereferencing KMeansPoints*
+    for (auto point : p)
+      inputPoints.push_back(*point);
 
-    bool isInAnyCluster(DBScanPoint point);
-
-  public:
-    std::vector<std::vector<IClusteringPoint*>> getClusteredData();
-
-    //conversion sucks
-    DBSCAN(std::vector<DBScanPoint*> input, int minpts, float maxradius)
-    {
-        inputPoints = input;
-        minNeighboursAmount = minpts;
-        maxNeighbourRadius = maxradius;
-    }
+    minNeighboursAmount = minpts;
+    maxNeighbourRadius = maxradius;
+  }
 };
 #endif

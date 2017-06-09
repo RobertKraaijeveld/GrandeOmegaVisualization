@@ -9,6 +9,7 @@
 #include <map>
 #include <ctime>
 #include <time.h>
+#include <memory>
 
 #include "DataProcesser/src/CsvParser/CsvParser.h"
 #include "DataProcesser/src/YamlParser/YamlParser.h"
@@ -28,6 +29,13 @@
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/AmountOfStudentsPerClass.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/CorrelationMeasures.h"
+
+#include "DataProcesser/src/StatisticalAnalyzer/Point/IClusteringPoint.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Point/DBScanPoint.h"
+
+#include "DataProcesser/src/StatisticalAnalyzer/DBSCAN/DBSCAN.h"
+
+
 
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/IFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/ITimeFilter.h"
@@ -111,6 +119,21 @@ pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> getGradeFilterAndAssign
 }
 
 
+//AVERAGES
+string getGradeAvgPerClass()
+{
+	std::unique_ptr<IVisualization> gradeAvgsPerClassVisualization(new GradeAvgsPerClass());
+	return gradeAvgsPerClassVisualization->getVisualizationAsJSON();
+}
+
+string getAmountOfStudentsPerClass()
+{
+	std::unique_ptr<IVisualization> amountOfStudentsPerClassVisualization(new AmountOfStudentsPerClass());
+	return amountOfStudentsPerClassVisualization->getVisualizationAsJSON();
+}
+
+
+
 //RENAME
 string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 {
@@ -128,34 +151,26 @@ string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 	return gradeAndExcersiseSuccessesVisualization->getVisualizationAsJSON();
 }
 
-//RENAME
+//CLUSTERINGS
 string getKMeans(double upperPercentageOfGradesToBeSelected)
 {
-	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
+	FilterContext filterContext = getFilterContext(100);
 
-	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);	
-	std::shared_ptr<ITimeFilter> emptyDayFilter(new ITimeFilter());
+	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
+	std::shared_ptr<ITimeFilter> emptyFilter(new ITimeFilter());
 
-	std::unique_ptr<IVisualization> excersiseCompletionAndGradesClusteringVisualization
-									(new ExcersiseCompletionAndGradesClustering(gradeFilterAndAssignmentIntervalFilters.first, 
-																				gradeFilterAndAssignmentIntervalFilters.second, 
-																				emptyDayFilter));
-
-	return excersiseCompletionAndGradesClusteringVisualization->getVisualizationAsJSON();
+	std::unique_ptr<IVisualization> completionAndGradesClustering 
+											 (new ExcersiseCompletionAndGradesClustering(
+											  gradeFilterAndAssignmentIntervalFilters.first, 
+											  gradeFilterAndAssignmentIntervalFilters.second, 
+											  emptyFilter));
+	
+	return completionAndGradesClustering->getVisualizationAsJSON();
 }
 
-string getGradeAvgPerClass()
-{
-	std::unique_ptr<IVisualization> gradeAvgsPerClassVisualization(new GradeAvgsPerClass());
-	return gradeAvgsPerClassVisualization->getVisualizationAsJSON();
-}
 
-string getAmountOfStudentsPerClass()
-{
-	std::unique_ptr<IVisualization> amountOfStudentsPerClassVisualization(new AmountOfStudentsPerClass());
-	return amountOfStudentsPerClassVisualization->getVisualizationAsJSON();
-}
 
+//CLASSIFICATIONS
 string getWeekdayCompletionsVsGradesClassification(double upperPercentageOfGradesToBeSelected)
 {
 	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
@@ -192,6 +207,7 @@ string getWeekendCompletionsVsGradesClassification(double upperPercentageOfGrade
 }
 
 
+
 /*
 Measures instead of graphs
 */
@@ -222,6 +238,29 @@ string getLogarithmicLinearRegression(vector<float> xyValues)
 	return logarithmicLinearRegression->getRegressionAsJSON();
 }
 
+string filterOutliers(vector<float> xyValues)
+{
+	vector<pair<float, float>> pairs = floatVectorToPairVector(xyValues);	
+	vector<GenericVector> pairsAsGenericVectors = pairsTo2DGenericVectors(pairs);
+
+	vector<shared_ptr<DBScanPoint>> inputPointsPtr;
+	for(size_t i = 0; i < pairsAsGenericVectors.size(); i++)
+	{
+		DBScanPoint pointForGVPtr(-1, pairsAsGenericVectors[i]);
+		shared_ptr<DBScanPoint> asPtr = make_shared<DBScanPoint>(pointForGVPtr);
+		inputPointsPtr.push_back(asPtr);
+	}
+
+	//tested manually for this dataset 
+	int minNeighbourAmounts = 5;
+    float maxRadius = 16.5;
+
+    DBSCAN scanner (inputPointsPtr, minNeighbourAmounts, maxRadius);
+    auto abstractClusterPointsPtrs = scanner.getClusteredData();  
+
+	return JSONEncoder::clustersToJSON(abstractClusterPointsPtrs);
+}
+
 //Using C compiler and removing name-mangling for Ruby
 extern "C" void Init_dataprocesser()
 {
@@ -237,5 +276,7 @@ extern "C" void Init_dataprocesser()
 					 .define_method("getAmountOfStudentsPerClass", &getAmountOfStudentsPerClass)
 					 .define_method("getLinearRegression", &getLinearRegression)
 					 .define_method("getLogarithmicLinearRegression", &getLogarithmicLinearRegression)
+					 .define_method("filterOutliers", &filterOutliers)
 					 .define_method("getCorrelationMeasures", &getCorrelationMeasures);
+					 
 }

@@ -66,9 +66,9 @@ vector<vector<KMeansPoint>> KMeansController::getClustersOfBestIteration()
     return returnClusters;
 }
 
-vector<vector<KMeansPoint*>> KMeansController::getFinalNonEmptyClusters()
+vector<vector<shared_ptr<IClusteringPoint>>> KMeansController::getFinalNonEmptyClusters()
 {
-    vector<vector<KMeansPoint*>> nonEmptyClustersOfPtrs;
+    vector<vector<shared_ptr<IClusteringPoint>>> nonEmptyClustersOfPtrs;
 
     int nonEmptyClusterCount = 0;
     for (size_t i = 0; i < finalClusters.size(); i++)
@@ -80,10 +80,12 @@ vector<vector<KMeansPoint*>> KMeansController::getFinalNonEmptyClusters()
             //ensures we dont get nullpointers when using clusterIds as indexes
             setPointCentroidIdsToClusterIndexes(nonEmptyClusterCount, currCluster);
 
-            std::vector<KMeansPoint*> currClusterPtrs;
+            //bit of duplication with dbscan
+            vector<shared_ptr<IClusteringPoint>> currClusterPtrs;
             for (size_t i = 0; i < currCluster.size(); i++)
             {
-                auto currKMeansPointPtr = new KMeansPoint(currCluster[i].getClusterId(), currCluster[i].getVector());
+                //long live smart pointers, allowing us true polymorphism
+                shared_ptr<IClusteringPoint> currKMeansPointPtr (new KMeansPoint(currCluster[i].getClusterId(), currCluster[i].getVector()));
                 currClusterPtrs.push_back(currKMeansPointPtr);
             }
 
@@ -98,6 +100,6 @@ void KMeansController::setPointCentroidIdsToClusterIndexes(int clusterIndex, vec
 {
     for (size_t i = 0; i < pointsOfCluster.size(); i++)
     {
-        pointsOfCluster[i].centroidId = clusterIndex;
+        pointsOfCluster[i].setClusterId(clusterIndex);
     }
 }

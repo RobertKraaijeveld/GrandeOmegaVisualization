@@ -18,53 +18,59 @@ SO, we define it in a normal cpp file instead.
 */ 
 
 
-std::string JSONEncoder::clustersToJSON(std::vector<std::vector<IClusteringPoint*>> clusters) 
+std::string JSONEncoder::clustersToJSON(std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> clusters) 
 {
     stringstream returnJSONStr;
 
     //obj opening brace
     returnJSONStr << "[" << "\n";
 
+    int clusterCounter = 0;
+
     //all clusters
     for(int i = 0; i < clusters.size(); i++)
     {
         size_t lastClusterIndex = clusters.size();
-        size_t clusterCounter = i;
 
-        //opening brace for cluster
-        returnJSONStr << "{ \"name\": \"" << clusterCounter << "\", \"data\": [" << endl;
-
-        //vectors in a single cluster
-        for(int j = 0; j < clusters[i].size(); j++)
+        if(clusters[i].size() > 0)
         {
-            //opening brace for vector pair            
-            returnJSONStr << "{";
-            
-            //values in a single vector
-            for(int z = 0; z < clusters[i][j]->getVector().values.size(); z++)
+            clusterCounter++;
+
+            //opening brace for cluster
+            returnJSONStr << "{ \"name\": \"" << clusterCounter << "\", \"data\": [" << endl;
+
+            //vectors in a single cluster
+            for(int j = 0; j < clusters[i].size(); j++)
             {
-                size_t currVectorSize = clusters[i][j]->getVector().values.size();
+                //opening brace for vector pair            
+                returnJSONStr << "{";
+                
+                //values in a single vector
+                for(int z = 0; z < clusters[i][j]->getVector().values.size(); z++)
+                {
+                    size_t currVectorSize = clusters[i][j]->getVector().values.size();
 
-                //todo: generify for > 2 dimensional KMeans 
-                if(z == 0)
-                    returnJSONStr << "\"x\": " << '"' << clusters[i][j]->getVector().values[z] << '"' << ',';
-                else
-                    returnJSONStr << "\"y\": " << '"' << clusters[i][j]->getVector().values[z] << '"';
+                    //todo: generify for > 2 dimensional KMeans 
+                    if(z == 0)
+                        returnJSONStr << "\"x\": " << '"' << clusters[i][j]->getVector().values[z] << '"' << ',';
+                    else
+                        returnJSONStr << "\"y\": " << '"' << clusters[i][j]->getVector().values[z] << '"';
+                }
+                size_t lastClusterVectorIndex = clusters[i].size() - 1; 
+
+                //closing brace for vector pair
+                returnJSONStr << "}";
+
+                //comma if theres clusters left to go                
+                if(i != lastClusterIndex && j != lastClusterVectorIndex)
+                    returnJSONStr << ", ";
             }
-            size_t lastClusterVectorIndex = clusters[i].size() - 1; 
-
-            //closing brace for vector pair
-            returnJSONStr << "}";
-
-            //comma if theres clusters left to go                
-            if(i != lastClusterIndex && j != lastClusterVectorIndex)
-                returnJSONStr << ", ";
-        }
-        //closing brace of entire cluster
-        if(i != (lastClusterIndex- 1))
-            returnJSONStr << "] }," << endl;
-        else
-            returnJSONStr << "] }" << endl;            
+            //closing brace of entire cluster
+            if(i != (lastClusterIndex- 1))
+                returnJSONStr << "] }," << endl;
+            else
+                returnJSONStr << "] }" << endl;          
+        }  
     }
     //final json obj closing brace 
     returnJSONStr << " ]";

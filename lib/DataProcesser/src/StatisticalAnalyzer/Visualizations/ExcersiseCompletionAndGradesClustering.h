@@ -11,6 +11,7 @@
 #include <pqxx/pqxx>
 #include <map>
 #include <vector>
+#include <memory>
 
 class ExcersiseCompletionAndGradesClustering : public IVisualization
 {
@@ -28,7 +29,7 @@ private:
 public:
   virtual std::string getVisualizationAsJSON();
 
-  std::vector<std::vector<IClusteringPoint*>> getExcersiseCompletionAndGradesClusters();
+  std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> getExcersiseCompletionAndGradesClusters();
   std::map<std::string, std::pair<int, int>> getAmountOfExercisesCompletedAndGradesPerStudent();
 
   ExcersiseCompletionAndGradesClustering(std::shared_ptr<IFilter> gf,

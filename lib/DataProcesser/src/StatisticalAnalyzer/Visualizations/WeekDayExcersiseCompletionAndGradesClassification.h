@@ -21,8 +21,8 @@ private:
   std::shared_ptr<ITimeFilter> timeFilter;
   bool filterOnWeekendOnly;
 
-  std::vector<std::vector<IClusteringPoint*>> getTrainingData();
-  std::vector<std::vector<IClusteringPoint*>> getClassifiedData();
+  std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> getTrainingData();
+  std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> getClassifiedData();
 
 public:
   std::string getVisualizationAsJSON();

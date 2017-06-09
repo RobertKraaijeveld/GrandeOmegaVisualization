@@ -7,17 +7,16 @@
 #include <limits>
 #include <iostream>
 
-std::vector<IClusteringPoint*> KNearestNeighbours::getNearestNeighbours(IClusteringPoint* subjectPoint)
+std::vector<std::shared_ptr<IClusteringPoint>> KNearestNeighbours::getNearestNeighbours(std::shared_ptr<IClusteringPoint> subjectPoint)
 {
-    std::map<IClusteringPoint*, float> neighboursAndDistances;
+    std::map<std::shared_ptr<IClusteringPoint>, float> neighboursAndDistances;
 
     //used to exclude distances lower than the lowest recorded nearest neighbour distance
     float maximumDistance = std::numeric_limits<float>::max();
 
     for (size_t i = 0; i < trainingClusters.size(); i++)
     {
-        vector<IClusteringPoint*> currentTrainingCluster = trainingClusters[i];
-        cout << "trainingCluster " << i << " has size " << currentTrainingCluster.size() << endl;
+        vector<std::shared_ptr<IClusteringPoint>> currentTrainingCluster = trainingClusters[i];
 
         for (size_t j = 0; j < currentTrainingCluster.size(); j++)
         {
@@ -39,7 +38,7 @@ std::vector<IClusteringPoint*> KNearestNeighbours::getNearestNeighbours(ICluster
                 {
                     bool getHighest = true;
                     float highestDistance = Utilities::getHighestOrLowestValueKV(neighboursAndDistances, getHighest).second;
-                    IClusteringPoint* neighbourWithHighestDistance = Utilities::getHighestOrLowestValueKV(neighboursAndDistances, getHighest).first;
+                    std::shared_ptr<IClusteringPoint> neighbourWithHighestDistance = Utilities::getHighestOrLowestValueKV(neighboursAndDistances, getHighest).first;
 
                     if (currentDistanceToTrainingPoint < highestDistance)
                     {
@@ -64,13 +63,13 @@ std::vector<IClusteringPoint*> KNearestNeighbours::getNearestNeighbours(ICluster
     return Utilities::getKeysOfMap(neighboursAndDistances);
 }
 
-int KNearestNeighbours::getNewClusterIdByVote(IClusteringPoint* point, std::vector<IClusteringPoint*> nearestNeighbours)
+int KNearestNeighbours::getNewClusterIdByVote(std::shared_ptr<IClusteringPoint> point, std::vector<std::shared_ptr<IClusteringPoint>> nearestNeighbours)
 {
     map<int, int> clusterIdsCounts;
 
     for (size_t i = 0; i < nearestNeighbours.size(); i++)
     {
-        IClusteringPoint* currentNeighbour = nearestNeighbours[i];
+        std::shared_ptr<IClusteringPoint> currentNeighbour = nearestNeighbours[i];
         clusterIdsCounts[currentNeighbour->getClusterId()] += 1;
     }
 
@@ -81,22 +80,21 @@ int KNearestNeighbours::getNewClusterIdByVote(IClusteringPoint* point, std::vect
     return mostCommonNeighbourClusterId;
 } 
 
-std::vector<std::vector<IClusteringPoint*>> KNearestNeighbours::getClassifiedPoints()
+std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> KNearestNeighbours::getClassifiedPoints()
 {
-    std::vector<std::vector<IClusteringPoint*>> resultingClassifiedPoints;
+    std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> resultingClassifiedPoints;
 
     //Prepping resultingClassifiedPoints 2d vector
     for (size_t i = 0; i < trainingClusters.size(); i++)
     {
-        std::vector<IClusteringPoint*> newEmptyCluster;
+        std::vector<std::shared_ptr<IClusteringPoint>> newEmptyCluster;
         resultingClassifiedPoints.push_back(newEmptyCluster);
     }
-    
 
-    for (IClusteringPoint* currPoint : inputPoints)
+    for (std::shared_ptr<IClusteringPoint> currPoint : inputPoints)
     {
-        std::vector<IClusteringPoint*> nearestNeighbours = getNearestNeighbours(currPoint);
-
+        std::vector<std::shared_ptr<IClusteringPoint>> nearestNeighbours = getNearestNeighbours(currPoint);
+        
         int newClusterIndexForThisPoint = getNewClusterIdByVote(currPoint, nearestNeighbours);
         resultingClassifiedPoints[newClusterIndexForThisPoint].push_back(currPoint);
     }

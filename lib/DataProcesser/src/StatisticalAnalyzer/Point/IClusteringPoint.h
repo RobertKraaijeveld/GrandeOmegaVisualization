@@ -4,6 +4,7 @@
 #include "../GenericVector/GenericVector.h"
 #include <map>
 #include <numeric>
+#include <iostream>
 
 class IClusteringPoint
 {

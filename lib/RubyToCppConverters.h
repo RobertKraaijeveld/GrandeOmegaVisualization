@@ -56,4 +56,16 @@ std::pair<GenericVector, GenericVector> convertPairsToGVs(std::vector<std::pair<
     return returnGVs;
 }
 
+std::vector<GenericVector> pairsTo2DGenericVectors(std::vector<std::pair<float, float>> pairs)
+{
+    std::vector<GenericVector> returnGVs;
+
+    for(int i = 0; i < pairs.size(); i++)
+    {
+        GenericVector newGV (pairs[i]);
+        returnGVs.push_back(newGV);
+    }
+    return returnGVs;
+}
+
 #endif

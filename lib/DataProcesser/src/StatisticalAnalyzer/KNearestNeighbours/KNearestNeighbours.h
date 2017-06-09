@@ -7,27 +7,27 @@
 
 #include <vector>
 #include <map>
-
+#include <memory>
 
 class KNearestNeighbours
 {
-  private:
-    int maxAmountOfNeighbours;
-    std::vector<IClusteringPoint*> inputPoints;
-    std::vector<std::vector<IClusteringPoint*>> trainingClusters;
+private:
+  int maxAmountOfNeighbours;
+  std::vector<std::shared_ptr<IClusteringPoint>> inputPoints;
+  std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> trainingClusters;
 
-    std::vector<IClusteringPoint*> getNearestNeighbours(IClusteringPoint* point);
-    int getNewClusterIdByVote(IClusteringPoint* point, std::vector<IClusteringPoint*> nearestNeighbours);
+  std::vector<std::shared_ptr<IClusteringPoint>> getNearestNeighbours(std::shared_ptr<IClusteringPoint>point);
+  int getNewClusterIdByVote(std::shared_ptr<IClusteringPoint>point, std::vector<std::shared_ptr<IClusteringPoint>> nearestNeighbours);
 
-  public:
-    std::vector<std::vector<IClusteringPoint*>> getClassifiedPoints();
+public:
+  std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> getClassifiedPoints();
 
-    KNearestNeighbours(std::vector<IClusteringPoint*> input, vector<vector<IClusteringPoint*>> tc, int K)
-    {
-        inputPoints = input;
-        trainingClusters = tc;
-        maxAmountOfNeighbours = K;
-    }
+  KNearestNeighbours(std::vector<std::shared_ptr<IClusteringPoint>> input, vector<vector<std::shared_ptr<IClusteringPoint>>> tc, int K)
+  {
+    inputPoints = input;
+    trainingClusters = tc;
+    maxAmountOfNeighbours = K;
+  }
 };
 
 #endif

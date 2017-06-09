@@ -23,7 +23,7 @@
     <div id="gradeaverages" style="width:100%; height:400px; margin-bottom: 100px;"></div>
     <div id="amountofstudentsperclass" style="width:100%; height:400px; margin-bottom: 100px;"></div>
 
-    <div class="updatableChart RegressionChart CorrelationChart" id="completedexcersisesandgradesclustering" style="width:100%; height:400px;"></div>
+    <div class="updatableChart RegressionChart CorrelationChart Clustering" id="completedexcersisesandgradesclustering" style="width:100%; height:400px;"></div>
     <!-- Percentage and linearregression control -->
     <div class="panel panel1 panel-default">
         <div class="panel-heading">
@@ -32,7 +32,57 @@
         <div class="panel-collapse collapse out">
           <div class="panel-body">
           </div>
+        </div> 
+    </div>
+    <!-- Correlations -->
+    <div class="panel panel2 panel-default">
+        <div class="panel-heading">
+          <button type="button" class="btn btn-default btn-xs spoiler-trigger" data-toggle="collapse">Toggle Correlation Measures</button>
         </div>
+        <div class="panel-collapse collapse out">
+          <div class="panel-body">
+            <p id="pearson"></p>
+            <p id="spearman"></p>            
+          </div>
+        </div>
+    </div>
+
+
+    <div class="updatableChart RegressionChart CorrelationChart" id="weekdaycompletionsvsgradesclassification" style="width:100%; height:400px;"></div>
+    <!-- Percentage and linearregression control -->
+    <div class="panel panel1 panel-default">
+        <div class="panel-heading">
+          <button type="button" class="btn btn-default btn-xs spoiler-trigger" data-toggle="collapse">Toggle Controls</button>
+        </div>
+        <div class="panel-collapse collapse out">
+          <div class="panel-body">
+          </div>
+        </div> 
+    </div>
+    <!-- Correlations -->
+    <div class="panel panel2 panel-default">
+        <div class="panel-heading">
+          <button type="button" class="btn btn-default btn-xs spoiler-trigger" data-toggle="collapse">Toggle Correlation Measures</button>
+        </div>
+        <div class="panel-collapse collapse out">
+          <div class="panel-body">
+            <p id="pearson"></p>
+            <p id="spearman"></p>            
+          </div>
+        </div>
+    </div>
+
+
+    <div class="updatableChart RegressionChart CorrelationChart" id="weekendcompletionsvsgradesclassification" style="width:100%; height:400px;"></div>
+    <!-- Percentage and linearregression control -->
+    <div class="panel panel1 panel-default">
+        <div class="panel-heading">
+          <button type="button" class="btn btn-default btn-xs spoiler-trigger" data-toggle="collapse">Toggle Controls</button>
+        </div>
+        <div class="panel-collapse collapse out">
+          <div class="panel-body">
+          </div>
+        </div> 
     </div>
     <!-- Correlations -->
     <div class="panel panel2 panel-default">

@@ -3,11 +3,14 @@
 
 #include "../StatisticalAnalyzer/Point/IClusteringPoint.h"
 #include "../StatisticalAnalyzer/Point/KMeansPoint.h"
+#include "../StatisticalAnalyzer/Point/DBScanPoint.h"
+
 
 #include <vector>
 #include <string>
 #include <sstream>
 #include <pqxx/pqxx>
+#include <memory>
 #include <iostream>
 
 using namespace std;
@@ -36,16 +39,18 @@ class Utilities
     static pair<T, J> getHighestOrLowestValueKV(map<T, J> m, bool getHighest);
 
     //Filter related
-    static vector<pqxx::result::tuple> toListOfPqxxTuples(pqxx::result &r);
+    static vector<pqxx::result::tuple> toListOfPqxxTuples(pqxx::result &r); 
 
     //Misc.
     template <class T>
     static string genericToStr(const T &val);
     static vector<string> toArrayByDelim(string &s, char delim);
 
-    //needs to get some kind of type covariance
-    static vector<IClusteringPoint*> convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues);
-    static vector<KMeansPoint*> convertMapOfPairsToKMeansPoints(map<string, pair<int, int>> inputValues);
+    //REALLY needs to get some kind of type covariance 
+    static vector<std::shared_ptr<IClusteringPoint>> convertMapOfPairsToPoints(map<string, pair<int, int>> inputValues);
+    static vector<std::shared_ptr<KMeansPoint>> convertMapOfPairsToKMeansPoints(map<string, pair<int, int>> inputValues);
+    static vector<std::shared_ptr<DBScanPoint>> convertMapOfPairsToDBScanPoints(map<string, pair<int, int>> inputValues);
+    
 };
 
 //these have to be declared here because of the templates they use

@@ -6,6 +6,7 @@
 #include "../StatisticalAnalyzer/Point/IClusteringPoint.h"
 #include <vector>
 #include <string>
+#include <memory>
 
 class JSONEncoder
 {
@@ -25,7 +26,7 @@ class JSONEncoder
     template <typename T, typename J, typename L>
     static std::string mapToJson(map<T, pair<J, L>> &mapOfPairs);
 
-    static std::string clustersToJSON(vector<vector<IClusteringPoint*>> clusters);
+    static std::string clustersToJSON(vector<vector<std::shared_ptr<IClusteringPoint>>> clusters);
 };
 
 //Contains implementation, since template implementations have to be in the header of the template declarations.

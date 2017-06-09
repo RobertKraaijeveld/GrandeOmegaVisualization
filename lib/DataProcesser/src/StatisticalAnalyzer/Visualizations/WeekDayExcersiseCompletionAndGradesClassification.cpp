@@ -16,7 +16,7 @@
 #include <vector>
 
 
-std::vector<std::vector<IClusteringPoint*>> WeekDayExcersiseCompletionAndGradesClassification::getTrainingData()
+std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> WeekDayExcersiseCompletionAndGradesClassification::getTrainingData()
 {
     //The filter for the training clusters is the opposite of the training data for the actual input vals,
     //so that the training set is actually differently categorized than the result.
@@ -32,7 +32,7 @@ std::vector<std::vector<IClusteringPoint*>> WeekDayExcersiseCompletionAndGradesC
 
     ExcersiseCompletionAndGradesClustering trainingExcersiseCompletionAndGradesClusteringVisualization(gradeFilter, assignmentIntervalFilter, oppositeKindOfFilter);
 
-    std::vector<std::vector<IClusteringPoint*>> trainingClustersOfFilteredData =
+    std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> trainingClustersOfFilteredData =
                     trainingExcersiseCompletionAndGradesClusteringVisualization.getExcersiseCompletionAndGradesClusters();
 
     return trainingClustersOfFilteredData;
@@ -40,7 +40,7 @@ std::vector<std::vector<IClusteringPoint*>> WeekDayExcersiseCompletionAndGradesC
 
 
 
-std::vector<std::vector<IClusteringPoint*>> WeekDayExcersiseCompletionAndGradesClassification::getClassifiedData()
+std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> WeekDayExcersiseCompletionAndGradesClassification::getClassifiedData()
 {
     //Getting basic input data
     ExcersiseCompletionAndGradesClustering baseExcersiseCompletionAndGradesClusteringVisualization(gradeFilter, assignmentIntervalFilter, timeFilter);
@@ -48,12 +48,11 @@ std::vector<std::vector<IClusteringPoint*>> WeekDayExcersiseCompletionAndGradesC
     std::map<std::string, std::pair<int, int>> unclassifiedInputData =
         baseExcersiseCompletionAndGradesClusteringVisualization.getAmountOfExercisesCompletedAndGradesPerStudent();
 
-    //using abstract IClusteringPoint* instead of concrete IClusteringPoint because KNN does not need to know IClusteringPoint specifics :)
-    std::vector<IClusteringPoint*> unclassifiedInputDataAsPoints = Utilities::convertMapOfPairsToPoints(unclassifiedInputData);
+    //using abstract std::shared_ptr<IClusteringPoint> instead of concrete IClusteringPoint because KNN does not need to know IClusteringPoint specifics :)
+    std::vector<std::shared_ptr<IClusteringPoint>> unclassifiedInputDataAsPoints = Utilities::convertMapOfPairsToPoints(unclassifiedInputData);
 
     //Creating new clusterer with different filter in order to get training clusters/categories
-    std::vector<std::vector<IClusteringPoint*>> trainingClusters = getTrainingData();
-
+    std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> trainingClusters = getTrainingData();
 
     //Finally, running KNN
     KNearestNeighbours kNearestAlgo(unclassifiedInputDataAsPoints, trainingClusters, 7);
@@ -63,7 +62,7 @@ std::vector<std::vector<IClusteringPoint*>> WeekDayExcersiseCompletionAndGradesC
 
 std::string WeekDayExcersiseCompletionAndGradesClassification::getVisualizationAsJSON()
 {
-    std::vector<std::vector<IClusteringPoint*>> classifiedData = getClassifiedData();
+    std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> classifiedData = getClassifiedData();
 
     return JSONEncoder::clustersToJSON(classifiedData);
 }
