@@ -13,7 +13,8 @@
 class ITimeFilter : IFilter
 {
 private:
-  virtual bool isValidTime(UtcTime utcTime){ };
+  //default is to filter nothing
+  virtual bool isValidTime(UtcTime utcTime){ return true; };
 
 public:
   FilterQueryColumnIndexes queryColumnIndexes;
@@ -24,7 +25,22 @@ public:
   FilterQueryColumnIndexes getFilterQueryColumnIndexes() { return queryColumnIndexes; };
 
   //default is to filter nothing. Will be overridden in children
-  virtual std::vector<pqxx::result::tuple> filter(std::vector<pqxx::result::tuple> unfilteredRows){ return unfilteredRows; };
+  std::vector<pqxx::result::tuple> filter(std::vector<pqxx::result::tuple> unfilteredRows)
+  {
+    std::vector<pqxx::result::tuple> filteredRows;
+
+    for (pqxx::result::tuple row : unfilteredRows)
+    {
+      string currTime = string(row[getFilterQueryColumnIndexes().timestampIndex].c_str());
+      UtcTime currUtcTime = UtcReader::toUtcTime(currTime);
+
+      if (isValidTime(currUtcTime))
+      {
+        filteredRows.push_back(row);
+      }
+    }
+    return filteredRows;
+  };
 
   ITimeFilter() {}
 };

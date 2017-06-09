@@ -60,7 +60,6 @@ function createRegressionRadioBtns() {
 }
 
 function createStatisticalMeasurements(chart, chartId) {
-    console.log('ChartId = ' + chartId);
     if ($(chartId).hasClass('CorrelationChart') == true) {
         drawCorrelation(chart, chartId);
     }
@@ -82,7 +81,8 @@ function handleOutlierRemoverClicks() {
 
     $(".outlierAdder").click(function () {
         var associatedChartId = $(this).parent().parent().parent().prev('.Clustering').attr('id');
-        drawOriginalGraph(associatedChartId);
+        var associatedChartPercentageValue = $(this).parent().parent().parent().prev('.Clustering').next('.percentageChooserValue').val();
+        drawOriginalGraph(associatedChartId, associatedChartPercentageValue);
     });
 }
 
@@ -91,6 +91,7 @@ function handleChartPercentageChoosersClicks() {
         var newPercentageValue = $(this).prev().val();
         var associatedChartId = $(this).parent().parent().parent().prev('.updatableChart').attr('id');
 
+        console.log('New percentage value = ' + newPercentageValue);
         updateFunctionsPerChart[associatedChartId](newPercentageValue);
 
         //unchecking/removing regressions
@@ -141,9 +142,8 @@ function removeOutliersUsingDBSCAN(associatedChartId) {
     });
 }
 
-function drawOriginalGraph(associatedChartId) {
-    console.log("drawOriginalGraph with id " + associatedChartId);
-    updateFunctionsPerChart[associatedChartId](100);
+function drawOriginalGraph(associatedChartId, associatedChartPercentageValue) {
+    updateFunctionsPerChart[associatedChartId](associatedChartPercentageValue);
 }
 
 
@@ -433,6 +433,8 @@ function drawCompletedExcersisesAndGradesClustering(studentsGradePercentage) {
 
             optionObj.series = parseJSONClusterData(data);
 
+            //done to ensure outlier removal does not look skewed
+            optionObj.xAxis.max = 500;
 
             $(chartId).highcharts(optionObj);
         });
@@ -460,9 +462,10 @@ function drawWeekDayCompletionsVsGradesClassification(studentsGradePercentage) {
 
 function drawWeekendCompletionsVsGradesClassification(studentsGradePercentage) {
     $(function () {
+            console.log("Weekend");        
         $.get('http://localhost:3000/home/weekendcompletionsvsgradesclassification/' + studentsGradePercentage, function (data) {
             var chartId = '#weekendcompletionsvsgradesclassification';
-
+            console.log("Weekendata = " + data);
             var options = {
                 title: "Weekend only excersise completions vs. grades classification",
                 type: 'scatter',
@@ -474,6 +477,7 @@ function drawWeekendCompletionsVsGradesClassification(studentsGradePercentage) {
 
             $(chartId).highcharts(optionObj);
         });
+        console.log("done with weekend");
     });
 }
 

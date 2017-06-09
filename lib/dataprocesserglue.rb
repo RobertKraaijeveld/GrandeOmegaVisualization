@@ -7,3 +7,5 @@ module DataProcesserCoupling
         @dataprocesser
     end
 end
+
+puts DataProcesserCoupling.getDataProcesser().getWeekendCompletionsVsGradesClassification(100)

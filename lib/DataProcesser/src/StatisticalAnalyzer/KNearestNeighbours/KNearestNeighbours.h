@@ -16,10 +16,14 @@ private:
   std::vector<std::shared_ptr<IClusteringPoint>> inputPoints;
   std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> trainingClusters;
 
-  std::vector<std::shared_ptr<IClusteringPoint>> getNearestNeighbours(std::shared_ptr<IClusteringPoint>point);
+  
   int getNewClusterIdByVote(std::shared_ptr<IClusteringPoint>point, std::vector<std::shared_ptr<IClusteringPoint>> nearestNeighbours);
 
 public:
+  //also used in naive bayes, thusly static
+  static std::vector<std::shared_ptr<IClusteringPoint>> getNearestNeighbours(std::shared_ptr<IClusteringPoint>& point, int maxAmountOfNeighbours,
+                                                                             std::vector<std::vector<std::shared_ptr<IClusteringPoint>>>& clusters);
+  
   std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> getClassifiedPoints();
 
   KNearestNeighbours(std::vector<std::shared_ptr<IClusteringPoint>> input, vector<vector<std::shared_ptr<IClusteringPoint>>> tc, int K)

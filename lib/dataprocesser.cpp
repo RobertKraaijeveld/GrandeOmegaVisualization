@@ -35,7 +35,7 @@
 
 #include "DataProcesser/src/StatisticalAnalyzer/DBSCAN/DBSCAN.h"
 
-
+#include "DataProcesser/src/StatisticalAnalyzer/NaiveBayesClassification/NaiveBayesClassification.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/IFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/ITimeFilter.h"
@@ -154,7 +154,7 @@ string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 //CLUSTERINGS
 string getKMeans(double upperPercentageOfGradesToBeSelected)
 {
-	FilterContext filterContext = getFilterContext(100);
+	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
 
 	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
 	std::shared_ptr<ITimeFilter> emptyFilter(new ITimeFilter());
@@ -191,19 +191,56 @@ string getWeekdayCompletionsVsGradesClassification(double upperPercentageOfGrade
 //duplication with above
 string getWeekendCompletionsVsGradesClassification(double upperPercentageOfGradesToBeSelected)
 {
+	/*
 	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
 
 	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
 	std::shared_ptr<ITimeFilter> weekendFilter(new WeekendDayFilter());
 
-	bool filterOnWeekend = false;
+	bool filterOnWeekend = true;
 	std::unique_ptr<IVisualization> excersiseCompletionAndGradesClassificationVisualization
 									(new WeekDayExcersiseCompletionAndGradesClassification
 											(gradeFilterAndAssignmentIntervalFilters.first, 
 											gradeFilterAndAssignmentIntervalFilters.second, 
 											weekendFilter, filterOnWeekend));
 
-	return excersiseCompletionAndGradesClassificationVisualization->getVisualizationAsJSON();
+	return excersiseCompletionAndGradesClassificationVisualization->getVisualizationAsJSON();*/
+	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
+
+	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
+	std::shared_ptr<ITimeFilter> emptyFilter(new ITimeFilter());
+
+	ExcersiseCompletionAndGradesClustering completionAndGradesClustering 
+											 (
+											  gradeFilterAndAssignmentIntervalFilters.first, 
+											  gradeFilterAndAssignmentIntervalFilters.second, 
+											  emptyFilter);
+
+	auto trainingClusters = completionAndGradesClustering.getExcersiseCompletionAndGradesClusters();
+	NaiveBayesClassification nb (trainingClusters[0], trainingClusters);
+
+	auto result = nb.getClassifiedPoints();
+	return JSONEncoder::clustersToJSON(result);
+}
+
+string test(double upperPercentageOfGradesToBeSelected)
+{
+	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
+
+	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
+	std::shared_ptr<ITimeFilter> emptyFilter(new ITimeFilter());
+
+	ExcersiseCompletionAndGradesClustering completionAndGradesClustering 
+											 (
+											  gradeFilterAndAssignmentIntervalFilters.first, 
+											  gradeFilterAndAssignmentIntervalFilters.second, 
+											  emptyFilter);
+
+	auto trainingClusters = completionAndGradesClustering.getExcersiseCompletionAndGradesClusters();
+	NaiveBayesClassification nb (trainingClusters[0], trainingClusters);
+
+	auto result = nb.getClassifiedPoints();
+	return JSONEncoder::clustersToJSON(result);
 }
 
 
@@ -277,6 +314,7 @@ extern "C" void Init_dataprocesser()
 					 .define_method("getLinearRegression", &getLinearRegression)
 					 .define_method("getLogarithmicLinearRegression", &getLogarithmicLinearRegression)
 					 .define_method("filterOutliers", &filterOutliers)
+					 .define_method("test", &test)					 
 					 .define_method("getCorrelationMeasures", &getCorrelationMeasures);
 					 
 }

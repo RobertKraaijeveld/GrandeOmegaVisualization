@@ -9,9 +9,9 @@
 class IClusteringPoint
 {
   public:
-    //const makes sures the getters dont modify the derived object
-    virtual GenericVector getVector() const {};
-    virtual int getClusterId() const {};
+    //const makes sures the getters dont modify the derived object, which is required for the operator overload
+    virtual GenericVector getVector() const = 0;
+    virtual int getClusterId() const = 0;
 
     virtual void setVector(GenericVector newVector) = 0;
     virtual void setClusterId(int newCentroidId) = 0;
@@ -25,6 +25,7 @@ class IClusteringPoint
         return myVectorSum < otherVectorSum;
     }
 
+    //done in order to make STL vector searching algorithms for this type work
     bool operator==(const IClusteringPoint &other) const
     {
         if (getVector().values == other.getVector().values)
