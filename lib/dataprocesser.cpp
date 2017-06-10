@@ -26,6 +26,8 @@
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAndExcersiseSuccesses.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/ExcersiseCompletionAndGradesClustering.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/WeekDayExcersiseCompletionAndGradesClassification.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/NightOnlyCompletionsVsGradeClassification.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/DayOnlyCompletionsVsGradeClassification.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/AmountOfStudentsPerClass.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/CorrelationMeasures.h"
@@ -35,7 +37,9 @@
 
 #include "DataProcesser/src/StatisticalAnalyzer/DBSCAN/DBSCAN.h"
 
-#include "DataProcesser/src/StatisticalAnalyzer/NaiveBayesClassification/NaiveBayesClassification.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Classifiers/IClassifier.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Classifiers/KNearestNeighbours/KNearestNeighbours.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Classifiers/NaiveBayesClassification/NaiveBayesClassification.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/IFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/ITimeFilter.h"
@@ -43,6 +47,7 @@
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/AssignmentIntervalFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/WeekDayFilter.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Filter/WeekendDayFilter.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Filter/NightOnlyFilter.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Regression/IRegression.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Regression/SimpleLinearRegression.h"
@@ -178,10 +183,14 @@ string getWeekdayCompletionsVsGradesClassification(double upperPercentageOfGrade
 	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
 	std::shared_ptr<ITimeFilter> weekDayFilter(new WeekDayFilter());
 
+	std::shared_ptr<IClassifier> knearestClassifier (new KNearestNeighbours);
+
+	//ugly bool switch to make WeekDayExcersiseCompletionAndGradesClassification behave for both week and weekend
 	bool filterOnWeekend = false;
-	std::unique_ptr<IVisualization> excersiseCompletionAndGradesClassificationVisualization
+	std::unique_ptr<IClassificationVisualization> excersiseCompletionAndGradesClassificationVisualization
 									(new WeekDayExcersiseCompletionAndGradesClassification
-											(gradeFilterAndAssignmentIntervalFilters.first, 
+											(knearestClassifier,
+											gradeFilterAndAssignmentIntervalFilters.first, 
 											gradeFilterAndAssignmentIntervalFilters.second, 
 											weekDayFilter, filterOnWeekend));
 
@@ -191,58 +200,62 @@ string getWeekdayCompletionsVsGradesClassification(double upperPercentageOfGrade
 //duplication with above
 string getWeekendCompletionsVsGradesClassification(double upperPercentageOfGradesToBeSelected)
 {
-	/*
 	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
 
 	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
 	std::shared_ptr<ITimeFilter> weekendFilter(new WeekendDayFilter());
 
+	std::shared_ptr<IClassifier> knearestClassifier (new KNearestNeighbours);	
+
+	//ugly bool switch to make WeekDayExcersiseCompletionAndGradesClassification behave for both week and weekend	
 	bool filterOnWeekend = true;
-	std::unique_ptr<IVisualization> excersiseCompletionAndGradesClassificationVisualization
+	std::unique_ptr<IClassificationVisualization> excersiseCompletionAndGradesClassificationVisualization
 									(new WeekDayExcersiseCompletionAndGradesClassification
-											(gradeFilterAndAssignmentIntervalFilters.first, 
+											(knearestClassifier,
+											gradeFilterAndAssignmentIntervalFilters.first, 
 											gradeFilterAndAssignmentIntervalFilters.second, 
 											weekendFilter, filterOnWeekend));
 
-	return excersiseCompletionAndGradesClassificationVisualization->getVisualizationAsJSON();*/
-	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
-
-	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
-	std::shared_ptr<ITimeFilter> emptyFilter(new ITimeFilter());
-
-	ExcersiseCompletionAndGradesClustering completionAndGradesClustering 
-											 (
-											  gradeFilterAndAssignmentIntervalFilters.first, 
-											  gradeFilterAndAssignmentIntervalFilters.second, 
-											  emptyFilter);
-
-	auto trainingClusters = completionAndGradesClustering.getExcersiseCompletionAndGradesClusters();
-	NaiveBayesClassification nb (trainingClusters[0], trainingClusters);
-
-	auto result = nb.getClassifiedPoints();
-	return JSONEncoder::clustersToJSON(result);
+	return excersiseCompletionAndGradesClassificationVisualization->getVisualizationAsJSON();
 }
 
-string test(double upperPercentageOfGradesToBeSelected)
+string getNightCompletionsVsGradesClassification(double upperPercentageOfGradesToBeSelected)
 {
 	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
-
 	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
-	std::shared_ptr<ITimeFilter> emptyFilter(new ITimeFilter());
 
-	ExcersiseCompletionAndGradesClustering completionAndGradesClustering 
-											 (
-											  gradeFilterAndAssignmentIntervalFilters.first, 
-											  gradeFilterAndAssignmentIntervalFilters.second, 
-											  emptyFilter);
+	std::shared_ptr<IClassifier> naiveBayesClassifier (new NaiveBayesClassification());
+	
+	std::shared_ptr<IClassificationVisualization> nightCompletionsVsGradesClassification
+												  (new NightOnlyCompletionsVsGradeClassification
+												  		(
+															naiveBayesClassifier,
+															gradeFilterAndAssignmentIntervalFilters.first,
+															gradeFilterAndAssignmentIntervalFilters.second
+												  		)
+												  );
 
-	auto trainingClusters = completionAndGradesClustering.getExcersiseCompletionAndGradesClusters();
-	NaiveBayesClassification nb (trainingClusters[0], trainingClusters);
-
-	auto result = nb.getClassifiedPoints();
-	return JSONEncoder::clustersToJSON(result);
+	return nightCompletionsVsGradesClassification->getVisualizationAsJSON(); 
 }
 
+string getDayCompletionsVsGradesClassification(double upperPercentageOfGradesToBeSelected)
+{
+	FilterContext filterContext = getFilterContext(upperPercentageOfGradesToBeSelected);
+	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
+
+	std::shared_ptr<IClassifier> naiveBayesClassifier (new NaiveBayesClassification());
+	
+	std::shared_ptr<IClassificationVisualization> nightCompletionsVsGradesClassification
+												  (new DayOnlyCompletionsVsGradeClassification
+												  		(
+															naiveBayesClassifier,
+															gradeFilterAndAssignmentIntervalFilters.first,
+															gradeFilterAndAssignmentIntervalFilters.second
+												  		)
+												  );
+
+	return nightCompletionsVsGradesClassification->getVisualizationAsJSON(); 
+}
 
 
 /*
@@ -280,6 +293,7 @@ string filterOutliers(vector<float> xyValues)
 	vector<pair<float, float>> pairs = floatVectorToPairVector(xyValues);	
 	vector<GenericVector> pairsAsGenericVectors = pairsTo2DGenericVectors(pairs);
 
+	//converting to dbscanpoints
 	vector<shared_ptr<DBScanPoint>> inputPointsPtr;
 	for(size_t i = 0; i < pairsAsGenericVectors.size(); i++)
 	{
@@ -314,7 +328,8 @@ extern "C" void Init_dataprocesser()
 					 .define_method("getLinearRegression", &getLinearRegression)
 					 .define_method("getLogarithmicLinearRegression", &getLogarithmicLinearRegression)
 					 .define_method("filterOutliers", &filterOutliers)
-					 .define_method("test", &test)					 
+					 .define_method("getNightCompletionsVsGradesClassification", &getNightCompletionsVsGradesClassification)
+					 .define_method("getDayCompletionsVsGradesClassification", &getDayCompletionsVsGradesClassification)					 					 					 
 					 .define_method("getCorrelationMeasures", &getCorrelationMeasures);
 					 
 }

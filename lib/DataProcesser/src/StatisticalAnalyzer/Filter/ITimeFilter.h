@@ -24,7 +24,6 @@ public:
   void setFilterQueryColumnIndexes(FilterQueryColumnIndexes fq) { queryColumnIndexes = fq; };
   FilterQueryColumnIndexes getFilterQueryColumnIndexes() { return queryColumnIndexes; };
 
-  //default is to filter nothing. Will be overridden in children
   std::vector<pqxx::result::tuple> filter(std::vector<pqxx::result::tuple> unfilteredRows)
   {
     std::vector<pqxx::result::tuple> filteredRows;

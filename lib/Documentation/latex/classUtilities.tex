@@ -1,0 +1,62 @@
+\hypertarget{classUtilities}{}\section{Utilities Class Reference}
+\label{classUtilities}\index{Utilities@{Utilities}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classUtilities_a6b05484ec7d0d5a71f4ccd775f20a5c2}\label{classUtilities_a6b05484ec7d0d5a71f4ccd775f20a5c2}} 
+static vector$<$ string $>$ {\bfseries get\+List\+Of\+Numbered\+Files\+For\+Base\+File} (string base\+File\+String)
+\item 
+\mbox{\Hypertarget{classUtilities_a6a2654b7cbbc430b17d42e520159b91e}\label{classUtilities_a6a2654b7cbbc430b17d42e520159b91e}} 
+static void {\bfseries remove\+Yaml\+References} (string \&str)
+\item 
+\mbox{\Hypertarget{classUtilities_ac8923fd8433ca415a895a2298a03a2e7}\label{classUtilities_ac8923fd8433ca415a895a2298a03a2e7}} 
+static string {\bfseries create\+Str\+With\+White\+Spaces} (int amount)
+\item 
+\mbox{\Hypertarget{classUtilities_af0943918d7b3643596ab93ea8333894f}\label{classUtilities_af0943918d7b3643596ab93ea8333894f}} 
+static void {\bfseries remove\+Str\+White\+Space} (string \&str)
+\item 
+\mbox{\Hypertarget{classUtilities_a87920ab569865b8fdb87bc2484ba0fb3}\label{classUtilities_a87920ab569865b8fdb87bc2484ba0fb3}} 
+static bool {\bfseries is\+N\+Chars\+White\+Space} (int N, string \&str)
+\item 
+\mbox{\Hypertarget{classUtilities_a6eb13a9d34f53096f88579523c766a70}\label{classUtilities_a6eb13a9d34f53096f88579523c766a70}} 
+static bool {\bfseries Are\+Floats\+Equal} (float f1, float f2)
+\item 
+\mbox{\Hypertarget{classUtilities_a64040506330ee0342c7ffafbeef76e41}\label{classUtilities_a64040506330ee0342c7ffafbeef76e41}} 
+static int {\bfseries compute\+Average} (vector$<$ int $>$ \&values)
+\item 
+\mbox{\Hypertarget{classUtilities_a32fc9c952880eff1d83929f4b42e75e0}\label{classUtilities_a32fc9c952880eff1d83929f4b42e75e0}} 
+static bool {\bfseries is\+In\+Vector} (string \&value, vector$<$ string $>$ \&vector)
+\item 
+\mbox{\Hypertarget{classUtilities_ac65283ddc58535bf53f9ecc66b71cf85}\label{classUtilities_ac65283ddc58535bf53f9ecc66b71cf85}} 
+{\footnotesize template$<$class T , class J $>$ }\\static vector$<$ T $>$ {\bfseries get\+Keys\+Of\+Map} (map$<$ T, J $>$ m)
+\item 
+\mbox{\Hypertarget{classUtilities_a7e9774c5147408d41ca75e54970e74e2}\label{classUtilities_a7e9774c5147408d41ca75e54970e74e2}} 
+{\footnotesize template$<$class T , class J $>$ }\\static vector$<$ J $>$ {\bfseries get\+Values\+Of\+Map} (map$<$ T, J $>$ m)
+\item 
+\mbox{\Hypertarget{classUtilities_a1770afc90489caae248bbbcac40e71d9}\label{classUtilities_a1770afc90489caae248bbbcac40e71d9}} 
+{\footnotesize template$<$class T , class J $>$ }\\static pair$<$ T, J $>$ {\bfseries get\+Highest\+Or\+Lowest\+Value\+KV} (map$<$ T, J $>$ m, bool get\+Highest)
+\item 
+\mbox{\Hypertarget{classUtilities_a9ad8649d85727540f66adb4c6644c0a1}\label{classUtilities_a9ad8649d85727540f66adb4c6644c0a1}} 
+static vector$<$ pqxx\+::result\+::tuple $>$ {\bfseries to\+List\+Of\+Pqxx\+Tuples} (pqxx\+::result \&r)
+\item 
+\mbox{\Hypertarget{classUtilities_a868b728a68449405c6d65632246ddf42}\label{classUtilities_a868b728a68449405c6d65632246ddf42}} 
+{\footnotesize template$<$class T $>$ }\\static string {\bfseries generic\+To\+Str} (const T \&val)
+\item 
+\mbox{\Hypertarget{classUtilities_a522d29d118f7a72a451b9c6392f24081}\label{classUtilities_a522d29d118f7a72a451b9c6392f24081}} 
+static vector$<$ string $>$ {\bfseries to\+Array\+By\+Delim} (string \&s, char delim)
+\item 
+\mbox{\Hypertarget{classUtilities_a82e8f55c09721bf7d8cd483047f44140}\label{classUtilities_a82e8f55c09721bf7d8cd483047f44140}} 
+static vector$<$ std\+::shared\+\_\+ptr$<$ \hyperlink{classIClusteringPoint}{I\+Clustering\+Point} $>$ $>$ {\bfseries convert\+Map\+Of\+Pairs\+To\+Points} (map$<$ string, pair$<$ int, int $>$$>$ input\+Values)
+\item 
+\mbox{\Hypertarget{classUtilities_a6f03912b65bc19ac2e4c52f42ef970b1}\label{classUtilities_a6f03912b65bc19ac2e4c52f42ef970b1}} 
+static vector$<$ std\+::shared\+\_\+ptr$<$ \hyperlink{classKMeansPoint}{K\+Means\+Point} $>$ $>$ {\bfseries convert\+Map\+Of\+Pairs\+To\+K\+Means\+Points} (map$<$ string, pair$<$ int, int $>$$>$ input\+Values)
+\item 
+\mbox{\Hypertarget{classUtilities_aba6071414ba172e34c2f7e6996b8d5e5}\label{classUtilities_aba6071414ba172e34c2f7e6996b8d5e5}} 
+static vector$<$ std\+::shared\+\_\+ptr$<$ \hyperlink{classDBScanPoint}{D\+B\+Scan\+Point} $>$ $>$ {\bfseries convert\+Map\+Of\+Pairs\+To\+D\+B\+Scan\+Points} (map$<$ string, pair$<$ int, int $>$$>$ input\+Values)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Data\+Processer/src/\+Utilities/Utilities.\+h\item 
+Data\+Processer/src/\+Utilities/Utilities.\+cpp\end{DoxyCompactItemize}

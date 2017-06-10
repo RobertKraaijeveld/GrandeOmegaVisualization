@@ -1,0 +1,44 @@
+\hypertarget{classIRegression}{}\section{I\+Regression Class Reference}
+\label{classIRegression}\index{I\+Regression@{I\+Regression}}
+Inheritance diagram for I\+Regression\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classIRegression}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIRegression_ae8f41b89c9d8547d1d03749ac9ba9f4b}\label{classIRegression_ae8f41b89c9d8547d1d03749ac9ba9f4b}} 
+virtual std\+::string {\bfseries get\+Regression\+As\+J\+S\+ON} ()=0
+\item 
+\mbox{\Hypertarget{classIRegression_a96ea1a25100c62c8fff0b6c8c134946c}\label{classIRegression_a96ea1a25100c62c8fff0b6c8c134946c}} 
+{\bfseries I\+Regression} (std\+::vector$<$ std\+::pair$<$ float, float $>$$>$ p)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIRegression_a98c5a0c7bc09079c42239f9b765a9c88}\label{classIRegression_a98c5a0c7bc09079c42239f9b765a9c88}} 
+std\+::pair$<$ \hyperlink{classGenericVector}{Generic\+Vector}, \hyperlink{classGenericVector}{Generic\+Vector} $>$ {\bfseries convert\+Pairs\+To\+G\+Vs} (std\+::vector$<$ std\+::pair$<$ float, float $>$$>$ pairs)
+\item 
+\mbox{\Hypertarget{classIRegression_a8790d7641b1ade722715e5d8bf473344}\label{classIRegression_a8790d7641b1ade722715e5d8bf473344}} 
+virtual float {\bfseries get\+Slope} ()=0
+\item 
+\mbox{\Hypertarget{classIRegression_a5a1a2500a739b98435563e5115576228}\label{classIRegression_a5a1a2500a739b98435563e5115576228}} 
+virtual float {\bfseries get\+Intercept} ()=0
+\item 
+\mbox{\Hypertarget{classIRegression_af62863f66e768a0bb482000862b16164}\label{classIRegression_af62863f66e768a0bb482000862b16164}} 
+virtual std\+::vector$<$ std\+::pair$<$ float, float $>$ $>$ {\bfseries get\+Regression} ()=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classIRegression_abdce3eb0c896fe60b6c272060eab7860}\label{classIRegression_abdce3eb0c896fe60b6c272060eab7860}} 
+std\+::pair$<$ \hyperlink{classGenericVector}{Generic\+Vector}, \hyperlink{classGenericVector}{Generic\+Vector} $>$ {\bfseries x\+And\+Y\+Vectors}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Data\+Processer/src/\+Statistical\+Analyzer/\+Regression/I\+Regression.\+h\item 
+Data\+Processer/src/\+Statistical\+Analyzer/\+Regression/I\+Regression.\+cpp\end{DoxyCompactItemize}

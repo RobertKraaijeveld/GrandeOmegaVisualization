@@ -3,7 +3,6 @@
 
 #include <string>
 
-//Gotta take REAL good care about shared ptrs
 class IVisualization {
     public:
         virtual std::string getVisualizationAsJSON() = 0;

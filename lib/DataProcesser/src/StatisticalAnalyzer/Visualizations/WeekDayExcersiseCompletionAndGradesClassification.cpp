@@ -3,7 +3,7 @@
 #include "../Filter/ITimeFilter.h"
 #include "../Filter/WeekendDayFilter.h"
 #include "../Filter/WeekDayFilter.h"
-#include "../KNearestNeighbours/KNearestNeighbours.h"
+#include "../Classifiers/KNearestNeighbours/KNearestNeighbours.h"
 #include "../KMeans/KMeansController.h"
 #include "../Point/IClusteringPoint.h"
 #include "../../Utilities/JSONEncoder.h"
@@ -39,7 +39,7 @@ std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> WeekDayExcersiseComp
 }
 
 
-
+ 
 std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> WeekDayExcersiseCompletionAndGradesClassification::getClassifiedData()
 {
     //Getting basic input data
@@ -48,21 +48,14 @@ std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> WeekDayExcersiseComp
     std::map<std::string, std::pair<int, int>> unclassifiedInputData =
         baseExcersiseCompletionAndGradesClusteringVisualization.getAmountOfExercisesCompletedAndGradesPerStudent();
 
-    //using abstract std::shared_ptr<IClusteringPoint> instead of concrete IClusteringPoint because KNN does not need to know IClusteringPoint specifics :)
+    //using abstract std::shared_ptr<IClusteringPoint> instead of concrete IClusteringPoint because the classifier does not need to know IClusteringPoint specifics :)
     std::vector<std::shared_ptr<IClusteringPoint>> unclassifiedInputDataAsPoints = Utilities::convertMapOfPairsToPoints(unclassifiedInputData);
 
     //Creating new clusterer with different filter in order to get training clusters/categories
     std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> trainingClusters = getTrainingData();
 
-    //Finally, running KNN
-    KNearestNeighbours kNearestAlgo(unclassifiedInputDataAsPoints, trainingClusters, 7);
+    //Finally, running the classifier
+    (*classifier).initialize(unclassifiedInputDataAsPoints, trainingClusters);
 
-    return kNearestAlgo.getClassifiedPoints();
-}
-
-std::string WeekDayExcersiseCompletionAndGradesClassification::getVisualizationAsJSON()
-{
-    std::vector<std::vector<std::shared_ptr<IClusteringPoint>>> classifiedData = getClassifiedData();
-
-    return JSONEncoder::clustersToJSON(classifiedData);
+    return (*classifier).getClassifiedPoints();
 }
