@@ -1,5 +1,9 @@
 \hypertarget{classITimeFilter}{}\section{I\+Time\+Filter Class Reference}
 \label{classITimeFilter}\index{I\+Time\+Filter@{I\+Time\+Filter}}
+
+
+{\ttfamily \#include $<$I\+Time\+Filter.\+h$>$}
+
 Inheritance diagram for I\+Time\+Filter\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -25,6 +29,9 @@ std\+::vector$<$ pqxx\+::result\+::tuple $>$ {\bfseries filter} (std\+::vector$<
 \hyperlink{structFilterQueryColumnIndexes}{Filter\+Query\+Column\+Indexes} {\bfseries query\+Column\+Indexes}
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+A \hyperlink{classITimeFilter}{I\+Time\+Filter} is a special kind of \hyperlink{classIFilter}{I\+Filter} which filters rows based on their timestamp only. Each derived class of \hyperlink{classITimeFilter}{I\+Time\+Filter} only has to override \textquotesingle{}is\+Valid\+Time\textquotesingle{}; the \textquotesingle{}filter\textquotesingle{} method which calls said method for each row is the same for each instance of \hyperlink{classITimeFilter}{I\+Time\+Filter} and is thusly not virtual. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

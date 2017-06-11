@@ -9,11 +9,16 @@
 #include "../../Utilities/UtcReader.h"
 #include "IFilter.h"
 
-//Marker pattern, not great
+/**
+  A ITimeFilter is a special kind of IFilter which filters rows based on their timestamp only.
+  Each derived class of ITimeFilter only has to override 'isValidTime'; the 'filter' method
+  which calls said method for each row is the same for each instance of ITimeFilter and is thusly not virtual.
+ */
+
 class ITimeFilter : IFilter
 {
 private:
-  //default is to filter nothing
+  //default is to filter nothing.
   virtual bool isValidTime(UtcTime utcTime){ return true; };
 
 public:

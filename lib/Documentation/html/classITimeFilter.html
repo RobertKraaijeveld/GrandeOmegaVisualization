@@ -87,6 +87,8 @@ $(document).ready(function(){initNavTree('classITimeFilter.html','');});
 <div class="title">ITimeFilter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="ITimeFilter_8h_source.html">ITimeFilter.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ITimeFilter:</div>
 <div class="dyncontent">
@@ -119,7 +121,9 @@ Public Attributes</h2></td></tr>
 <a class="el" href="structFilterQueryColumnIndexes.html">FilterQueryColumnIndexes</a>&#160;</td><td class="memItemRight" valign="bottom"><b>queryColumnIndexes</b></td></tr>
 <tr class="separator:a2b63e7e266780304d49e971ae7bc4591"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A <a class="el" href="classITimeFilter.html">ITimeFilter</a> is a special kind of <a class="el" href="classIFilter.html">IFilter</a> which filters rows based on their timestamp only. Each derived class of <a class="el" href="classITimeFilter.html">ITimeFilter</a> only has to override 'isValidTime'; the 'filter' method which calls said method for each row is the same for each instance of <a class="el" href="classITimeFilter.html">ITimeFilter</a> and is thusly not virtual. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>DataProcesser/src/StatisticalAnalyzer/Filter/<a class="el" href="ITimeFilter_8h_source.html">ITimeFilter.h</a></li>
 </ul>
 </div><!-- contents -->

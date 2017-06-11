@@ -1,5 +1,9 @@
 \hypertarget{classIClassifier}{}\section{I\+Classifier Class Reference}
 \label{classIClassifier}\index{I\+Classifier@{I\+Classifier}}
+
+
+{\ttfamily \#include $<$I\+Classifier.\+h$>$}
+
 Inheritance diagram for I\+Classifier\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,6 +20,9 @@ virtual std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \hyperlink{c
 virtual void {\bfseries initialize} (std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \hyperlink{classIClusteringPoint}{I\+Clustering\+Point} $>$$>$ input, vector$<$ vector$<$ std\+::shared\+\_\+ptr$<$ \hyperlink{classIClusteringPoint}{I\+Clustering\+Point} $>$$>$$>$ tc)=0
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Each derived class \hyperlink{classIClassifier}{I\+Classifier} overrides the virtual \textquotesingle{}get\+Classified\+Points\textquotesingle{} and \textquotesingle{}initialize\textquotesingle{} methods. \textquotesingle{}initialize\textquotesingle{} simulates a virtual constructor (which does not exist in C++) 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

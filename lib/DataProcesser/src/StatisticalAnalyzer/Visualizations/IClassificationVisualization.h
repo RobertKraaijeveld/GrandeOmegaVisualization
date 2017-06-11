@@ -7,6 +7,11 @@
 #include <vector>
 #include <memory>
 
+/**
+  Each IClassificationVisualization defines its own methods for creating a training and result clustering/classified dataset.
+  Since an IClassificationVisualization will always create a cluster-like structure, 'getVisualizationAsJSON' is not virtual.
+*/
+
 class IClassificationVisualization : public IVisualization
 {
 private:

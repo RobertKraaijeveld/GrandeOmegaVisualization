@@ -4,6 +4,13 @@
 #include <vector>
 #include "../GenericVector/GenericVector.h"
 
+
+/**
+  Each IRegression has to define its' own ways of calculating slope, intercept and final regression.
+  'getRegressionAsJSON' is specific per IRegression derived class as well.
+ */ 
+
+
 class IRegression {
     protected:
         std::pair<GenericVector, GenericVector> xAndYVectors;

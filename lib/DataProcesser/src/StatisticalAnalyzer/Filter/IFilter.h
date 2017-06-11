@@ -19,6 +19,14 @@ struct FilterContext
     double upperPercentageOfGradesToBeSelected = 100;
 };
 
+
+/**
+    An IFilter filters PQXX database rows.
+    Each IFilter has a FilterQueryColumnIndexes member (simulated by virtual getters/setters) which is used to define which
+    query column index maps to which kind of property, and a filtercontext object which is used to pass parameters to the filter. 
+*/
+
+
 class IFilter
 {
   public:

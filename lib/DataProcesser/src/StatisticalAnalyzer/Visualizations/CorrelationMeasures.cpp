@@ -185,28 +185,26 @@ PEARSONS
 
 float CorrelationMeasures::getPearsonCoefficient()
 {
-    //Saves us a few size() calls :)
-    int xValuesSize = xyVectors.first.values.size();
-    int yValuesSize = xyVectors.second.values.size();
+    float firstHalf = 1 / ((float) xyVectors.first.values.size() - 1);
+    float secondHalf = 0;    
 
-    float xyMultiplication = xyVectors.first.dotProduct(xyVectors.second);
+    float xMean = getMean(xyVectors.first.values);
+    float yMean = getMean(xyVectors.second.values);   
 
-    //Note that the type of accumulate's last literal arg determines its returntype.
-    int xSum = std::accumulate(xyVectors.first.values.begin(), xyVectors.first.values.end(), 0);
-    int ySum = std::accumulate(xyVectors.second.values.begin(), xyVectors.second.values.end(), 0);
-    int sumsDividedByDimension = (xSum * ySum) / xValuesSize;
+    float xSdev = getStandardDeviation(xyVectors.first.values, xMean);
+    float ySdev = getStandardDeviation(xyVectors.second.values, yMean);
+    
+    for (size_t i = 0; i < xyVectors.first.values.size(); i++)
+    {
+        float currXMinusMean = xyVectors.first.values[i] - xMean;
+        float currYMinusMean = xyVectors.second.values[i] - yMean;
 
-    float xValsSquared = raiseVectorValues(xyVectors.first.values, 2);
-    float yValsSquared = raiseVectorValues(xyVectors.second.values, 2);
-
-    float xValsSumDividedByDimension = pow(xSum, 2) / xValuesSize;
-    float yValsSumDividedByDimension = pow(ySum, 2) / yValuesSize;
-
-    float dividend = xyMultiplication - sumsDividedByDimension;
-    float divisorFirstHalf = sqrt(xValsSquared - xValsSumDividedByDimension);
-    float divisorSecondHalf = sqrt(yValsSquared - yValsSumDividedByDimension);
-
-    return (dividend / (divisorFirstHalf * divisorSecondHalf));
+        float secondHalfFirstHalf = currXMinusMean / xSdev; 
+        float secondHalfSecondHalf = currYMinusMean / ySdev;
+        
+        secondHalf += (secondHalfFirstHalf * secondHalfSecondHalf);
+    }
+    return firstHalf * secondHalf;
 }
 
 /*

@@ -86,6 +86,8 @@ $(document).ready(function(){initNavTree('classIFilter.html','');});
 <div class="title">IFilter Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="IFilter_8h_source.html">IFilter.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for IFilter:</div>
 <div class="dyncontent">
@@ -120,7 +122,9 @@ virtual <a class="el" href="structFilterContext.html">FilterContext</a>&#160;</t
 virtual std::vector&lt; pqxx::result::tuple &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>filter</b> (std::vector&lt; pqxx::result::tuple &gt; unfilteredRows)=0</td></tr>
 <tr class="separator:a3abe23670a8b3641fae336cf5efdb775"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>An <a class="el" href="classIFilter.html">IFilter</a> filters PQXX database rows. Each <a class="el" href="classIFilter.html">IFilter</a> has a <a class="el" href="structFilterQueryColumnIndexes.html">FilterQueryColumnIndexes</a> member (simulated by virtual getters/setters) which is used to define which query column index maps to which kind of property, and a filtercontext object which is used to pass parameters to the filter. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>DataProcesser/src/StatisticalAnalyzer/Filter/<a class="el" href="IFilter_8h_source.html">IFilter.h</a></li>
 </ul>
 </div><!-- contents -->

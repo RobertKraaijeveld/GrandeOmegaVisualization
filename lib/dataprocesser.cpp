@@ -31,6 +31,7 @@
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/GradeAvgsPerClass.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/AmountOfStudentsPerClass.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Visualizations/CorrelationMeasures.h"
+#include "DataProcesser/src/StatisticalAnalyzer/Visualizations/AttemptsVsFailures.h"
 
 #include "DataProcesser/src/StatisticalAnalyzer/Point/IClusteringPoint.h"
 #include "DataProcesser/src/StatisticalAnalyzer/Point/DBScanPoint.h"
@@ -55,6 +56,15 @@
 
 using namespace Rice;
 using namespace std;
+
+
+/**
+ This file exposes a facade-like structure, consisting of functions that can be directly called by Ruby.
+ This is the only entry-point for any Ruby-code, making sure Ruby only ever uses abstractions of the C++ code.
+
+ */
+
+
 
 const double TIME_BETWEEN_ASSIGNMENTS_THRESHOLD = 1.5;
 
@@ -127,13 +137,13 @@ pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> getGradeFilterAndAssign
 //AVERAGES
 string getGradeAvgPerClass()
 {
-	std::unique_ptr<IVisualization> gradeAvgsPerClassVisualization(new GradeAvgsPerClass());
+	std::shared_ptr<IVisualization> gradeAvgsPerClassVisualization(new GradeAvgsPerClass());
 	return gradeAvgsPerClassVisualization->getVisualizationAsJSON();
 }
 
 string getAmountOfStudentsPerClass()
 {
-	std::unique_ptr<IVisualization> amountOfStudentsPerClassVisualization(new AmountOfStudentsPerClass());
+	std::shared_ptr<IVisualization> amountOfStudentsPerClassVisualization(new AmountOfStudentsPerClass());
 	return amountOfStudentsPerClassVisualization->getVisualizationAsJSON();
 }
 
@@ -148,7 +158,7 @@ string getSuccesRate(double upperPercentageOfGradesToBeSelected)
 	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);
 	std::shared_ptr<ITimeFilter> emptyDayFilter(new ITimeFilter());
 
-	std::unique_ptr<IVisualization> gradeAndExcersiseSuccessesVisualization
+	std::shared_ptr<IVisualization> gradeAndExcersiseSuccessesVisualization
 									(new GradeAndExcersiseSuccesses(gradeFilterAndAssignmentIntervalFilters.first, 
 																	gradeFilterAndAssignmentIntervalFilters.second, 
 																	emptyDayFilter));
@@ -164,7 +174,7 @@ string getKMeans(double upperPercentageOfGradesToBeSelected)
 	pair<std::shared_ptr<IFilter>, std::shared_ptr<IFilter>> gradeFilterAndAssignmentIntervalFilters = getGradeFilterAndAssignmentIntervalFilter(filterContext);		
 	std::shared_ptr<ITimeFilter> emptyFilter(new ITimeFilter());
 
-	std::unique_ptr<IVisualization> completionAndGradesClustering 
+	std::shared_ptr<IVisualization> completionAndGradesClustering 
 											 (new ExcersiseCompletionAndGradesClustering(
 											  gradeFilterAndAssignmentIntervalFilters.first, 
 											  gradeFilterAndAssignmentIntervalFilters.second, 
@@ -187,7 +197,7 @@ string getWeekdayCompletionsVsGradesClassification(double upperPercentageOfGrade
 
 	//ugly bool switch to make WeekDayExcersiseCompletionAndGradesClassification behave for both week and weekend
 	bool filterOnWeekend = false;
-	std::unique_ptr<IClassificationVisualization> excersiseCompletionAndGradesClassificationVisualization
+	std::shared_ptr<IClassificationVisualization> excersiseCompletionAndGradesClassificationVisualization
 									(new WeekDayExcersiseCompletionAndGradesClassification
 											(knearestClassifier,
 											gradeFilterAndAssignmentIntervalFilters.first, 
@@ -209,7 +219,7 @@ string getWeekendCompletionsVsGradesClassification(double upperPercentageOfGrade
 
 	//ugly bool switch to make WeekDayExcersiseCompletionAndGradesClassification behave for both week and weekend	
 	bool filterOnWeekend = true;
-	std::unique_ptr<IClassificationVisualization> excersiseCompletionAndGradesClassificationVisualization
+	std::shared_ptr<IClassificationVisualization> excersiseCompletionAndGradesClassificationVisualization
 									(new WeekDayExcersiseCompletionAndGradesClassification
 											(knearestClassifier,
 											gradeFilterAndAssignmentIntervalFilters.first, 
@@ -257,6 +267,16 @@ string getDayCompletionsVsGradesClassification(double upperPercentageOfGradesToB
 	return nightCompletionsVsGradesClassification->getVisualizationAsJSON(); 
 }
 
+/*
+Just for fun :)
+*/
+
+string getAttemptsVsFailures()
+{
+	std::shared_ptr<IVisualization> attemptsVsFailuresVisualization(new AttemptsVsFailures());
+	return attemptsVsFailuresVisualization->getVisualizationAsJSON();
+}
+
 
 /*
 Measures instead of graphs
@@ -267,7 +287,7 @@ string getCorrelationMeasures(vector<float> xyValues)
 	vector<pair<float, float>> pairs = floatVectorToPairVector(xyValues);
 	pair<GenericVector, GenericVector> xyVectors = convertPairsToGVs(pairs);
 
-	std::unique_ptr<IVisualization> correlationMeasures(new CorrelationMeasures(xyVectors));
+	std::shared_ptr<IVisualization> correlationMeasures(new CorrelationMeasures(xyVectors));
 	return correlationMeasures->getVisualizationAsJSON();
 }
 
@@ -275,7 +295,7 @@ string getLinearRegression(vector<float> xyValues)
 {
 	vector<pair<float, float>> pairs = floatVectorToPairVector(xyValues);
 
-	std::unique_ptr<IRegression> linearRegression(new SimpleLinearRegression(pairs));
+	std::shared_ptr<IRegression> linearRegression(new SimpleLinearRegression(pairs));
 	return linearRegression->getRegressionAsJSON();
 }
 
@@ -284,7 +304,7 @@ string getLogarithmicLinearRegression(vector<float> xyValues)
 	//LogarithmicLinearRegression
 	vector<pair<float, float>> pairs = floatVectorToPairVector(xyValues);
 
-	std::unique_ptr<IRegression> logarithmicLinearRegression(new LogarithmicLinearRegression(pairs));
+	std::shared_ptr<IRegression> logarithmicLinearRegression(new LogarithmicLinearRegression(pairs));
 	return logarithmicLinearRegression->getRegressionAsJSON();
 }
 
@@ -329,7 +349,8 @@ extern "C" void Init_dataprocesser()
 					 .define_method("getLogarithmicLinearRegression", &getLogarithmicLinearRegression)
 					 .define_method("filterOutliers", &filterOutliers)
 					 .define_method("getNightCompletionsVsGradesClassification", &getNightCompletionsVsGradesClassification)
-					 .define_method("getDayCompletionsVsGradesClassification", &getDayCompletionsVsGradesClassification)					 					 					 
+					 .define_method("getDayCompletionsVsGradesClassification", &getDayCompletionsVsGradesClassification)		
+					 .define_method("getAttemptsVsFailures", &getAttemptsVsFailures)					 					 					 
 					 .define_method("getCorrelationMeasures", &getCorrelationMeasures);
 					 
 }

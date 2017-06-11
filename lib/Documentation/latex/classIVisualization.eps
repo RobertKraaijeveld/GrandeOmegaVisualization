@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 25.974026
+%%BoundingBox: 0 0 500 22.727273
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,13 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 19.250000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 22.000000 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
 /rows 3 def
-/cols 7 def
+/cols 8 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -175,6 +175,7 @@ boxfont setfont
 1 boundaspect scale
 (IVisualization) cw
 (AmountOfStudentsPerClass) cw
+(AttemptsVsFailures) cw
 (CorrelationMeasures) cw
 (ExcersiseCompletionAndGradesClustering) cw
 (GradeAndExcersiseSuccesses) cw
@@ -194,23 +195,24 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (IVisualization) 2.500000 2.000000 box
+ (IVisualization) 3.000000 2.000000 box
  (AmountOfStudentsPerClass) 0.000000 1.000000 box
- (CorrelationMeasures) 1.000000 1.000000 box
- (ExcersiseCompletionAndGradesClustering) 2.000000 1.000000 box
- (GradeAndExcersiseSuccesses) 3.000000 1.000000 box
- (GradeAvgsPerClass) 4.000000 1.000000 box
- (IClassificationVisualization) 5.000000 1.000000 box
- (DayOnlyCompletionsVsGradeClassification) 4.000000 0.000000 box
- (NightOnlyCompletionsVsGradeClassification) 5.000000 0.000000 box
- (WeekDayExcersiseCompletionAndGradesClassification) 6.000000 0.000000 box
+ (AttemptsVsFailures) 1.000000 1.000000 box
+ (CorrelationMeasures) 2.000000 1.000000 box
+ (ExcersiseCompletionAndGradesClustering) 3.000000 1.000000 box
+ (GradeAndExcersiseSuccesses) 4.000000 1.000000 box
+ (GradeAvgsPerClass) 5.000000 1.000000 box
+ (IClassificationVisualization) 6.000000 1.000000 box
+ (DayOnlyCompletionsVsGradeClassification) 5.000000 0.000000 box
+ (NightOnlyCompletionsVsGradeClassification) 6.000000 0.000000 box
+ (WeekDayExcersiseCompletionAndGradesClassification) 7.000000 0.000000 box
 
 % ----- relations -----
 
 solid
-1 2.500000 1.250000 out
+1 3.000000 1.250000 out
 solid
-0.000000 5.000000 2.000000 conn
+0.000000 6.000000 2.000000 conn
 solid
 0 0.000000 1.750000 in
 solid
@@ -224,12 +226,14 @@ solid
 solid
 0 5.000000 1.750000 in
 solid
-1 5.000000 0.250000 out
+0 6.000000 1.750000 in
 solid
-4.000000 6.000000 1.000000 conn
+1 6.000000 0.250000 out
 solid
-0 4.000000 0.750000 in
+5.000000 7.000000 1.000000 conn
 solid
 0 5.000000 0.750000 in
 solid
 0 6.000000 0.750000 in
+solid
+0 7.000000 0.750000 in

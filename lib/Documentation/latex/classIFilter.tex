@@ -1,5 +1,9 @@
 \hypertarget{classIFilter}{}\section{I\+Filter Class Reference}
 \label{classIFilter}\index{I\+Filter@{I\+Filter}}
+
+
+{\ttfamily \#include $<$I\+Filter.\+h$>$}
+
 Inheritance diagram for I\+Filter\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -25,6 +29,9 @@ virtual \hyperlink{structFilterContext}{Filter\+Context} {\bfseries get\+Filter\
 virtual std\+::vector$<$ pqxx\+::result\+::tuple $>$ {\bfseries filter} (std\+::vector$<$ pqxx\+::result\+::tuple $>$ unfiltered\+Rows)=0
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+An \hyperlink{classIFilter}{I\+Filter} filters P\+Q\+XX database rows. Each \hyperlink{classIFilter}{I\+Filter} has a \hyperlink{structFilterQueryColumnIndexes}{Filter\+Query\+Column\+Indexes} member (simulated by virtual getters/setters) which is used to define which query column index maps to which kind of property, and a filtercontext object which is used to pass parameters to the filter. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

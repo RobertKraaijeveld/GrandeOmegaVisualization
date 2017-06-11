@@ -9,6 +9,11 @@
 #include <numeric>
 #include <memory>
 
+/**
+  Each derived class IClassifier overrides the virtual 'getClassifiedPoints' and 'initialize' methods.
+  'initialize' simulates a virtual constructor (which does not exist in C++) 
+ */
+
 class IClassifier
 {
   public:
