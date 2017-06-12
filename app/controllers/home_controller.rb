@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   def index
   end 
 
-  #Receiving JSON
+  #Receiving JSON 
   def gradeavgs
     gradeAvgsPerClassJSON = DataProcesserCoupling::getDataProcesser.getGradeAvgPerClass
     render json: gradeAvgsPerClassJSON
@@ -27,7 +27,7 @@ class HomeController < ApplicationController
   def successrate
     studentsGradesAndSuccesRateJSON = DataProcesserCoupling::getDataProcesser.getSuccesRate(getPercentage())
     render json: studentsGradesAndSuccesRateJSON
-  end
+  end 
 
   def weekdaycompletionsvsgradesclassification
     weekdayCompletionsVsGradesClassificationJSON = DataProcesserCoupling::getDataProcesser.getWeekdayCompletionsVsGradesClassification(getPercentage())
@@ -39,6 +39,20 @@ class HomeController < ApplicationController
     render json: weekendCompletionsVsGradesClassificationJSON
   end
 
+  def daycompletionsvsgradesclassification
+    dayCompletionsVsGradesClassificationJSON = DataProcesserCoupling::getDataProcesser.getDayCompletionsVsGradesClassification(getPercentage())
+    render json: dayCompletionsVsGradesClassificationJSON
+  end
+
+  def nightcompletionsvsgradesclassification
+    nightCompletionsVsGradesClassificationJSON = DataProcesserCoupling::getDataProcesser.getNightCompletionsVsGradesClassification(getPercentage())
+    render json: nightCompletionsVsGradesClassificationJSON
+  end
+
+  def attemptsvsfailures
+    attemptsVsFailuresJSON = DataProcesserCoupling.getDataProcesser.getAttemptsVsFailures()
+    render json: attemptsVsFailuresJSON
+  end
 
   #Sending and receiving JSON
   def linearregression

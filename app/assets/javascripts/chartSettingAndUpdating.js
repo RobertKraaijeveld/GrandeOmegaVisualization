@@ -1,11 +1,13 @@
-
 $(document).ready(function () {
+    drawWeekDayCompletionsVsGradesClassification(100);
+    drawWeekendCompletionsVsGradesClassification(100);
+    drawDayCompletionsVsGradesClassification(100);
+    drawNightCompletionsVsGradesClassification(100);
     drawGradeAvgsChart();
     drawStudentsAmountPerClassChart();
     drawCompletedExcersisesAndGradesClustering(100);
-    drawWeekDayCompletionsVsGradesClassification(100);
-    drawWeekendCompletionsVsGradesClassification(100);
     drawGradesSuccesrateChart(100);
+    drawAttemptsVsFailures();
 
     createChartPercentageChoosers();
     createChartOutlierRemovers();
@@ -24,7 +26,10 @@ var updateFunctionsPerChart =
     {
         "completedexcersisesandgradesclustering": drawCompletedExcersisesAndGradesClustering,
         "weekdaycompletionsvsgradesclassification": drawWeekDayCompletionsVsGradesClassification,
-        "gradesuccessrate": drawGradesSuccesrateChart
+        "gradesuccessrate": drawGradesSuccesrateChart,
+        "weekendcompletionsvsgradesclassification": drawWeekendCompletionsVsGradesClassification,
+        "daycompletionsvsgradesclassification": drawDayCompletionsVsGradesClassification,
+        "nightcompletionsvsgradesclassification": drawNightCompletionsVsGradesClassification
     };
 
 
@@ -35,16 +40,16 @@ CHOOSER CREATIONS
 function createChartPercentageChoosers() {
     var percentageChooserHtml =
         '<p>Grade Percentage: </p>' +
-        '<input type="number" class="percentageChooserValue" max="100"></input>' +
-        '<input type="button" class="percentageChooserBtn" value="Confirm"></input>';
+        '<input type="number" class="percentageChooserValue btn btn-default" max="100"></input><br />' +
+        '<input type="button" class="percentageChooserBtn btn btn-default" value="Confirm" style="margin-top:10px"></input>';
 
     $('.updatableChart').next('.panel1').contents('.panel-collapse').contents('.panel-body').append(percentageChooserHtml);
 }
 
 function createChartOutlierRemovers() {
     var outlierRemoverHMTL =
-        '<br /><input type="button" class="outlierRemover" value="Remove outliers"></input>' +
-        '<br /><input type="button" class="outlierAdder" value="Add outliers"></input>';
+        '<br /> <input type="button" style="margin-top:10px" class="outlierRemover btn btn-success" value="Remove outliers"></input>' +
+        '<input type="button" style="margin-top:10px" class="outlierAdder btn btn-danger" value="Add outliers"></input>';
 
     $('.Clustering').next('.panel1').contents('.panel-collapse').contents('.panel-body').append(outlierRemoverHMTL);
 }
@@ -52,9 +57,9 @@ function createChartOutlierRemovers() {
 function createRegressionRadioBtns() {
     var RegressionRadioBtnsHtml =
         '<p style="margin-top: 20px;">Add/Remove Linear Regression</p>' +
-        '<input type="checkbox" class="LinearRegressionButton"></input>' +
+        '<input type="checkbox" class="LinearRegressionButton checkbox"></input>' +
         '<p style="margin-top: 20px;">Add/Remove Logarithmic Regression</p>' +
-        '<input type="checkbox" class="LogarithmicRegressionButton"></input>';
+        '<input type="checkbox" class="LogarithmicRegressionButton checkbox"></input>';
 
     $('.RegressionChart').next('.panel1').contents('.panel-collapse').contents('.panel-body').append(RegressionRadioBtnsHtml);
 }
@@ -81,17 +86,18 @@ function handleOutlierRemoverClicks() {
 
     $(".outlierAdder").click(function () {
         var associatedChartId = $(this).parent().parent().parent().prev('.Clustering').attr('id');
-        var associatedChartPercentageValue = $(this).parent().parent().parent().prev('.Clustering').next('.percentageChooserValue').val();
+        var associatedChartPercentageValue = $(this).parent().parent().parent().prev('.Clustering').next('.panel1').next('.percentageChooserValue').val();
+
         drawOriginalGraph(associatedChartId, associatedChartPercentageValue);
     });
 }
 
 function handleChartPercentageChoosersClicks() {
     $('.percentageChooserBtn').click(function () {
-        var newPercentageValue = $(this).prev().val();
+        var newPercentageValue = $(this).prev().prev().val();
         var associatedChartId = $(this).parent().parent().parent().prev('.updatableChart').attr('id');
+        console.log("newPercentageValue = " + newPercentageValue);
 
-        console.log('New percentage value = ' + newPercentageValue);
         updateFunctionsPerChart[associatedChartId](newPercentageValue);
 
         //unchecking/removing regressions
@@ -125,17 +131,16 @@ OUTLIER REMOVAL, PEARSON, SPEARMAN, REGRESSIONAND PERCENTAGE RUNTIME
 function removeOutliersUsingDBSCAN(associatedChartId) {
     var myChart = $('#' + associatedChartId).highcharts();
     var allValuesArray = getAllSeriesData(myChart);
-    console.log("allValuesArray = " + allValuesArray);
 
     $.get("http://localhost:3000/home/filteroutliers/[" + allValuesArray + "]", function (data) {
         //remove all series, replace by new one
         var seriesLength = myChart.series.length;
-        for(var i = seriesLength -1; i > -1; i--) {
+        for (var i = seriesLength - 1; i > -1; i--) {
             myChart.series[i].remove();
         }
 
         var seriesWithoutOutliers = parseJSONClusterData(data);
-        for(var j = 0; j < seriesWithoutOutliers.length; j++)
+        for (var j = 0; j < seriesWithoutOutliers.length; j++)
             myChart.addSeries(seriesWithoutOutliers[j]);
 
         myChart.redraw();
@@ -143,7 +148,10 @@ function removeOutliersUsingDBSCAN(associatedChartId) {
 }
 
 function drawOriginalGraph(associatedChartId, associatedChartPercentageValue) {
-    updateFunctionsPerChart[associatedChartId](associatedChartPercentageValue);
+    if (typeof associatedChartPercentageValue != 'undefined')
+        updateFunctionsPerChart[associatedChartId](associatedChartPercentageValue);
+    else
+        updateFunctionsPerChart[associatedChartId](100);
 }
 
 
@@ -180,8 +188,6 @@ function createLinearRegressionIfButtonChecked(button) {
 }
 
 function createLogarithmicRegressionIfButtonChecked(button) {
-    console.log("createLogarithmicRegressionIfButtonChecked");
-
     //DUPED
     var associatedChartId = $(button).parent().parent().parent().prev('.RegressionChart').attr('id');
     var myChart = $('#' + associatedChartId).highcharts();
@@ -221,8 +227,6 @@ function drawLinearRegression(chart, data) {
     chart.addSeries(seriesObj);
 }
 
-
-
 //DUPED
 function drawLogarithmicRegression(chart, data) {
     var seriesObj =
@@ -257,9 +261,6 @@ function removeLinearRegression(chart) {
 
 
 
-
-
-
 function tuplesArrayComparator(a, b) {
     if (a[1] < b[1]) return -1;
     if (a[1] > b[1]) return 1;
@@ -273,7 +274,6 @@ function parseJSONXYData(data) {
         var y = parseFloat(data[i].y);
         dataArr.push([x, y]);
     }
-
     dataArr = dataArr.sort(tuplesArrayComparator);
     return dataArr;
 }
@@ -325,9 +325,10 @@ function getChartOptions(optionsObject, chartId) {
             type: optionsObject.type,
             events: {
                 load: function () {
-                    //not very clean
                     createStatisticalMeasurements(this, chartId);
-
+                },
+                redraw: function () {
+                    createStatisticalMeasurements(this, chartId);
                 }
             }
         },
@@ -361,8 +362,11 @@ function getChartOptions(optionsObject, chartId) {
 }
 
 function drawGradeAvgsChart() {
+
     $(function () {
         $.getJSON('http://localhost:3000/home/gradeavgs', function (data) {
+            console.log("drawGradeAvgsChart");
+
             var chartId = '#gradeaverages';
 
             var optionObj = {
@@ -390,8 +394,11 @@ function drawGradeAvgsChart() {
 }
 
 function drawStudentsAmountPerClassChart() {
+
     $(function () {
         $.getJSON('http://localhost:3000/home/amountofstudentsperclass', function (data) {
+            console.log("drawStudentsAmountPerClassChart");
+
             var chartId = '#amountofstudentsperclass';
 
             var optionObj = {
@@ -419,8 +426,11 @@ function drawStudentsAmountPerClassChart() {
 }
 
 function drawCompletedExcersisesAndGradesClustering(studentsGradePercentage) {
+
     $(function () {
         $.get('http://localhost:3000/home/kmeans/' + studentsGradePercentage, function (data) {
+            console.log("drawCompletedExcersisesAndGradesClustering");
+
             var chartId = '#completedexcersisesandgradesclustering';
 
             var options = {
@@ -433,10 +443,14 @@ function drawCompletedExcersisesAndGradesClustering(studentsGradePercentage) {
 
             optionObj.series = parseJSONClusterData(data);
 
-            //done to ensure outlier removal does not look skewed
-            optionObj.xAxis.max = 500;
+            //done to ensure outlier removal or classifications with filters do not look skewed
+            //ptionObj.xAxis.max = 500;
 
             $(chartId).highcharts(optionObj);
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            console.log("ERROR THROWN: " + errorThrown);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("ERROR THROWN: " + errorThrown);
         });
     });
 }
@@ -444,42 +458,117 @@ function drawCompletedExcersisesAndGradesClustering(studentsGradePercentage) {
 function drawWeekDayCompletionsVsGradesClassification(studentsGradePercentage) {
     $(function () {
         $.get('http://localhost:3000/home/weekdaycompletionsvsgradesclassification/' + studentsGradePercentage, function (data) {
+            console.log("drawWeekendCompletionsVsGradesClassification");
+
             var chartId = '#weekdaycompletionsvsgradesclassification';
 
             var options = {
-                title: "Week day only excersise completions vs. grades classification",
+                title: "Week day only excersise completions vs. grades classification (K Nearest Neighbours)",
                 type: 'scatter',
-                xText: 'Amount of completed excersises',
+                xText: 'Amount of excersises completed during the week (Mon-Fri)',
                 yText: 'Grade',
             };
             var optionObj = getChartOptions(options, chartId);
             optionObj.series = parseJSONClusterData(data);
 
+            //done to ensure outlier removal or classifications with filters do not look skewed
+            //optionObj.xAxis.max = 500;
+
             $(chartId).highcharts(optionObj);
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            console.log("ERROR THROWN: " + errorThrown);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("ERROR THROWN: " + errorThrown);
         });
     });
 }
 
 function drawWeekendCompletionsVsGradesClassification(studentsGradePercentage) {
     $(function () {
-            console.log("Weekend");        
         $.get('http://localhost:3000/home/weekendcompletionsvsgradesclassification/' + studentsGradePercentage, function (data) {
+            console.log("drawWeekendCompletionsVsGradesClassification");
+
             var chartId = '#weekendcompletionsvsgradesclassification';
-            console.log("Weekendata = " + data);
+
             var options = {
-                title: "Weekend only excersise completions vs. grades classification",
+                title: "Weekend only excersise completions vs. grades classification (K Nearest Neighbours)",
                 type: 'scatter',
-                xText: 'Amount of completed excersises',
+                xText: 'Amount of excersises completed during the weekend (Sat/Sun)',
                 yText: 'Grade',
             };
             var optionObj = getChartOptions(options, chartId);
             optionObj.series = parseJSONClusterData(data);
 
+            //done to ensure outlier removal or classifications with filters do not look skewed
+            //optionObj.xAxis.max = 500;
+
             $(chartId).highcharts(optionObj);
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            console.log("ERROR THROWN: " + errorThrown);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("ERROR THROWN: " + errorThrown);
         });
-        console.log("done with weekend");
     });
 }
+
+
+function drawDayCompletionsVsGradesClassification(studentsGradePercentage) {
+
+    $(function () {
+        $.get('http://localhost:3000/home/daycompletionsvsgradesclassification/' + studentsGradePercentage, function (data) {
+            console.log("drawDayCompletionsVsGradesClassification");
+
+            var chartId = '#daycompletionsvsgradesclassification';
+
+            var options = {
+                title: "Daytime only excersise completions vs. grades classification (Naive Bayes and KNN combination)",
+                type: 'scatter',
+                xText: 'Amount of excersises completed during the night (6AM - 22PM)',
+                yText: 'Grade',
+            };
+            var optionObj = getChartOptions(options, chartId);
+            optionObj.series = parseJSONClusterData(data);
+
+            //done to ensure outlier removal or classifications with filters do not look skewed
+            //optionObj.xAxis.max = 500;
+
+            $(chartId).highcharts(optionObj);
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            console.log("ERROR THROWN: " + errorThrown);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("ERROR THROWN: " + errorThrown);
+        });;
+    });
+}
+
+function drawNightCompletionsVsGradesClassification(studentsGradePercentage) {
+
+    $(function () {
+        $.get('http://localhost:3000/home/nightcompletionsvsgradesclassification/' + studentsGradePercentage, function (data) {
+            var chartId = '#nightcompletionsvsgradesclassification';
+
+            var options = {
+                title: "Nighttime only excersise completions vs. grades classification (Naive Bayes and KNN combination)",
+                type: 'scatter',
+                xText: 'Amount of excersises completed during the night (22PM - 6AM)',
+                yText: 'Grade',
+            };
+            var optionObj = getChartOptions(options, chartId);
+            optionObj.series = parseJSONClusterData(data);
+
+            //done to ensure outlier removal or classifications with filters do not look skewed
+            //optionObj.xAxis.max = 500;
+
+            $(chartId).highcharts(optionObj);
+        }).error(function (jqXHR, textStatus, errorThrown) {
+            console.log("ERROR THROWN: " + errorThrown);
+
+            // Etc
+        });
+    });
+}
+
+
 
 function drawGradesSuccesrateChart(studentsGradePercentage) {
     $(function () {
@@ -504,6 +593,42 @@ function drawGradesSuccesrateChart(studentsGradePercentage) {
 
                 xSeriesObj.data.push([parsedKeyFloat, parsedValFloat]);
             }
+            chartOptions.series.push(xSeriesObj);
+
+            $(chartId).highcharts(chartOptions);
+        });
+    });
+}
+
+function drawAttemptsVsFailures() {
+    $(function () {
+        $.getJSON('http://localhost:3000/home/attemptsvsfailures/', function (data) {
+            var chartId = '#attemptsvsfailures';
+
+            var optionObj = {
+                title: "Attempts vs failures per student",
+                type: 'scatter',
+                xText: 'Total attempts',
+                yText: 'failures'
+            };
+
+            var chartOptions = getChartOptions(optionObj, chartId);
+            chartOptions.series = [];
+            chartOptions.yAxis.max = 6000;
+
+            var xSeriesObj = { name: "Attempts vs failures per student", data: [] };
+
+            var allDataPoints = Array();
+            for (i = 0; i < data.length; i++) {
+                var parsedKeyFloat = parseFloat(data[i]["data"].x);
+                var parsedValFloat = parseFloat(data[i]["data"].y);
+
+                console.log(parsedKeyFloat + "," + parsedValFloat);
+
+                allDataPoints.push([parsedKeyFloat, parsedValFloat]);
+            }
+
+            xSeriesObj.data = allDataPoints;
             chartOptions.series.push(xSeriesObj);
 
             $(chartId).highcharts(chartOptions);
